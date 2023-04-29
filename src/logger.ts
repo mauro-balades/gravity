@@ -1,7 +1,2 @@
-const { createLogger } = require('ccipher'); 
+export const logger = require('color-logger').default;
 
-export var logger: any;
-
-export function createNewLogger() {
-    logger = createLogger(undefined);
-}

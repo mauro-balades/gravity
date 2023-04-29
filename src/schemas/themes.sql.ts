@@ -1,9 +1,10 @@
 export default `
 CREATE TABLE IF NOT EXISTS theme (
-	light BOOLEAN() NOT NULL DEFAULT '0',
-	id INT() AUTO_INCREMENT PRIMARY KEY,
-	primary TEXT() NOT NULL,
-	background TEXT() NOT NULL,
-	secondary TEXT() NOT NULL
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	light BOOLEAN NOT NULL DEFAULT 0,
+	primary_color VARCHAR(20) NOT NULL,
+	secondary_color VARCHAR(20) NOT NULL,
+	primary_background VARCHAR(20) NOT NULL,
+	secondary_background VARCHAR(20) NOT NULL
 );
 `

@@ -1,3 +1,3 @@
 
-const GRAVITY_NEW_USER = "new-user"
+export const GRAVITY_NEW_USER = "gravity://new-user"
 

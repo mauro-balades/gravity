@@ -1,12 +1,14 @@
 import { Protocol, ProtocolRequest, ProtocolResponse } from "electron";
 import csp from "./csp";
-import "./available";
+import * as URIs from "./available";
 import * as fs from "fs-extra";
 import * as path from "path";
+import { logger } from "../logger";
 
 export function register (protocol: Protocol) {
     // setup the protocol handler
-    protocol.registerStreamProtocol('beaker', gravityProtocol)
+    logger.i(`Registring "gravity://*" protocol`)
+    protocol.registerStreamProtocol('gravity', gravityProtocol)
 }
 
 function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse) => void) {
@@ -25,7 +27,9 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
     }
 
     var requestUrl = request.url;
-    if (requestUrl == GRAVITY_NEW_USER) {
+    logger.v(`New request for gravity protocol ("${requestUrl})`)
+
+    if (requestUrl == URIs.GRAVITY_NEW_USER) {
         cb(200, undefined, path.join(__dirname, '..', 'ui', 'user-land', 'newUser', 'index.html'));
     } else {
         throw Error("Unexpected protocol URI found! (TODO: throw 404)");

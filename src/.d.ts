@@ -1,1 +1,1 @@
-declare module 'ccipher';
+declare module 'color-logger';
