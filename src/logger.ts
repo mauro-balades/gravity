@@ -1,7 +1,7 @@
-import l from 'logger';
+const { createLogger } = require('ccipher'); 
 
 export var logger: any;
 
 export function createNewLogger() {
-    logger = l.createLogger();
+    logger = createLogger(undefined);
 }

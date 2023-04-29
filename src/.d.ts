@@ -1,1 +1,1 @@
-declare module 'logger';
+declare module 'ccipher';
