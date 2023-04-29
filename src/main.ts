@@ -1,5 +1,13 @@
-import { app, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow } from "electron";
 import * as path from "path";
+import setup from "./setup";
+
+// configure the protocols
+protocol.registerSchemesAsPrivileged([
+  {scheme: 'grav', privileges: {standard: true, secure: true, allowServiceWorkers: true, supportFetchAPI: true, corsEnabled: true}}
+])
+
+app.setName("Gravity");
 
 function createWindow() {
   // Create the browser window.
@@ -22,6 +30,7 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  setup();
   createWindow();
 
   app.on("activate", function () {
