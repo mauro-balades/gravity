@@ -6,7 +6,13 @@ export function createSetUpWindow() {
     const mainWindow = new BrowserWindow({
         height: 600,
         webPreferences: {
-        preload: path.join(__dirname, "preload.js"),
+            defaultEncoding: 'utf-8',
+            nodeIntegration: false,
+            contextIsolation: true,
+            webviewTag: false,
+            sandbox: true,
+            webSecurity: false,
+            allowRunningInsecureContent: false
         },
         width: 800,
     });

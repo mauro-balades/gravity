@@ -7,9 +7,9 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
   },
   "include": [
     "src/**/*"
-  ]
+  ],
 }

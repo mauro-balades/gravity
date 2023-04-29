@@ -1,9 +1,9 @@
 
 export default `
-  default-src 'self' beaker:;
-  img-src beaker: asset: data: blob: hyper: http: https;
-  script-src 'self' beaker: 'unsafe-eval';
-  media-src 'self' beaker: hyper:;
-  style-src 'self' 'unsafe-inline' beaker:;
+  default-src 'self' gravity:;
+  img-src gravity: asset: data: blob: hyper: http: https;
+  script-src 'self' gravity: 'unsafe-eval';
+  media-src 'self' gravity: hyper:;
+  style-src 'self' 'unsafe-inline' gravity:;
   child-src 'self';
 `.replace(/\n/g, '')

@@ -1,0 +1,52 @@
+
+:root {
+    --gr-primary-background: rgb(26, 115, 232);
+    --gr-button-radius: 6px;
+    --gr-primary-color: #000;
+    --gr-secondary-color: #fff;
+    --gr-system-font: Roboto, "Inter", Arial, sans-serif;
+}
+
+body {
+    font-family: var(--gr-system-font);
+    color: var(--gr-primary-color);
+}
+
+.gr-button {
+    background-color: var(--gr-primary-background);
+    border-radius: var(--gr-button-radius);
+
+    font-weight: 500;
+    font-size: 81.25%;
+
+    width: fit-content;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--gr-secondary-color);
+
+    min-width: 5.14em;
+    outline-width: 0;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    overflow: hidden;
+    padding: 8px 16px;
+
+    position: relative;
+    user-select: none;
+
+    border: 2px solid;
+    transition: .1s;
+}
+
+.gr-button:hover {
+    background-color: transparent;
+    color: var(--gr-primary-background);
+    border-color: var(--gr-primary-background);
+    box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-primary-background), .3, 0 3px 6px 2px var(--gr-primary-background), .15;
+}

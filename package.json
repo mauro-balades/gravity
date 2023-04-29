@@ -5,8 +5,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js",
-    "postinstall": "install-app-deps"
+    "start": "npm run build && npm run copy-static-assets && electron ./dist/main.js",
+    "postinstall": "install-app-deps && npm run copy-static-assets",
+    "copy-static-assets": "ts-node copyStaticAssets.ts"
   },
   "keywords": [],
   "author": "Mauro Baladés",
@@ -16,10 +17,12 @@
     "@types/once": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "copyfiles": "^2.4.1",
     "electron": "^22.2.0",
     "electron-builder": "^23.6.0",
     "eslint": "^7.32.0",
-    "typescript": "^4.8.3"
+    "shelljs": "^0.8.5",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "color-logger": "^0.0.6",

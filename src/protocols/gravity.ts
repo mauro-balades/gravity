@@ -31,6 +31,8 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
 
     if (requestUrl == URIs.GRAVITY_NEW_USER) {
         cb(200, undefined, path.join(__dirname, '..', 'ui', 'user-land', 'newUser', 'index.html'));
+    } else if (requestUrl == URIs.GRAVITY_GLOBAL_STYLES) {
+        cb(200, 'text/css; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'gravity-components.css'));
     } else {
         throw Error("Unexpected protocol URI found! (TODO: throw 404)");
     }
