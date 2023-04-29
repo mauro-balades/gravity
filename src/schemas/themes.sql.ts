@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS theme (
 	id INT() AUTO_INCREMENT PRIMARY KEY,
 	primary TEXT() NOT NULL,
 	background TEXT() NOT NULL,
-	secondary TEXT() NOT NULL,
+	secondary TEXT() NOT NULL
 );
 `

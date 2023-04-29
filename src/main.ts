@@ -1,6 +1,9 @@
 import { app, protocol, BrowserWindow } from "electron";
 import * as path from "path";
 import setup from "./setup";
+import { createNewLogger } from "./logger";
+
+createNewLogger();
 
 // configure the protocols
 protocol.registerSchemesAsPrivileged([

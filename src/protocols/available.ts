@@ -1,4 +1,3 @@
 
-namespace gravity {
-    const NEW_USER = "new-user"
-}
+const GRAVITY_NEW_USER = "new-user"
+
