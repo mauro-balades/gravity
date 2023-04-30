@@ -4,6 +4,7 @@ export class GravityButton extends LitElement {
   static properties = {
     text: {},
     disabled: {},
+    secondary: {},
   };
 
   static styles = css`
@@ -45,7 +46,13 @@ export class GravityButton extends LitElement {
 }
 
 :host.disabled {
+    opacity: .6;
+}
 
+:host.secondary {
+    background-color: transparent;
+    color: var(--gr-primary-background);
+    border: 2px solid var(--gr-primary-background);
 }
   `;
 
@@ -54,11 +61,12 @@ export class GravityButton extends LitElement {
 
     this.disabled = false;
     this.text = '';
+    this.secondary = false;
   }
 
   render() {
     return html`
-      <div class="${this.disabled ? 'disabled' : ""}">${this.text}</div>
+      <div class="${this.disabled && 'disabled'} ${this.secondary && 'secondary'}">${this.text}</div>
     `;
   }
 }
