@@ -32,8 +32,12 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
     if (requestUrl == URIs.GRAVITY_NEW_USER) {
         cb(200, undefined, path.join(__dirname, '..', 'ui', 'user-land', 'newUser', 'index.html'));
     } else if (requestUrl == URIs.GRAVITY_GLOBAL_STYLES) {
-        cb(200, 'text/css; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'gravity-components.css'));
+        cb(200, 'text/css; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'gravity-core.css'));
+    } else if (requestUrl == URIs.GRAVITY_GLOBAL_SCRIPTS) {
+        cb(200, 'text/css; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'gravity-core.asset.js'));
+    } else if (requestUrl == URIs.GRAVITY_COMPONENTS) {
+        cb(200, 'application/javascript; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'components', 'index.js'));
     } else {
-        throw Error("Unexpected protocol URI found! (TODO: throw 404)");
+        cb(404, 'text/html; charset=utf-8', /*TODO: an actual error page*/path.join(__dirname, '..', 'ui', 'user-land', 'newUser', 'index.html'));
     }
 }

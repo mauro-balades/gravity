@@ -7,12 +7,11 @@ export function createSetUpWindow() {
         height: 600,
         webPreferences: {
             defaultEncoding: 'utf-8',
-            nodeIntegration: false,
-            contextIsolation: true,
             webviewTag: false,
-            sandbox: true,
             webSecurity: false,
-            allowRunningInsecureContent: false
+            allowRunningInsecureContent: false,
+            nodeIntegration: true,
+            contextIsolation: false
         },
         width: 800,
     });

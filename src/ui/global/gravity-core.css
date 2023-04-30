@@ -45,8 +45,6 @@ body {
 }
 
 .gr-button:hover {
-    background-color: transparent;
-    color: var(--gr-primary-background);
-    border-color: var(--gr-primary-background);
+    opacity: .8;
     box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-primary-background), .3, 0 3px 6px 2px var(--gr-primary-background), .15;
 }

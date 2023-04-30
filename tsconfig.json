@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "dist",
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
