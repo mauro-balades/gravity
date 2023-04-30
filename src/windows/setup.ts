@@ -9,9 +9,9 @@ export function createSetUpWindow() {
             defaultEncoding: 'utf-8',
             webviewTag: false,
             webSecurity: false,
-            allowRunningInsecureContent: false,
-            nodeIntegration: true,
-            contextIsolation: false
+            allowRunningInsecureContent: true,
+            nodeIntegration: false,
+            contextIsolation: true
         },
         width: 800,
     });
