@@ -3,6 +3,6 @@ export default `
 CREATE TABLE IF NOT EXISTS profiles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(20),
- theme INTEGER NOT NULL DEFAULT '0'
+  theme_id INTEGER NOT NULL DEFAULT '0'
 );
 `;
