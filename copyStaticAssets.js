@@ -8,9 +8,11 @@ shell.cd("src");
 
 shell.exec(`find -name "*.html"     | xargs cp --parents -t ../dist`);
 console.log(" [assets] HTML files... Done");
-shell.exec(`find -name "*.css"      | xargs cp --parents -t ../dist`);
+shell.exec(`find -name "*.css"      | xargs cp -a --parents -t ../dist`);
 console.log(" [assets] CSS files... Done");
 shell.exec(`find -name "*.js"      | xargs cp --parents -t ../dist`);
+console.log(" [assets] Javascript files... Done");
+shell.exec(`cp -rp assets ../dist`);
 console.log(" [assets] Javascript files... Done");
 // shell.exec(`find -name "*.asset.js" | xargs cp --parents -t ../dist`);
 

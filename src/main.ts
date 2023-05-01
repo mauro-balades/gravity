@@ -2,6 +2,7 @@ import { app, protocol, BrowserWindow } from "electron";
 import * as path from "path";
 import setup from "./setup";
 import * as gravityProtocol from "./protocols/gravity";
+import ipcStart from "./ipc";
 
 // configure the protocols
 protocol.registerSchemesAsPrivileged([
@@ -16,6 +17,8 @@ app.setName("Gravity");
 app.whenReady().then(() => {
   gravityProtocol.register(protocol);
   setup();
+
+  ipcStart();
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the

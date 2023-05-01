@@ -28,6 +28,7 @@
     "electron-builder": "^23.6.0",
     "eslint": "^7.32.0",
     "esmify": "^2.1.1",
+    "path-browserify": "^1.0.1",
     "shelljs": "^0.8.5",
     "typescript": "^5.0.4",
     "webpack": "^5.81.0",
@@ -37,6 +38,8 @@
     "@babel/preset-env": "^7.21.5",
     "color-logger": "^0.0.6",
     "lit": "^2.7.3",
-    "sqlite3": "^5.1.6"
+    "path": "^0.12.7",
+    "sqlite3": "^5.1.6",
+    "stream": "^0.0.2"
   }
 }

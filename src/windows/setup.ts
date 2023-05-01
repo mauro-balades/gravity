@@ -11,7 +11,8 @@ export function createSetUpWindow() {
             webSecurity: false,
             allowRunningInsecureContent: true,
             nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            preload: path.join(__dirname, "../", "preloads", "setup.js")
         },
         alwaysOnTop: true,
         center: true,

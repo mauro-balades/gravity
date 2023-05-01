@@ -21,7 +21,7 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
           'Content-Security-Policy': CSP || csp,
           'Access-Control-Allow-Origin': '*'
         }
-        
+
         if (typeof path === 'string') {
           respond({statusCode, headers, data: fs.createReadStream(path)})
         } else {
@@ -40,6 +40,8 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
         cb(200, 'application/javascript; charset=utf-8', path.join(__dirname, '..', 'ui', 'global', 'components', 'index.js'));
     } else if (requestUrl.startsWith(URIs.GRAVITY_NEW_USER)) {
         serveAppAsset(requestUrl, path.join(__dirname, '..', 'ui', 'user-land', 'new-user'), cb);
+    } else if (requestUrl.startsWith(URIs.GRAVITY_ASSETS)) {
+        serveAppAsset(requestUrl, path.join(__dirname, '..', 'assets'), cb);
     } else {
         cb(404, 'Not Found', '');
     }

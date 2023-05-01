@@ -6,6 +6,7 @@ import profileSvg from './profile-svg';
 export class SetupUser extends LitElement {
   static properties = {
     sectionIndex: {},
+    username: {state: true},
   };
 
   static styles = css`
@@ -18,7 +19,7 @@ export class SetupUser extends LitElement {
     }
 
     section.fade-out {
-      animation: puff-out-center 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards !important;
+      animation: puff-out-center 0.1s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards !important;
     }
 
     #intro {
@@ -33,7 +34,7 @@ export class SetupUser extends LitElement {
     }
 
     section {
-      animation: puff-in-center 0.2s ease-in forwards 0.2s;
+      animation: puff-in-center 0.1s ease-in forwards 0.1s;
       position: absolute;
 
       top: 0;
@@ -88,6 +89,33 @@ export class SetupUser extends LitElement {
       right: 20px;
     }
 
+    #creation > img {
+      position: absolute;
+      top: 233px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 100px;
+      height: 100;
+
+      border-radius: 50%;
+      border: 5px solid #fff;
+    }
+
+    #creation .input {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+    }
+
+    #creation gr-text-input {
+      width: 300px;
+      margin: 80px auto 0 auto;
+    }
+
     @keyframes puff-in-center {
       0% {
         -webkit-transform: scale(2);
@@ -121,15 +149,25 @@ export class SetupUser extends LitElement {
         opacity: 0;
       }
     }
+
+    #creation #profile-bg-svg {
+      color: rgba(0,0,0,.1);
+      transition: .1s;
+    }
+
+    #creation:has( gr-button[disabled="false"]) #profile-bg-svg {
+      color: var(--gr-primary-background);
+      opacity:< .8;
+    }
   `;
 
   constructor() {
     super();
     this.sectionIndex = 0;
+    this.username = '';
   }
 
   createSection(index, sectionData, content) {
-    console.log(this.sectionIndex)
     return (this.sectionIndex == (index+1) || this.sectionIndex == index) ? html`
       <section id=${sectionData} class="${((this.sectionIndex-1) == index) ? "fade-out" : ''}">
         ${content}
@@ -137,8 +175,9 @@ export class SetupUser extends LitElement {
     ` : '';
   }
 
-  canGoNext() {
-    return false;
+  updateUsername(e) {
+    this.username = e.target.value;
+    super.performUpdate();
   }
 
   render() {
@@ -149,25 +188,40 @@ export class SetupUser extends LitElement {
           </div>
           <h1>Be whoever you want to be!</h1>
           <p>Create a new profile and step into a new identity! Whether you're a secret agent or a cat lover, our secure browser lets you browse the web with a fresh new perspective.</p>
-          <gr-button text="Create new profile" @disabled=${this.canGoNext()} @click=${this.incrementIndex}></gr-button>
+          <gr-button text="Create new profile" disabled=${!this.canGoNext()} @click=${this.incrementIndex}></gr-button>
         `)}
         ${this.createSection(1, "creation", html`
           <div class="intro-background">
             ${profileSvg}
           </div>
-          <gr-button text="${this.canGoNext() ? 'Oh yeah' : 'fill of the data!'}" disabled="${!this.canGoNext()}"></gr-button>
+          <img src="gravity://assets/pfps/avatar-default.png" />
+          <div class="input">
+            <gr-text-input .onchange=${(e) => this.updateUsername(e)} text="Profile username (min 2, max 6)" />
+          </div>
+          <gr-button text="${this.canGoNext() ? 'Oh yeah!' : 'fill all the data!'}" disabled="${!this.canGoNext()}" @click=${this.incrementIndex}></gr-button>
         `)}
       `;
   }
 
   canGoNext() {
-    if (this.tabIndex == 0) {
+    if (this.sectionIndex == 0) {
       return true;
+    } else if (this.sectionIndex == 1) {
+      return this.username !== '' &&
+        this.username.length > 2 && this.username.length < 7;
     }
   }
 
   incrementIndex() {
-    this.sectionIndex++;
+    if (this.canGoNext()) {
+      if (this.sectionIndex == 1) {
+        console.log("hello");
+        window.electronAPI.createNewUser(this.username)
+      } else {
+        this.sectionIndex++;
+      }
+    }
+
   }
 }
 

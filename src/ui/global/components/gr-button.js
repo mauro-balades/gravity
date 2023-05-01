@@ -67,7 +67,7 @@ export class GravityButton extends LitElement {
 
   render() {
     return html`
-      <div class="${this.disabled ? 'disabled' : ''} ${this.secondary ? 'secondary' : ''}">${this.text}</div>
+      <div class="${(this.disabled == 'true') ? 'disabled' : ''} ${this.secondary == 'true' ? 'secondary' : ''}">${this.text}</div>
     `;
   }
 }
