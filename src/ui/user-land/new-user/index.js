@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {unsafeStatic} from 'lit/static-html.js';
 import introSvg from "./intro-svg";
+import profileSvg from './profile-svg';
 
 export class SetupUser extends LitElement {
   static properties = {
@@ -17,7 +18,7 @@ export class SetupUser extends LitElement {
     }
 
     section.fade-out {
-      animation: slide-out-left 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards !important;
+      animation: puff-out-center 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards !important;
     }
 
     #intro {
@@ -32,7 +33,7 @@ export class SetupUser extends LitElement {
     }
 
     section {
-      animation: slide-in-right 0.5s ease-in forwards;
+      animation: puff-in-center 0.2s ease-in forwards 0.2s;
       position: absolute;
 
       top: 0;
@@ -42,21 +43,22 @@ export class SetupUser extends LitElement {
       height: 600px;
 
       overflow: hidden;
+      opacity: 0;
     }
 
-    #intro-background {
+    .intro-background {
       position: absolute;
       top: 0;
       left: 0;
       z-index: -1;
     }
 
-    #intro-background {
+    .intro-background {
       width: 100%;
       height: 100%;
     }
 
-    #intro-background svg {
+    .intro-background svg {
       width: 100%;
       height: 100%;
     }
@@ -80,6 +82,12 @@ export class SetupUser extends LitElement {
       margin: 0 auto;
     }
 
+    #creation gr-button {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+
     @keyframes puff-in-center {
       0% {
         -webkit-transform: scale(2);
@@ -97,28 +105,19 @@ export class SetupUser extends LitElement {
       }
     }
 
-    @keyframes slide-in-right {
+    @keyframes puff-out-center {
       0% {
-        -webkit-transform: translateX(1000px);
-                transform: translateX(1000px);
-        opacity: 0;
-      }
-      100% {
-        -webkit-transform: translateX(0);
-                transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slide-out-left {
-      0% {
-        -webkit-transform: translateX(0);
-                transform: translateX(0);
+        -webkit-transform: scale(1);
+                transform: scale(1);
+        -webkit-filter: blur(0px);
+                filter: blur(0px);
         opacity: 1;
       }
       100% {
-        -webkit-transform: translateX(-1000px);
-                transform: translateX(-1000px);
+        -webkit-transform: scale(2);
+                transform: scale(2);
+        -webkit-filter: blur(4px);
+                filter: blur(4px);
         opacity: 0;
       }
     }
@@ -138,18 +137,25 @@ export class SetupUser extends LitElement {
     ` : '';
   }
 
+  canGoNext() {
+    return false;
+  }
+
   render() {
     return html`
         ${this.createSection(0, "intro", html`
-          <div id="intro-background">
+          <div class="intro-background">
             ${introSvg}
           </div>
           <h1>Be whoever you want to be!</h1>
           <p>Create a new profile and step into a new identity! Whether you're a secret agent or a cat lover, our secure browser lets you browse the web with a fresh new perspective.</p>
           <gr-button text="Create new profile" @disabled=${this.canGoNext()} @click=${this.incrementIndex}></gr-button>
         `)}
-        ${this.createSection(1, "", html`
-          Hello
+        ${this.createSection(1, "creation", html`
+          <div class="intro-background">
+            ${profileSvg}
+          </div>
+          <gr-button text="${this.canGoNext() ? 'Oh yeah' : 'fill of the data!'}" disabled="${!this.canGoNext()}"></gr-button>
         `)}
       `;
   }

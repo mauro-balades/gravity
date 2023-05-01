@@ -8,7 +8,7 @@ export class GravityButton extends LitElement {
   };
 
   static styles = css`
-:host {
+:host > div {
   background-color: var(--gr-primary-background);
   border-radius: var(--gr-button-radius);
 
@@ -40,16 +40,17 @@ export class GravityButton extends LitElement {
   transition: .1s;
 }
 
-:host:hover {
+:host > div:hover {
   opacity: .8;
   box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-primary-background), .3, 0 3px 6px 2px var(--gr-primary-background), .15;
 }
 
-:host.disabled {
-    opacity: .6;
+:host > div.disabled {
+  background-color: rgba(0,0,0,.3);
+  cursor: not-allowed;
 }
 
-:host.secondary {
+:host > div.secondary {
     background-color: transparent;
     color: var(--gr-primary-background);
     border: 2px solid var(--gr-primary-background);
@@ -66,7 +67,7 @@ export class GravityButton extends LitElement {
 
   render() {
     return html`
-      <div class="${this.disabled && 'disabled'} ${this.secondary && 'secondary'}">${this.text}</div>
+      <div class="${this.disabled ? 'disabled' : ''} ${this.secondary ? 'secondary' : ''}">${this.text}</div>
     `;
   }
 }
