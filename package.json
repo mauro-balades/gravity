@@ -6,13 +6,15 @@
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
-    "postinstall": "install-app-deps && npm run build",
-    "copy-static-assets": "node copyStaticAssets.js"
+    "postinstall": "install-app-deps && npm run rebuild && npm run build",
+    "copy-static-assets": "node copyStaticAssets.js",
+    "rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "keywords": [],
   "author": "Mauro Baladés",
   "license": "MIT",
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.4",
     "@types/logger": "^0.0.1",
     "@types/mime-types": "^2.1.1",
     "@types/once": "^1.4.0",
@@ -26,6 +28,7 @@
     "copyfiles": "^2.4.1",
     "electron": "^22.2.0",
     "electron-builder": "^23.6.0",
+    "electron-rebuild": "^3.2.9",
     "eslint": "^7.32.0",
     "esmify": "^2.1.1",
     "path-browserify": "^1.0.1",
@@ -36,9 +39,12 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.21.5",
+    "@electron/remote": "^2.0.9",
+    "better-sqlite3": "^8.3.0",
     "color-logger": "^0.0.6",
     "lit": "^2.7.3",
     "path": "^0.12.7",
+    "querystring": "^0.2.1",
     "sqlite3": "^5.1.6",
     "stream": "^0.0.2"
   }

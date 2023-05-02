@@ -1,7 +1,8 @@
-import { BrowserWindow } from "electron";
+import { BrowserWindow, session } from "electron";
 import * as path from "path";
+import { IUser } from "../interfaces";
 
-export function createSetUpWindow() {
+export function createBrowserWindow(user: IUser) {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
@@ -12,22 +13,15 @@ export function createSetUpWindow() {
             allowRunningInsecureContent: true,
             nodeIntegration: false,
             contextIsolation: true,
-            preload: path.join(__dirname, "../", "preloads", "setup.js"),
+            preload: path.join(__dirname, "../", "preloads", "index.js"),
+            // session: session.fromPartition(`user-${user.id}`)
         },
-        alwaysOnTop: true,
-        center: true,
-        frame: false,
-        maximizable: false,
-        maxHeight: 600,
-        maxWidth: 600,
         minHeight: 800,
         minWidth: 600,
-        width: 800,
-        resizable: false,
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL("gravity://new-user");
+    mainWindow.loadURL(`gravity://browser-assets/index.html?user=${encodeURIComponent(JSON.stringify(user))}`);
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

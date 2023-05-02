@@ -1,6 +1,6 @@
 
 export default `
-CREATE TABLE IF NOT EXISTS profiles (
+CREATE TABLE profiles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(20),
   theme_id INTEGER NOT NULL DEFAULT '0'

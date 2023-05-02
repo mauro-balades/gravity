@@ -42,6 +42,8 @@ function gravityProtocol(request: ProtocolRequest, respond: (x: ProtocolResponse
         serveAppAsset(requestUrl, path.join(__dirname, '..', 'ui', 'user-land', 'new-user'), cb);
     } else if (requestUrl.startsWith(URIs.GRAVITY_ASSETS)) {
         serveAppAsset(requestUrl, path.join(__dirname, '..', 'assets'), cb);
+    } else if (requestUrl.startsWith(URIs.GRAVITY_BROWSER_ASSETS)) {
+        serveAppAsset(requestUrl, path.join(__dirname, '..', 'ui', 'browser'), cb);
     } else {
         cb(404, 'Not Found', '');
     }
