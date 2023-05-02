@@ -156,7 +156,7 @@ export class SetupUser extends LitElement {
     }
 
     #creation:has( gr-button[disabled="false"]) #profile-bg-svg {
-      color: var(--gr-primary-background);
+      color: var(--gr-button-background);
       opacity:< .8;
     }
   `;
@@ -215,7 +215,6 @@ export class SetupUser extends LitElement {
   incrementIndex() {
     if (this.canGoNext()) {
       if (this.sectionIndex == 1) {
-        console.log("hello");
         window.electronAPI.createNewUser(this.username)
       } else {
         this.sectionIndex++;

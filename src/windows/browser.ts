@@ -1,6 +1,7 @@
 import { BrowserWindow, session } from "electron";
 import * as path from "path";
 import { IUser } from "../interfaces";
+import { windowManager } from "../manager/window";
 
 export function createBrowserWindow(user: IUser) {
     // Create the browser window.
@@ -8,20 +9,22 @@ export function createBrowserWindow(user: IUser) {
         height: 600,
         webPreferences: {
             defaultEncoding: 'utf-8',
-            webviewTag: false,
+            webviewTag: true,
             webSecurity: false,
-            allowRunningInsecureContent: true,
-            nodeIntegration: false,
+            nodeIntegration: true,
             contextIsolation: true,
             preload: path.join(__dirname, "../", "preloads", "index.js"),
-            // session: session.fromPartition(`user-${user.id}`)
+            // TODO:
+            // partition: `persist:user-${user.id}`
         },
         minHeight: 800,
         minWidth: 600,
     });
 
+    let id = windowManager.addWindow(mainWindow, user);
+
     // and load the index.html of the app.
-    mainWindow.loadURL(`gravity://browser-assets/index.html?user=${encodeURIComponent(JSON.stringify(user))}`);
+    mainWindow.loadURL(`gravity://browser-assets/index.html?winID=${id}`);
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

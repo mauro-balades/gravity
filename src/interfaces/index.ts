@@ -1,10 +1,11 @@
+import { BrowserWindow } from "electron";
 
 export interface ITheme {
     id: number;
     light: boolean;
     button_radius: string;
     input_radius: string;
-    dialog_raius: string;
+    dialog_radius: string;
     primary_color: string;
     secondary_color: string;
     primary_background: string;
@@ -17,4 +18,10 @@ export interface IUser {
     name: string;
     theme_id: number;
     theme: ITheme;
+}
+
+export interface IWindow {
+    user: IUser;
+    window: BrowserWindow,
+    id: number;
 }

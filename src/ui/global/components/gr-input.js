@@ -14,7 +14,7 @@ export class GravityTextInput extends LitElement {
 
 :host > input {
     background-color: rgba(0,0,0,.05);
-    border-radius: 5px;
+    border-radius: var(--gr-input-radius);
 
     font-weight: 500;
     font-size: 81.25%;
@@ -42,7 +42,7 @@ export class GravityTextInput extends LitElement {
 
     position: absolute;
     transition: all 5s;
-    background-color: var(--gr-primary-background);
+    background-color: var(--gr-button-background);
 
     transform: translate(-50%, -50%);
 

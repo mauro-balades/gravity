@@ -9,7 +9,7 @@ export class GravityButton extends LitElement {
 
   static styles = css`
 :host > div {
-  background-color: var(--gr-primary-background);
+  background-color: var(--gr-button-background);
   border-radius: var(--gr-button-radius);
 
   font-weight: 500;
@@ -42,7 +42,7 @@ export class GravityButton extends LitElement {
 
 :host > div:hover {
   opacity: .8;
-  box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-primary-background), .3, 0 3px 6px 2px var(--gr-primary-background), .15;
+  box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-button-background), .3, 0 3px 6px 2px var(--gr-button-background), .15;
 }
 
 :host > div.disabled {
@@ -52,8 +52,8 @@ export class GravityButton extends LitElement {
 
 :host > div.secondary {
     background-color: transparent;
-    color: var(--gr-primary-background);
-    border: 2px solid var(--gr-primary-background);
+    color: var(--gr-button-background);
+    border: 2px solid var(--gr-button-background);
 }
   `;
 
