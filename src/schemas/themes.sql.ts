@@ -30,7 +30,7 @@ INSERT INTO themes (
 	'5px',
 	'#000',
 	'#fff',
-	'rgba(0,0,0,.05)',
+	'rgba(0,0,0,.02)',
 	'light blue'
 );
 `

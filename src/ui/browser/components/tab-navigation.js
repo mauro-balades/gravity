@@ -8,19 +8,29 @@ export class TabNavigation extends LitElement {
         display: flex;
         align-items: end;
         justify-content: start;
-
-        background-color: rgba(0,0,0,.05);
         height: 40px;
-        padding: 10px 10px 0 10px;
+        padding: 10px;
+        padding-left: 0;
 
         position: relative;
-
-        border-bottom: 1px solid rgba(0,0,0,.1);
-        box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
     }
 
     :host browser-layout:not(.active) {
         display: none;
+    }
+
+    :host .view-container {
+      display: flex;
+      align-items: start;
+      background-color: var(--gr-secondary-background);
+    }
+
+    :host #rest-of-browser {
+      width: 100%;
+      height: -webkit-fill-available;
+      position: relative;
+
+      display: flex;
     }
   `;
 
@@ -47,20 +57,25 @@ export class TabNavigation extends LitElement {
 
   render() {
     return html`
-    <div id="tab-navigation">
-        ${this.tabManager.tabs.map((tab) => html`
-            <tab-component
-                @auxclick=${(e) => (e.button == 1) && this.removeTab(e, tab.id)}
-                @click=${(e) => this.changeTab(e, tab.id)}
-                .onRemove=${(e) => this.removeTab(e, tab.id)}
-                class="${tab.isActive ? 'active' : ''}"
-                .tab=${tab} />
-        `)}
-    </div>
-    <div id="rest-of-browser">
-        ${this.tabManager.tabs.map((tab) => html`
-            <browser-layout class="${tab.isActive ? 'active' : ''}" .tab=${this.tabManager.getCurrentTab()}></browser-layout>
-        `)}
+    <div class="view-container">
+      <left-navigation></left-navigation>
+      <div style="width:100%;height:100vh;">
+        <div id="tab-navigation">
+          ${this.tabManager.tabs.map((tab) => html`
+              <tab-component
+                  @auxclick=${(e) => (e.button == 1) && this.removeTab(e, tab.id)}
+                  @click=${(e) => this.changeTab(e, tab.id)}
+                  .onRemove=${(e) => this.removeTab(e, tab.id)}
+                  class="${tab.isActive ? 'active' : ''}"
+                  .tab=${tab} />
+          `)}
+        </div>
+        <div id="rest-of-browser">
+            ${this.tabManager.tabs.map((tab) => html`
+                <browser-layout class="${tab.isActive ? 'active' : ''}" .tab=${this.tabManager.getCurrentTab()}></browser-layout>
+            `)}
+        </div>
+      </div>
     </div>
     `;
   }

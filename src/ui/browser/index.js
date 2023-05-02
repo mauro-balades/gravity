@@ -7,6 +7,13 @@ let winID = JSON.parse(query['?winID'])
 window.electronAPI.setWindowID(winID);
 
 export class CoreBrowserView extends LitElement {
+  static styles = css`
+    :host {
+      height: 100vh;
+      width: 100%;
+    }
+  `
+
   static properties = {
     tabs: {type: TabManager},
   };

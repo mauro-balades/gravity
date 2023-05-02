@@ -8,10 +8,11 @@ export class TabComponent extends LitElement {
         min-width: 200px;
 
         background-color: transparent;
-        padding: 10px;
+        padding: 2.5px 15px;
+        cursor: pointer;
 
         height: -webkit-fill-available;
-        border-radius: 5px 5px 0 0;
+        border-radius: 6px;
 
         font-size: 13px;
         font-weight: 500;
@@ -20,11 +21,15 @@ export class TabComponent extends LitElement {
         align-items: center;
 
         user-select: none;
+        border-right: 1px solid rgba(0,0,0,.05);
+
+        margin-right: 10px;
     }
 
     :host(.active) {
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
         background-color: var(--gr-primary-background);
+        border: 1px solid rgba(0,0,0,.1);
     }
 
     :host > svg:last-of-type {
