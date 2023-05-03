@@ -10,6 +10,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 app.setName("Gravity");
+app.commandLine.appendSwitch("enable-transparent-visuals");
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

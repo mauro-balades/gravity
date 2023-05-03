@@ -35,6 +35,7 @@ export class URLHandler extends LitElement {
 
     #url-display {
         display: flex;
+        cursor: text;
     }
 
     #url-display > span {
@@ -61,10 +62,7 @@ export class URLHandler extends LitElement {
 
     getSelection().removeAllRanges();
 
-    input.focus();
-    input.select();
-
-    this.update(this.focused, true);
+    this.update({"focused": true});
   }
 
   render() {
@@ -88,6 +86,15 @@ export class URLHandler extends LitElement {
         <b>${parsed.host}</b>
         <span>${parsed.pathname}</span>
     `
+  }
+
+  updated() {
+    if (this.focused) {
+      let input = this.shadowRoot.querySelector("#url-input");
+
+      input.focus();
+      input.select();
+    }
   }
 }
 customElements.define('url-handler', URLHandler);

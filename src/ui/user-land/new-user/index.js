@@ -198,6 +198,7 @@ export class SetupUser extends LitElement {
           <div class="input">
             <gr-text-input .onchange=${(e) => this.updateUsername(e)} text="Profile username (min 2, max 6)" />
           </div>
+          <!-- TODO: add loading icon -->
           <gr-button text="${this.canGoNext() ? 'Oh yeah!' : 'fill all the data!'}" disabled="${!this.canGoNext()}" @click=${this.incrementIndex}></gr-button>
         `)}
       `;

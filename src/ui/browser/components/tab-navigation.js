@@ -22,7 +22,6 @@ export class TabNavigation extends LitElement {
     :host .view-container {
       display: flex;
       align-items: start;
-      background-color: var(--gr-secondary-background);
     }
 
     :host #rest-of-browser {

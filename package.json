@@ -42,6 +42,7 @@
     "@electron/remote": "^2.0.9",
     "better-sqlite3": "^8.3.0",
     "color-logger": "^0.0.6",
+    "glasstron": "^0.1.1",
     "lit": "^2.7.3",
     "path": "^0.12.7",
     "querystring": "^0.2.1",

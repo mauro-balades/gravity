@@ -7,8 +7,10 @@ export class BrowserLayout extends LitElement {
     :host {
         width: 100%;
         height: -webkit-fill-available;
-        background-color: var(--gr-primary-background);
         margin: 0 20px 80px 0;
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 
         border: 1px solid rgba(0,0,0,.1);
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.15);
@@ -16,6 +18,18 @@ export class BrowserLayout extends LitElement {
         border-radius: 10px;
         overflow: hidden;
         position: relative;
+    }
+
+    :host::before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      opacity: .5;
+      z-index: -1;
+      background: var(--gr-primary-background);
     }
   `;
 
