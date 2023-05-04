@@ -1,13 +1,11 @@
 
 import {html, css, LitElement} from 'lit';
-import { Tab } from "../tabs";
 
 export class BrowserLayout extends LitElement {
   static styles = css`
     :host {
         width: 100%;
-        height: -webkit-fill-available;
-        margin: 0 20px 80px 0;
+        margin: 0 20px 60px 0;
 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -18,6 +16,9 @@ export class BrowserLayout extends LitElement {
         border-radius: 10px;
         overflow: hidden;
         position: relative;
+
+        display: flex;
+        flex-direction: column;
     }
 
     :host::before {
@@ -34,19 +35,33 @@ export class BrowserLayout extends LitElement {
   `;
 
   static properties = {
-    tab: {type: Tab},
+    tab: {},
   };
 
   constructor() {
     super();
     this.tab = null;
+
+    window.addEventListener("resize", this.updateRect.bind(this));
   }
 
   render() {
     return html`
       <navigation-bar .tab=${this.tab}></navigation-bar>
-      <web-contents></web-contents>
+      <web-contents .tab=${this.tab}></web-contents>
     `;
+  }
+
+  updateRect() {
+    let { x,y,width,height } = this.renderRoot.querySelector("web-contents").getBoundingClientRect();
+    window.electronAPI.setTabBoundaries(
+      this.tab.id,
+      { x,y,width,height }
+    );
+  }
+
+  firstUpdated() {
+    this.updateRect();
   }
 }
 customElements.define('browser-layout', BrowserLayout);

@@ -1,4 +1,5 @@
 import { BrowserWindow } from "electron";
+import { TabManager } from "../manager/tabs";
 
 export interface ITheme {
     id: number;
@@ -24,4 +25,5 @@ export interface IWindow {
     user: IUser;
     window: BrowserWindow,
     id: number;
+    tabs: TabManager;
 }

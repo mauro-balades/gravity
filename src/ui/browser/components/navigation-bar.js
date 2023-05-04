@@ -1,6 +1,5 @@
 
 import {html, css, LitElement} from 'lit';
-import { Tab } from "../tabs";
 
 export class NavigationBar extends LitElement {
   static styles = css`
@@ -41,7 +40,7 @@ export class NavigationBar extends LitElement {
   `;
 
   static properties = {
-    tab: {type: Tab},
+    tab: {},
   };
 
   constructor() {

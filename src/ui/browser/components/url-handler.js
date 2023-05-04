@@ -1,6 +1,5 @@
 
 import {html, css, LitElement} from 'lit';
-import { Tab } from "../tabs";
 
 export class URLHandler extends LitElement {
   static styles = css`
@@ -44,7 +43,7 @@ export class URLHandler extends LitElement {
   `;
 
   static properties = {
-    tab: {type: Tab},
+    tab: {},
     focused: {},
   };
 
@@ -73,19 +72,25 @@ export class URLHandler extends LitElement {
   }
 
   getURLElements() {
-    let parsed = new URL(this.tab.URL);
-    if (parsed.protocol == 'gravity:' || parsed.protocol == 'view-source:') {
+    try {
+        let parsed = new URL(this.tab.URL);
+        if (parsed.protocol == 'gravity:' || parsed.protocol == 'view-source:') {
+            return html`
+                <span>${parsed.protocol}//</span>
+                <b>${parsed.pathname.substring(2, parsed.pathname.length)}</b>
+            `
+          }
+
         return html`
             <span>${parsed.protocol}//</span>
-            <b>${parsed.pathname.substring(2, parsed.pathname.length)}</b>
-        `
+            <b>${parsed.host}</b>
+            <span>${parsed.pathname}</span>
+          `
+    } catch (_) {
+      return html `
+        <span>${this.tab.URL}//</span>
+      `
     }
-
-    return html`
-        <span>${parsed.protocol}//</span>
-        <b>${parsed.host}</b>
-        <span>${parsed.pathname}</span>
-    `
   }
 
   updated() {

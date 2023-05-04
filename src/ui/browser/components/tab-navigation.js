@@ -1,5 +1,4 @@
 import {html, css, LitElement} from 'lit';
-import { TabManager } from '../tabs';
 
 export class TabNavigation extends LitElement {
   static styles = css`
@@ -13,6 +12,10 @@ export class TabNavigation extends LitElement {
         padding-left: 0;
 
         position: relative;
+    }
+
+    :host {
+      display: block;
     }
 
     :host browser-layout:not(.active) {
@@ -34,23 +37,23 @@ export class TabNavigation extends LitElement {
   `;
 
   static properties = {
-    tabManager: {type: TabManager},
+    tabs: {}
   };
 
   constructor() {
     super();
+    this.tabs = [];
   }
 
   removeTab(e, id) {
     e.preventDefault();
-    this.tabManager.removeTab(id);
+    throw Error("TODO");
     this.update();
   }
 
   changeTab(e, id) {
     e.preventDefault();
-    if (this.tabManager.getCurrentTab().id == id) {return;}
-    this.tabManager.changeTab(id);
+    throw Error("TODO");
     this.update();
   }
 
@@ -60,7 +63,7 @@ export class TabNavigation extends LitElement {
       <left-navigation></left-navigation>
       <div style="width:100%;height:100vh;">
         <div id="tab-navigation">
-          ${this.tabManager.tabs.map((tab) => html`
+          ${this.tabs.map((tab) => html`
               <tab-component
                   @auxclick=${(e) => (e.button == 1) && this.removeTab(e, tab.id)}
                   @click=${(e) => this.changeTab(e, tab.id)}
@@ -70,8 +73,8 @@ export class TabNavigation extends LitElement {
           `)}
         </div>
         <div id="rest-of-browser">
-            ${this.tabManager.tabs.map((tab) => html`
-                <browser-layout class="${tab.isActive ? 'active' : ''}" .tab=${this.tabManager.getCurrentTab()}></browser-layout>
+            ${this.tabs.map((tab) => html`
+                <browser-layout class="${tab.isActive ? 'active' : ''}" .tab=${tab}></browser-layout>
             `)}
         </div>
       </div>

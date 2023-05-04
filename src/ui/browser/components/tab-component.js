@@ -1,6 +1,5 @@
 
 import {html, css, LitElement} from 'lit';
-import { Tab } from "../tabs";
 
 export class TabComponent extends LitElement {
   static styles = css`
@@ -28,8 +27,10 @@ export class TabComponent extends LitElement {
 
     :host(.active) {
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        background-color: var(--gr-primary-background);
         border: 1px solid rgba(0,0,0,.1);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
 
     :host > svg:last-of-type {
@@ -50,22 +51,51 @@ export class TabComponent extends LitElement {
         space-wrap: nowrap;
         text-overflow: ellipsis;
     }
+
+    :host::before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .5;
+      z-index: -1;
+      background: var(--gr-primary-background);
+      border-radius: 6px;
+    }
   `;
 
   static properties = {
-    tab: {type: Tab},
-    onRemove: {}
+    tab: {},
+    onRemove: {},
+    hasListener: {state: true},
   };
 
   constructor() {
     super();
     this.tab = null;
+    this.hasListener = false;
+  }
+
+  updateTabInfo(e, tab) {
+    this.tab = tab;
+    this.requestUpdate();
+    super.performUpdate();
   }
 
   render() {
+    if (!this.hasListener) {
+      this.hasListener = true;
+      window.electronAPI.addTabListener(this.tab.id, this.updateTabInfo.bind(this));
+    }
+
     return html`
+        <div class="page-favicon">
+          <img src="${this.tab.favicon}" />
+        </div>
         <div class="tab-title">
-            ${this.tab.URL}
+            ${this.tab.title}
         </div>
         <svg @click=${this.onRemove} width="15" height="15" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />

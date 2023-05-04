@@ -1,5 +1,4 @@
 import {html, css, LitElement} from 'lit';
-import { TabManager } from '../tabs';
 
 export class LeftNavigation extends LitElement {
   static styles = css`
@@ -15,24 +14,10 @@ export class LeftNavigation extends LitElement {
   `;
 
   static properties = {
-    tabManager: {type: TabManager},
   };
 
   constructor() {
     super();
-  }
-
-  removeTab(e, id) {
-    e.preventDefault();
-    this.tabManager.removeTab(id);
-    this.update();
-  }
-
-  changeTab(e, id) {
-    e.preventDefault();
-    if (this.tabManager.getCurrentTab().id == id) {return;}
-    this.tabManager.changeTab(id);
-    this.update();
   }
 
   render() {

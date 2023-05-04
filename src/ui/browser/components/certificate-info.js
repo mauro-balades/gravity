@@ -1,6 +1,5 @@
 
 import {html, css, LitElement} from 'lit';
-import { Tab } from "../tabs";
 
 export class CertificateInfo extends LitElement {
   static styles = css`
@@ -17,6 +16,8 @@ export class CertificateInfo extends LitElement {
 
     transition: .1s;
     padding: 2.5px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   :host svg {
@@ -26,7 +27,7 @@ export class CertificateInfo extends LitElement {
   `;
 
   static properties = {
-    tab: {type: Tab},
+    tab: {},
   };
 
   constructor() {
