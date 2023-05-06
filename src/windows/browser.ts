@@ -15,6 +15,7 @@ export function createBrowserWindow(user: IUser) {
                     defaultEncoding: 'utf-8',
                     webviewTag: true,
                     webSecurity: false,
+                    sandbox: true,
                     nodeIntegration: true,
                     contextIsolation: true,
                     preload: path.join(__dirname, "../", "preloads", "index.js"),

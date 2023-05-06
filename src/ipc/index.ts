@@ -41,10 +41,8 @@ export default function () {
 
         const view = new BrowserView({
             webPreferences: {
-                nodeIntegrationInSubFrames: true,
                 contextIsolation: true,
                 webviewTag: false,
-                sandbox: true,
                 defaultEncoding: 'utf-8',
                 nodeIntegration: false,
                 scrollBounce: true,

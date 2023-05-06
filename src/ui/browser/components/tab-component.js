@@ -64,6 +64,41 @@ export class TabComponent extends LitElement {
       background: var(--gr-primary-background);
       border-radius: 6px;
     }
+
+    .page-favicon {
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 10px;
+    }
+
+    .page-favicon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .page-favicon {
+      font-size: 20px;
+      opacity: 0;
+      transform: scale(0.8);
+
+      animation: .5s page-favicon-start forwards;
+    }
+
+    @keyframes page-favicon-start {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   `;
 
   static properties = {
@@ -92,7 +127,13 @@ export class TabComponent extends LitElement {
 
     return html`
         <div class="page-favicon">
-          <img src="${this.tab.favicon}" />
+          ${this.tab.isLoading ?
+            html`<gr-icon className="fa-solid fa-circle-notch fa-spin"></gr-icon>`
+            : html`
+              <img src="${this.tab.favicon}" />
+            `}
+
+            <gr-icon className="fa-circle-notch fa-spin"></gr-icon>
         </div>
         <div class="tab-title">
             ${this.tab.title}

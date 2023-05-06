@@ -1,12 +1,14 @@
 import { BrowserView, Event } from "electron";
 
 export class Tab {
-    public isActive = false;
-    public URL = '';
-    public title = '';
-    public icon = '';
-    public favicon = '';
-    public id = -1;
+    public isActive: boolean = false;
+    public URL: string = '';
+    public title: string = '';
+    public icon: string = '';
+    public favicon: string = '';
+    public id: number = -1;
+
+    public isLoading: boolean = false;
 
     private updater: any;
 
@@ -16,6 +18,9 @@ export class Tab {
         // view.webContents.on('update-target-url', this.onUpdateTargetUrl.bind(this)) // when hovering
         view.webContents.on('page-title-updated', this.onPageTitleUpdated.bind(this))
         view.webContents.on('page-favicon-updated', this.onPageFaviconUpdated.bind(this))
+
+        view.webContents.on('did-start-loading', this.onPageStartLoading.bind(this));
+        view.webContents.on('did-stop-loading', this.onPageStopLoading.bind(this));
     }
 
     public setUpdater(updater: any) {
@@ -26,6 +31,16 @@ export class Tab {
     //     this.URL = url;
     //     this.updater();
     // }
+
+    private onPageStartLoading(e: Event) {
+        this.isLoading = true;
+        this.updater();
+    }
+
+    private onPageStopLoading(e: Event) {
+        this.isLoading = false;
+        this.updater();
+    }
 
     private onPageTitleUpdated(e: Event, title: string) {
         this.title = title;
