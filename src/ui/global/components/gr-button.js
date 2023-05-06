@@ -1,10 +1,12 @@
 import {LitElement, html, css} from 'lit';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 export class GravityButton extends LitElement {
   static properties = {
     text: {},
     disabled: {},
     secondary: {},
+    style: {},
   };
 
   static styles = css`
@@ -16,6 +18,7 @@ export class GravityButton extends LitElement {
   font-size: 81.25%;
 
   width: fit-content;
+  min-width: 100px;
   cursor: pointer;
 
   display: flex;
@@ -23,8 +26,6 @@ export class GravityButton extends LitElement {
   align-items: center;
 
   color: var(--gr-secondary-color);
-
-  min-width: 5.14em;
   outline-width: 0;
 
   white-space: nowrap;
@@ -38,6 +39,11 @@ export class GravityButton extends LitElement {
 
   border: 2px solid;
   transition: .1s;
+}
+
+:host gr-icon {
+  font-size: 14px;
+  height: 15px;
 }
 
 :host > div:hover {
@@ -61,13 +67,14 @@ export class GravityButton extends LitElement {
     super();
 
     this.disabled = false;
+    this.style = '';
     this.text = '';
     this.secondary = false;
   }
 
   render() {
     return html`
-      <div class="${(this.disabled == 'true') ? 'disabled' : ''} ${this.secondary == 'true' ? 'secondary' : ''}">${this.text}</div>
+      <div style="${this.style}" class="${(this.disabled == 'true') ? 'disabled' : ''} ${this.secondary == 'true' ? 'secondary' : ''}">${unsafeHTML(this.text)}</div>
     `;
   }
 }

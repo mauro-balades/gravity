@@ -7,6 +7,7 @@ export class SetupUser extends LitElement {
   static properties = {
     sectionIndex: {},
     username: {state: true},
+    creating: {state: true}
   };
 
   static styles = css`
@@ -165,6 +166,7 @@ export class SetupUser extends LitElement {
     super();
     this.sectionIndex = 0;
     this.username = '';
+    this.creating = false;
   }
 
   createSection(index, sectionData, content) {
@@ -178,6 +180,13 @@ export class SetupUser extends LitElement {
   updateUsername(e) {
     this.username = e.target.value;
     super.performUpdate();
+  }
+
+  createUser() {
+    this.creating = true;
+    super.performUpdate();
+
+    this.incrementIndex();
   }
 
   render() {
@@ -199,7 +208,8 @@ export class SetupUser extends LitElement {
             <gr-text-input .onchange=${(e) => this.updateUsername(e)} text="Profile username (min 2, max 6)" />
           </div>
           <!-- TODO: add loading icon -->
-          <gr-button text="${this.canGoNext() ? 'Oh yeah!' : 'fill all the data!'}" disabled="${!this.canGoNext()}" @click=${this.incrementIndex}></gr-button>
+            <gr-button style="${this.creating? `font-size: 20px;` : ""}" disabled="${!this.canGoNext()}" @click=${this.createUser} .text=${
+              this.creating ? `<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>` : this.canGoNext() ? 'Oh yeah!' : 'fill all the data!'}></gr-button>
         `)}
       `;
   }

@@ -78,10 +78,17 @@ export class TabComponent extends LitElement {
     .page-favicon img {
       width: 20px;
       height: 20px;
+
+      border-radius: 3px;
+    }
+
+    .page-favicon gr-icon {
+      opacity: .3;
+      margin: 0 10px;
     }
 
     .page-favicon {
-      font-size: 20px;
+      font-size: 17px;
       opacity: 0;
       transform: scale(0.8);
 
@@ -128,12 +135,10 @@ export class TabComponent extends LitElement {
     return html`
         <div class="page-favicon">
           ${this.tab.isLoading ?
-            html`<gr-icon className="fa-solid fa-circle-notch fa-spin"></gr-icon>`
+            html`<gr-icon className="lds-ring" scale=${0.3} numElements=${4}></gr-icon>`
             : html`
               <img src="${this.tab.favicon}" />
             `}
-
-            <gr-icon className="fa-circle-notch fa-spin"></gr-icon>
         </div>
         <div class="tab-title">
             ${this.tab.title}
