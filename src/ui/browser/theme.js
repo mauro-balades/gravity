@@ -9,6 +9,7 @@ window.defineUserTheme = (theme) => {
     document.body.style.setProperty('--gr-primary-color', theme.primary_color)
     document.body.style.setProperty('--gr-secondary-color', theme.secondary_color)
 
+    document.body.style.background = theme.secondary_background;
     // TODO:
     // document.getElementsByTagName('core-browser-view').style.setProperty('--gr-system-font', )
 }

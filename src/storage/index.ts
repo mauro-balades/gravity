@@ -15,7 +15,7 @@ export function getAllUsers() {
     let themes = getAllThemes();
     let rows = globalDB.prepare("SELECT * FROM profiles").all() as IUser[];
     for (const u of rows) {
-        let theme = themes.find((x: ITheme) => { x.id = u.theme_id });
+        let theme = themes.find((x: ITheme) => x.id == u.theme_id );
         if (theme !== undefined) {
             u.theme = theme;
         } else {
@@ -24,6 +24,8 @@ export function getAllUsers() {
 
         users.push(u);
     }
+
+    console.log(users);
 
     return users;
 }

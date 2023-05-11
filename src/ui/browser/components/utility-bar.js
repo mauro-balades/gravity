@@ -130,7 +130,7 @@ export class UtilityBar extends LitElement {
           </svg>
         </span>
         <div class="separator"></div>
-        <span id="gravity-time-display"></span>
+        <span id="gravity-time-display">Loading...</span>
     </div>
     <div>
       <svg title="Take screenshot" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

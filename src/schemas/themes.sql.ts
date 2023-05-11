@@ -33,4 +33,26 @@ INSERT INTO themes (
 	'rgba(197, 197, 197, 0.38)',
 	'light blue'
 );
+
+INSERT INTO themes (
+	light,
+	button_radius,
+	input_radius,
+	button_background,
+	dialog_radius,
+	primary_color,
+	primary_background,
+	secondary_background,
+	name
+) VALUES (
+	FALSE,
+	'5px',
+	'5px',
+	'#65a4d9',
+	'5px',
+	'#fff',
+	'#000',
+	'rgba(64, 64, 64, 0.38)',
+	'dark blue'
+);
 `
