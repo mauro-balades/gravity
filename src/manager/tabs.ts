@@ -1,4 +1,4 @@
-import { BrowserView, Event } from "electron";
+import { BrowserView, BrowserWindow, Event } from "electron";
 
 export class Tab {
     public isActive: boolean = false;
@@ -58,7 +58,11 @@ export class TabManager {
     browserViews: BrowserView[] = [];
     latestId: number = 0;
 
-    constructor() {}
+    topWindow: BrowserWindow;
+
+    constructor(topWindow: BrowserWindow) {
+        this.topWindow = topWindow;
+    }
 
     addTab(tab: Tab, view: BrowserView) {
         tab.id = ++this.latestId;
@@ -79,8 +83,20 @@ export class TabManager {
     }
 
     changeTab(id: number) {
-        for (const tab of this.tabs) {
-            tab.isActive = tab.id == id;
+        for (let i = 0; i < this.tabs.length; i++) {
+            let isActive = this.tabs[i].id == id;
+            this.tabs[i].isActive = isActive;
+
+            if (isActive) {
+                this.topWindow.addBrowserView(
+                    this.browserViews[i]
+                )
+            } else {
+                this.topWindow.removeBrowserView(
+                    this.browserViews[i]
+                )
+            }
+
         }
     }
 

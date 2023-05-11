@@ -4,7 +4,11 @@ import {html, css, LitElement} from 'lit';
 export class TabComponent extends LitElement {
   static styles = css`
     :host {
-        min-width: 200px;
+        width: 100%;
+        max-width: 200px;
+
+        transition-delay: .5s;
+        transition: .5s;
 
         background-color: transparent;
         padding: 2.5px 15px;
@@ -23,6 +27,10 @@ export class TabComponent extends LitElement {
         border-right: 1px solid rgba(0,0,0,.05);
 
         margin-right: 10px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     :host(.active) {
@@ -50,6 +58,7 @@ export class TabComponent extends LitElement {
 
         space-wrap: nowrap;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     :host::before {

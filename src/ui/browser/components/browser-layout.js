@@ -5,12 +5,13 @@ export class BrowserLayout extends LitElement {
   static styles = css`
     :host {
         width: 100%;
-        margin: 0 20px 60px 0;
+        margin: 0px 20px 0px 0px;
 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
 
         border: 1px solid rgba(0,0,0,.1);
+        border-bottom: 0;
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.15);
 
         border-radius: 10px;

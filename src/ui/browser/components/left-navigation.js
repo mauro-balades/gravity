@@ -8,8 +8,24 @@ export class LeftNavigation extends LitElement {
       display: flex;
       align-items: start;
 
-      height: 100vh;
+      height: -webkit-fill-available;
       max-width: 300px;
+
+      display: flex;
+      flex-flow: column;
+
+      padding: 7px;
+      padding-top: 0;
+    }
+
+    .gravity-icon {
+        height: 40px;
+        padding: 5px 0;
+
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
   `;
 
@@ -22,8 +38,10 @@ export class LeftNavigation extends LitElement {
 
   render() {
     return html`
-        <div class="icons">
+        <div class="gravity-icon">
+
         </div>
+        <left-navigation-holder></left-navigation-holder>
     `;
   }
 }

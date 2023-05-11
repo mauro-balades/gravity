@@ -15,7 +15,9 @@ export class TabNavigation extends LitElement {
     }
 
     :host {
-      display: block;
+      display: flex;
+      flex-flow: column;
+      height: 100%;
     }
 
     :host browser-layout:not(.active) {
@@ -25,6 +27,8 @@ export class TabNavigation extends LitElement {
     :host .view-container {
       display: flex;
       align-items: start;
+
+      height: 100%;
     }
 
     :host #rest-of-browser {
@@ -61,7 +65,7 @@ export class TabNavigation extends LitElement {
     return html`
     <div class="view-container">
       <left-navigation></left-navigation>
-      <div style="width:100%;height:100vh;">
+      <div style="width:100%;height:-webkit-fill-available;display: flex;flex-flow: column;">
         <div id="tab-navigation">
           ${this.tabs.map((tab) => html`
               <tab-component
@@ -79,6 +83,7 @@ export class TabNavigation extends LitElement {
         </div>
       </div>
     </div>
+    <utility-bar></utility-bar>
     `;
   }
 }

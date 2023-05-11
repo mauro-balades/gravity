@@ -9,7 +9,7 @@ window.electronAPI.setWindowID(winID);
 export class CoreBrowserView extends LitElement {
   static styles = css`
     :host {
-      height: 100vh;
+      height: -webkit-fill-available;
       width: 100%;
     }
   `

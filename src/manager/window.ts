@@ -10,7 +10,7 @@ export class WindowManager {
     constructor() {}
 
     public addWindow(win: BrowserWindow, user: IUser): number {
-        this.windows.push({ window: win, id: ++this.latestId, user, tabs: new TabManager() })
+        this.windows.push({ window: win, id: ++this.latestId, user, tabs: new TabManager(win) })
         logger.i("Succesfully created new browser window with id: " + this.latestId);
         return this.latestId;
     }
