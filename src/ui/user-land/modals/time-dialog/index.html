@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Gravity browser</title>
+    <title>Time Dialog</title>
 
     <link rel="stylesheet" href="gravity://ui/global/gravity-core.css">
 
-    <script src="gravity://ui/global/components.js"></script>
     <script src="gravity://browser-assets/window.js"></script>
     <script src="gravity://browser-assets/theme.js"></script>
-    <script src="gravity://browser-assets/index.js"></script>
+
+    <script src="gravity://modals/time-dialog/clock-header.js"></script>
+    <script src="gravity://modals/time-dialog/analog-clock.js"></script>
+    <script src="gravity://modals/time-dialog/index.js"></script>
 
     <style>
         @font-face {
@@ -41,29 +42,15 @@
         }
     </style>
 
-    <script src="gravity://browser-assets/components/time-dialog.js"></script>
-    <script src="gravity://browser-assets/components/left-navigation-holder.js"></script>
-    <script src="gravity://browser-assets/components/web-contents.js"></script>
-    <script src="gravity://browser-assets/components/utility-bar.js"></script>
-    <script src="gravity://browser-assets/components/url-handler.js"></script>
-    <script src="gravity://browser-assets/components/certificate-info.js"></script>
-    <script src="gravity://browser-assets/components/location-input.js"></script>
-    <script src="gravity://browser-assets/components/navigation-bar.js"></script>
-    <script src="gravity://browser-assets/components/browser-layout.js"></script>
-    <script src="gravity://browser-assets/components/left-navigation.js"></script>
-    <script src="gravity://browser-assets/components/tab-component.js"></script>
-    <script src="gravity://browser-assets/components/tab-navigation.js"></script>
-
     <style>
-        body {
-            overflow: hidden;
-            background: rgba(197, 197, 197, 0.38);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        body, html {
+            width: 100%;
+            height: -webkit-fill-available;
+            border-radius: var(--gr-dialog-radius);
         }
     </style>
 </head>
 <body>
-    <core-browser-view></core-browser-view>
+    <time-dialog></time-dialog>
 </body>
 </html>

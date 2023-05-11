@@ -1,4 +1,4 @@
-import { BrowserWindow } from "electron";
+import { BrowserView, BrowserWindow } from "electron";
 import { TabManager } from "../manager/tabs";
 
 export interface ITheme {
@@ -26,4 +26,6 @@ export interface IWindow {
     window: BrowserWindow,
     id: number;
     tabs: TabManager;
+
+    timeDialog: BrowserView;
 }

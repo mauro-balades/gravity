@@ -1,10 +1,4 @@
-import querystring from 'querystring';
 import {html, css, LitElement} from 'lit';
-
-let query = querystring.parse(global.location.search);
-let winID = JSON.parse(query['?winID'])
-
-window.electronAPI.setWindowID(winID);
 
 export class CoreBrowserView extends LitElement {
   static styles = css`

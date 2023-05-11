@@ -25,8 +25,6 @@ export function getAllUsers() {
         users.push(u);
     }
 
-    console.log(users);
-
     return users;
 }
 

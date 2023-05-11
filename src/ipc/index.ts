@@ -71,6 +71,27 @@ export default function () {
         event.returnValue = win.tabs.tabs.map((x: Tab) => normalizeObject(x));
     });
 
+    ipcMain.on('time-dialog-open', (event, winID) => {
+        let win = windowManager.getWindow(winID);
+        win.window.addBrowserView(win.timeDialog);
+    });
+
+    ipcMain.on('time-dialog-close', (event, winID) => {
+        let win = windowManager.getWindow(winID);
+        console.log("close")
+        win.window.removeBrowserView(win.timeDialog);
+    });
+
+    ipcMain.on('time-dialog-resize', (event, winID, rect) => {
+        let win = windowManager.getWindow(winID);
+        win.timeDialog.setBounds({
+            x: Math.round(rect.x),
+            y: Math.round(rect.y),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+        });
+    });
+
     ipcMain.on('upate-webcontent-rect', (event, winID, tabID, rect) => {
         let win = windowManager.getWindow(winID);
         let view = win.tabs.getTabView(tabID);

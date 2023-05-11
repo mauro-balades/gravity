@@ -11,4 +11,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getTabs: () => ipcRenderer.sendSync("get-all-tabs", $windowID),
     setTabBoundaries: (tabID: number, rect: Rectangle) => ipcRenderer.send("upate-webcontent-rect", $windowID, tabID, rect),
     addTabListener: (tabID: number, updater: any) => ipcRenderer.on(`update-tab-info-${$windowID}-${tabID}`, updater),
+
+    timeDialogOpen: () => ipcRenderer.send("time-dialog-open", $windowID),
+    timeDialogClose: () => ipcRenderer.send("time-dialog-close", $windowID),
+    timeDialogResize: (rect: Rectangle) => ipcRenderer.send("time-dialog-resize", $windowID, rect),
 })

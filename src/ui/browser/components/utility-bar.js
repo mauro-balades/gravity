@@ -58,6 +58,10 @@ export class UtilityBar extends LitElement {
         align-items: center;
     }
 
+    :host div > span {
+      position: relative;
+    }
+
     :host > div:fist-of-type {
         height: -webkit-fill-available;
     }
@@ -71,6 +75,10 @@ export class UtilityBar extends LitElement {
       font-weight: 500;
       margin-left: 5px;
       cursor: pointer;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
     }
 
     .separator {
@@ -80,6 +88,12 @@ export class UtilityBar extends LitElement {
       border-radius: 1px;
       margin: 0 5px;
     }
+
+    #gravity-time-display { width: fit-content; }
+
+    span:has( #gravity-time-display) {
+      cursor: pointer;
+    }
   `;
 
   static properties = {
@@ -88,7 +102,11 @@ export class UtilityBar extends LitElement {
   constructor() {
     super();
 
+
+    this.setUpTimeDialogClose();
+
     setInterval(this.updateTime.bind(this), 1000)
+    setTimeout(() => window.addEventListener("resize", this.timeDialogResize.bind(this)));
   }
 
   updateTime() {
@@ -102,8 +120,26 @@ export class UtilityBar extends LitElement {
     hour = hour < 10 ? '0'+hour : hour;
     minutes = minutes < 10 ? '0'+minutes : minutes;
 
-
     display.innerHTML = `${hour}:${minutes}`
+  }
+
+  timeDialogOpen() {
+    window.electronAPI.timeDialogOpen();
+    this.timeDialogResize();
+  }
+
+  setUpTimeDialogClose() {
+    window.addEventListener("click", (e) => {
+      if (event.path[0] != this.shadowRoot.querySelector("#gravity-time-display")) {
+        window.electronAPI.timeDialogClose();
+      }
+    })
+  }
+
+  timeDialogResize() {
+    let dialog = this.shadowRoot.querySelector("#time-dialog");
+    let { x,y,width,height } = dialog.getBoundingClientRect();
+    window.electronAPI.timeDialogResize({ x,y,width,height });
   }
 
   render() {
@@ -130,7 +166,10 @@ export class UtilityBar extends LitElement {
           </svg>
         </span>
         <div class="separator"></div>
-        <span id="gravity-time-display">Loading...</span>
+        <span style="height: 30px; display: flex; align-items: center;" @click=${this.timeDialogOpen.bind(this)}>
+          <time-dialog id="time-dialog"></time-dialog>
+          <span id="gravity-time-display">Loading...</span>
+        </span>
     </div>
     <div>
       <svg title="Take screenshot" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
