@@ -21,13 +21,22 @@ export class CoreBrowserView extends LitElement {
     this.tabs = window.electronAPI.getTabs();
 
     if (this.tabs.length == 0) {
-        let newTab = window.electronAPI.createTab("https://google.com", true);
+        let newTab = window.electronAPI.createTab(undefined, true);
         this.tabs.push(newTab);
     }
+
+    window.electronAPI.addUpdateHandle(this.updateBrowser.bind(this));
+  }
+
+  updateBrowser() {
+    this.tabs = window.electronAPI.getTabs()
+
+    this.requestUpdate();
+    super.performUpdate();
   }
 
   render() {
-    return html`<tab-navigation .tabs=${this.tabs}></tab-navigation>`;
+    return html`<tab-navigation updateTabs=${this.updateTabs} .tabs=${this.tabs}></tab-navigation>`;
   }
 }
 customElements.define('core-browser-view', CoreBrowserView);

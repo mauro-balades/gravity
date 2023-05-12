@@ -38,6 +38,7 @@ export default function () {
     ipcMain.on('create-new-tab', (event, winID, url, active) => {
         logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
+        let loadedURL = url ?? /*TODO: user default tab*/"https://google.com";
 
         const view = new BrowserView({
             webPreferences: {
@@ -53,17 +54,25 @@ export default function () {
 
         win.window.addBrowserView(view);
         view.setBackgroundColor('#fff')
-        view.webContents.loadURL(url);
+        view.webContents.loadURL(loadedURL);
 
-        let t = new Tab(url, view);
+        let t = new Tab(loadedURL, view);
         t.setUpdater(() => {
             win.window.webContents.send(`update-tab-info-${win.id}-${t.id}`, normalizeObject(t));
         });
 
-        t.isActive = active;
         win.tabs.addTab(t, view);
+        win.tabs.changeTab(t.id);
 
+        windowManager.updateWindow(win.id);
         event.returnValue = normalizeObject(t);
+    });
+
+    ipcMain.on("set-active-tab", (event, winID, tabID) => {
+        let win = windowManager.getWindow(winID);
+        win.tabs.changeTab(tabID);
+
+        windowManager.updateWindow(win.id);
     });
 
     ipcMain.on('get-all-tabs', (event, winID) => {
@@ -78,7 +87,6 @@ export default function () {
 
     ipcMain.on('time-dialog-close', (event, winID) => {
         let win = windowManager.getWindow(winID);
-        console.log("close")
         win.window.removeBrowserView(win.timeDialog);
     });
 

@@ -61,7 +61,7 @@ export class TabComponent extends LitElement {
         white-space: nowrap;
     }
 
-    :host::before {
+    :host(.active)::before {
       content: " ";
       position: absolute;
       top: 0;

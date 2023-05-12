@@ -10,8 +10,7 @@ export class AnalogClock extends LitElement {
             border-left-color: transparent;
             border-right-color: transparent;
 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.2);
 
             display: flex;
             align-items: center;

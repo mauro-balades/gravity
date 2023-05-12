@@ -26,6 +26,11 @@ export class WindowManager {
     public getWindow(id: number): IWindow | undefined {
         return this.windows.find((x) => x.id == id);
     }
+
+    public updateWindow(id: number) {
+        let w = this.getWindow(id);
+        w.window.webContents.send(`update-browser-${id}`)
+    }
 }
 
 export const windowManager = new WindowManager();

@@ -41,7 +41,7 @@ export class TabNavigation extends LitElement {
   `;
 
   static properties = {
-    tabs: {}
+    tabs: {},
   };
 
   constructor() {
@@ -57,8 +57,11 @@ export class TabNavigation extends LitElement {
 
   changeTab(e, id) {
     e.preventDefault();
-    throw Error("TODO");
-    this.update();
+    window.electronAPI.setActiveTab(id);
+  }
+
+  newTab() {
+    window.electronAPI.createTab(undefined, true);
   }
 
   render() {
@@ -75,6 +78,8 @@ export class TabNavigation extends LitElement {
                   class="${tab.isActive ? 'active' : ''}"
                   .tab=${tab} />
           `)}
+
+          <add-tab-button .addTab=${this.newTab}></add-tab-button>
         </div>
         <div id="rest-of-browser">
             ${this.tabs.map((tab) => html`

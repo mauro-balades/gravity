@@ -17,7 +17,7 @@ export function createTimeDialog(id: number) {
 
     // and load the index.html of the app.
     view.webContents.loadURL(`gravity://modals/time-dialog/index.html?winID=${id}`);
-    view.webContents.openDevTools({ mode: "detach" })
+    // view.webContents.openDevTools({ mode: "detach" })
 
     return view;
 }
