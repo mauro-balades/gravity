@@ -11,6 +11,7 @@ export class WindowManager {
     constructor() {}
 
     public addWindow(win: BrowserWindow, user: IUser): number {
+        // TODO: dialogs should be for each tab!
         this.windows.push({
             window: win,
             id: ++this.latestId,

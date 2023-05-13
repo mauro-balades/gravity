@@ -10,7 +10,7 @@ export class BrowserLayout extends LitElement {
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
 
-        border: 1px solid rgba(0,0,0,.1);
+        border: 1px solid rgba(calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),.1);
         border-bottom: 0;
 
         border-radius: 10px;

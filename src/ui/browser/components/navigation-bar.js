@@ -21,6 +21,8 @@ export class NavigationBar extends LitElement {
 
         height: 15px;
         width: 15px;
+        min-width: 15px;
+
         margin: 0 5px;
 
         display: flex;
@@ -31,7 +33,7 @@ export class NavigationBar extends LitElement {
     }
 
     :host > .icon-button:hover {
-      background: rgba(0,0,0,.05);
+      background: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.16);
     }
 
     :host .icon-button > svg {

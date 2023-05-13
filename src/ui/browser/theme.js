@@ -9,6 +9,8 @@ window.defineUserTheme = (theme) => {
     document.body.style.setProperty('--gr-primary-color', theme.primary_color)
     document.body.style.setProperty('--gr-secondary-color', theme.secondary_color)
     document.body.style.setProperty('--gr-glass-opacity', theme.glass_opacity)
+    document.body.style.setProperty('--gr-is-light', theme.light)
+    document.body.style.setProperty('--gr-is-dark', +!theme.light)
 
     document.body.style.background = theme.secondary_background;
     // TODO:

@@ -10,11 +10,16 @@ export class LocationInput extends LitElement {
     margin: 5px;
 
     border-radius: 5px;
-    background-color: rgba(0,0,0,.08);
-    padding: 2pxx;
+
+    background-color: rgba(calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),0.6);
+    border: 1px solid rgba(calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),calc(var(--gr-is-light) * 255),.3);
 
     display: flex;
     align-items: center;
+  }
+
+  :host(*:focus) {
+    border: 2px solid var(--gr-button-background);
   }
 
   certificate-info:hover {

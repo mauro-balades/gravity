@@ -16,6 +16,7 @@ export function createTimeDialog(id: number) {
     });
 
     // and load the index.html of the app.
+    // view.setBackgroundColor("#00FFFFFF")
     view.webContents.loadURL(`gravity://modals/time-dialog/index.html?winID=${id}`);
     // view.webContents.openDevTools({ mode: "detach" })
 

@@ -12,7 +12,7 @@ export class LeftNavigationIcons extends LitElement {
         flex-flow: column;
 
         padding: 10px 0;
-        margin: 10px 0 5px 0;
+        margin-top: 10px;
 
         justify-content: center;
 
@@ -50,8 +50,8 @@ export class LeftNavigationIcons extends LitElement {
     }
 
     svg:hover {
-        background: rgba(0,0,0,.05);
-        border-color: rgba(0,0,0,.1);
+        background: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.05);
+        border-color: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.1);
     }
 
     svg:active {

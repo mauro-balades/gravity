@@ -10,7 +10,7 @@ export class TimeDialog extends LitElement {
         transition-delay: .5s;
         transition: .5s;
 
-        background-color: transparent;
+        background: var(--gr-primary-background);
         padding: 2.5px 15px;
 
         border-radius: 6px;
@@ -30,12 +30,13 @@ export class TimeDialog extends LitElement {
         white-space: nowrap;
 
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        border: 1px solid rgba(0,0,0,.1);
 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
 
         animation: puff-in-center .2s ease;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+
     }
 
     :host::before {
@@ -66,6 +67,10 @@ export class TimeDialog extends LitElement {
                 filter: blur(0px);
         opacity: 1;
       }
+    }
+
+    :host * {
+      background: var(--gr-primary-background);
     }
   `;
 

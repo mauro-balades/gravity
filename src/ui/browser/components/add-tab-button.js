@@ -99,7 +99,7 @@ export class AddTabButton extends LitElement {
 
   render() {
     return html`
-        <div @click=${this.addTab} class="wrapper">
+        <div title="Create new tab" @click=${this.addTab} class="wrapper">
             <svg fill="none" stroke="currentColor" stroke-width="3" width="13" height="13" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
             </svg>

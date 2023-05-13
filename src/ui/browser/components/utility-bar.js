@@ -46,7 +46,7 @@ export class UtilityBar extends LitElement {
         width: 15px;
         height: 15px;
 
-        transition: .01s;
+        transition: .1s;
         padding: 5px;
         margin: 2px 2px 0 2px;
         cursor: pointer;
@@ -61,15 +61,13 @@ export class UtilityBar extends LitElement {
     }
 
     svg:hover {
-        background: rgba(0,0,0,.05);
-        border-color: rgba(0,0,0,.1);
-    }
+        background: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.05);
+        border-color: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.1);
 
-    svg:active {
         width: 13px;
         height: 13px;
 
-        padding: 8px;
+        padding: 6px;
     }
 
     :host > div {
@@ -101,17 +99,16 @@ export class UtilityBar extends LitElement {
     }
 
     .separator {
-      background: rgba(0,0,0,.7);
+      background: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255), 0.7);
       height: 15px;
       width: 1px;
       border-radius: 1px;
       margin: 0 5px;
-      filter: invert(100%);
     }
 
     #gravity-time-display { width: fit-content; }
 
-    span:has( #gravity-time-display) {
+    span:has(#gravity-time-display) {
       cursor: pointer;
     }
   `;

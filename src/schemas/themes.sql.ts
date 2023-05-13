@@ -73,7 +73,7 @@ INSERT INTO themes (
 	secondary_background,
 	name
 ) VALUES (
-	FALSE,
+	TRUE,
 	0.9,
 	'5px',
 	'5px',
@@ -97,7 +97,7 @@ INSERT INTO themes (
 	secondary_background,
 	name
 ) VALUES (
-	TRUE,
+	FALSE,
 	0.9,
 	'5px',
 	'5px',

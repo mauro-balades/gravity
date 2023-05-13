@@ -8,7 +8,6 @@ export class URLHandler extends LitElement {
         align-items: center;
 
         font-size: 13px;
-        margin-left: 2px;
     }
 
     #url-display, #url-display > b, #url-display > span {
@@ -30,6 +29,8 @@ export class URLHandler extends LitElement {
     #url-input {
         display: none;
         user-select: text;
+
+        color: var(--gr-primary-color);
     }
 
     #url-display {
@@ -54,14 +55,18 @@ export class URLHandler extends LitElement {
   }
 
   activateFocus(e) {
-    this.shadowRoot.querySelector("#url-display").style.display = "none";
     let input = this.shadowRoot.querySelector("#url-input");
+    this.shadowRoot.querySelector("#url-display").style.display = "none";
 
     input.style.display = "block";
 
-    getSelection().removeAllRanges();
+    setTimeout(() => {
+        input.focus();
+        input.select();
+    }, 50);
 
     this.update({"focused": true});
+    super.requestUpdate();
   }
 
   render() {
@@ -90,15 +95,6 @@ export class URLHandler extends LitElement {
       return html `
         <span>${this.tab.URL}//</span>
       `
-    }
-  }
-
-  updated() {
-    if (this.focused) {
-      let input = this.shadowRoot.querySelector("#url-input");
-
-      input.focus();
-      input.select();
     }
   }
 }

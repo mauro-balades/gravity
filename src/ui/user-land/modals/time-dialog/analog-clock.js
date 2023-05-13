@@ -7,15 +7,17 @@ export class AnalogClock extends LitElement {
             height: 100px;
 
             border: 1px solid rgba(0, 0, 0, 0.3);
-            border-left-color: transparent;
-            border-right-color: transparent;
+            border-left: none;
+            border-right: none;
 
             /*TODO: fix this for dark themes too!*/
-            background: rgba(255,255,255,0.5);
+            background: transparent !important;
 
             display: flex;
             align-items: center;
             justify-content: center;
+
+            position: relative;
         }
 
         :host::before {
@@ -26,9 +28,8 @@ export class AnalogClock extends LitElement {
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: .6;
+            opacity: .7;
             background: var(--gr-secondary-background);
-            border-radius: 6px;
         }
 
         .clock {

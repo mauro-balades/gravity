@@ -42,18 +42,18 @@ export class TabComponent extends LitElement {
     }
 
     :host > svg:last-of-type {
-        border-radius: 10px;
+        border-radius: 50%;
         transition: .1;
         cursor: pointer;
-        padding: 3px;
+        padding: 5px;
+        margin-left: auto;
     }
 
     :host > svg:last-of-type:hover {
-        background: rgba(0,0,0,.05);
+        background: rgba(calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),calc(var(--gr-is-dark) * 255),.16);
     }
 
     :host .tab-title {
-        width: -webkit-fill-available;
         overflow: hidden;
 
         space-wrap: nowrap;
@@ -152,7 +152,7 @@ export class TabComponent extends LitElement {
         <div class="tab-title">
             ${this.tab.title}
         </div>
-        <svg @click=${this.onRemove} width="15" height="15" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <svg @click=${this.onRemove} width="12" height="12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     `;
