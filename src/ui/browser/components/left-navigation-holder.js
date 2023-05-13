@@ -12,6 +12,8 @@ export class LeftNavigationIcons extends LitElement {
         flex-flow: column;
 
         padding: 10px 0;
+        margin: 10px 0 5px 0;
+
         justify-content: center;
 
         width: -webkit-fill-available;
@@ -28,7 +30,7 @@ export class LeftNavigationIcons extends LitElement {
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: .5;
+        opacity: var(--gr-glass-opacity);
         z-index: -1;
 
         border-radius: 6px;

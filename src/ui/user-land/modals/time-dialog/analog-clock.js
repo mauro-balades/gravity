@@ -10,7 +10,8 @@ export class AnalogClock extends LitElement {
             border-left-color: transparent;
             border-right-color: transparent;
 
-            background: rgba(255,255,255,0.2);
+            /*TODO: fix this for dark themes too!*/
+            background: rgba(255,255,255,0.5);
 
             display: flex;
             align-items: center;
@@ -79,6 +80,7 @@ export class AnalogClock extends LitElement {
             width: 1px;
             height: 42%;
             top: 7%;
+            background-color: #F05A5A;
         }
 
         .clock .dot {

@@ -8,6 +8,9 @@ export class AddTabButton extends LitElement {
         display: flex;
         height: -webkit-fill-available;
         align-items: center;
+
+        margin-left: auto;
+        margin-right: 10px;
     }
 
     .wrapper {
@@ -66,7 +69,7 @@ export class AddTabButton extends LitElement {
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: .5;
+      opacity: var(--gr-glass-opacity);
       z-index: -1;
       background: var(--gr-primary-background);
       border-radius: 6px;

@@ -88,7 +88,6 @@ export class TabNavigation extends LitElement {
         </div>
       </div>
     </div>
-    <utility-bar></utility-bar>
     `;
   }
 }

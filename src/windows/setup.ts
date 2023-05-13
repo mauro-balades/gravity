@@ -1,5 +1,5 @@
-import { BrowserWindow } from "electron";
 import * as path from "path";
+import { BrowserWindow } from "electron";
 
 export function createSetUpWindow() {
     // Create the browser window.
@@ -25,6 +25,8 @@ export function createSetUpWindow() {
         width: 800,
         resizable: false,
     });
+
+    mainWindow.setBackgroundColor("#fff")
 
     // and load the index.html of the app.
     mainWindow.loadURL("gravity://new-user");

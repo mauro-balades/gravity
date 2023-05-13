@@ -45,7 +45,7 @@ export class TimeDialog extends LitElement {
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: .7;
+      opacity: var(--gr-glass-opacity);
       z-index: -1;
       background: var(--gr-primary-background);
       border-radius: 6px;
@@ -74,6 +74,9 @@ export class TimeDialog extends LitElement {
 
   constructor() {
     super();
+
+    let user = window.electronAPI.getCurrentUser();
+    defineUserTheme(user.theme);
   }
 
   render() {

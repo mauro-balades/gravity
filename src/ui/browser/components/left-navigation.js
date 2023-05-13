@@ -21,8 +21,6 @@ export class LeftNavigation extends LitElement {
     .gravity-icon {
         height: 40px;
         padding: 5px 0;
-
-        margin: 5px 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -38,9 +36,7 @@ export class LeftNavigation extends LitElement {
 
   render() {
     return html`
-        <div class="gravity-icon">
-
-        </div>
+        <!-- <div class="gravity-icon"></div> -->
         <left-navigation-holder></left-navigation-holder>
     `;
   }

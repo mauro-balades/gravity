@@ -5,7 +5,7 @@ export class BrowserLayout extends LitElement {
   static styles = css`
     :host {
         width: 100%;
-        margin: 0px 20px 0px 0px;
+        margin: 0px 20px 10px 0px;
 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -28,7 +28,7 @@ export class BrowserLayout extends LitElement {
       left: 0;
       width: 100%;
       height: 100px;
-      opacity: .5;
+      opacity: var(--gr-glass-opacity);
       z-index: -1;
       background: var(--gr-primary-background);
     }
@@ -49,6 +49,7 @@ export class BrowserLayout extends LitElement {
     return html`
       <navigation-bar .tab=${this.tab}></navigation-bar>
       <web-contents .tab=${this.tab}></web-contents>
+      <utility-bar></utility-bar>
     `;
   }
 

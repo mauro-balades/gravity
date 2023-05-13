@@ -19,12 +19,6 @@ export class CoreBrowserView extends LitElement {
     defineUserTheme(user.theme);
 
     this.tabs = window.electronAPI.getTabs();
-
-    if (this.tabs.length == 0) {
-        let newTab = window.electronAPI.createTab(undefined, true);
-        this.tabs.push(newTab);
-    }
-
     window.electronAPI.addUpdateHandle(this.updateBrowser.bind(this));
   }
 

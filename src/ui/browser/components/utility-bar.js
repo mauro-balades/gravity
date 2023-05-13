@@ -5,17 +5,29 @@ export class UtilityBar extends LitElement {
   static styles = css`
     :host {
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        border-top: 1px solid rgba(0,0,0,.1);
 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
 
         height: 30px;
+        position: relative;
 
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        width: -webkit-fill-available;
         padding: 0 20px 0 15px;
+    }
+
+    :host::after {
+      background: rgba(0,0,0,.1);
+      width: 100%;
+      position: absolute;
+      content: "";
+      top: 1px;
+      left: 0;
+      height: 2px;
     }
 
     :host::before {
@@ -25,7 +37,7 @@ export class UtilityBar extends LitElement {
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: .5;
+        opacity: var(--gr-glass-opacity);
         z-index: -1;
         background: var(--gr-primary-background);
     }
@@ -35,10 +47,17 @@ export class UtilityBar extends LitElement {
         height: 15px;
 
         transition: .01s;
-        padding: 7px;
+        padding: 5px;
+        margin: 2px 2px 0 2px;
         cursor: pointer;
 
         border: 1px solid transparent;
+        border-top: none;
+
+        display: flex;
+        align-items: center;
+
+        opacity: .8;
     }
 
     svg:hover {
@@ -87,6 +106,7 @@ export class UtilityBar extends LitElement {
       width: 1px;
       border-radius: 1px;
       margin: 0 5px;
+      filter: invert(100%);
     }
 
     #gravity-time-display { width: fit-content; }

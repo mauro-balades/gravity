@@ -100,7 +100,7 @@ export class SetupUser extends LitElement {
       height: 100;
 
       border-radius: 50%;
-      border: 5px solid #fff;
+      border: 5px solid rgba(255,255,255,.8);
     }
 
     #creation .input {
