@@ -33,6 +33,11 @@ export class NavigationBar extends LitElement {
             justify-content: center;
         }
 
+        :host .icon-button.disabled {
+          opacity: .4;
+          cursor: default;
+        }
+
         :host > .icon-button:hover {
             background: rgba(
                 calc(var(--gr-is-dark) * 255),
@@ -74,8 +79,13 @@ export class NavigationBar extends LitElement {
     }
 
     render() {
+        let canGoBack = this.tab.canGoBack;
+        let canGoForward = this.tab.canGoForward;
+
         return html`
-            <div class="icon-button">
+            <div @click=${canGoBack ? () => {
+              window.electronAPI.goBack(this.tab.id)
+            } : () => {}} class="icon-button ${(!canGoBack) ? "disabled" : ""}">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -90,7 +100,9 @@ export class NavigationBar extends LitElement {
                     />
                 </svg>
             </div>
-            <div class="icon-button">
+            <div @click=${canGoForward ? () => {
+              window.electronAPI.goForward(this.tab.id)
+            } : () => {}} class="icon-button ${(!canGoForward) ? "disabled" : ""}">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

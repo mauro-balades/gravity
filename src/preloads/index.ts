@@ -50,4 +50,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
     // Tab functions
     reloadTab: (tabID: number, ignoreCache: boolean) =>
         ipcRenderer.send("tab:reload", $windowID, tabID, ignoreCache),
+    goBack: (tabID: number) =>
+        ipcRenderer.send("tab:goBack", $windowID, tabID),
+    goForward: (tabID: number) =>
+        ipcRenderer.send("tab:goForward", $windowID, tabID),
 });

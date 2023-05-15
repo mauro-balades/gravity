@@ -1,4 +1,5 @@
-import { BrowserView, BrowserWindow, Event } from "electron";
+import { BrowserView, BrowserWindow, Event, WebContents, webContents } from "electron";
+import { normalizeObject, omitKeys } from "../utils";
 
 export class Tab {
     public isActive: boolean = false;
@@ -8,9 +9,13 @@ export class Tab {
     public favicon: string = "";
     public id: number = -1;
 
+    public canGoBack: boolean = false;
+    public canGoForward: boolean = false;
+
     public isLoading: boolean = false;
 
     private updater: any;
+    private view: WebContents;
 
     constructor(URL: string, view: BrowserView) {
         this.URL = URL;
@@ -41,10 +46,19 @@ export class Tab {
             }
         );
         view.webContents.on("will-navigate", this.onWillNavigate.bind(this));
+
+        this.view = view.webContents;
     }
 
     public setUpdater(updater: any) {
         this.updater = updater;
+    }
+
+    private URLUpdated() {
+        this.canGoBack = this.view.canGoBack();
+        this.canGoForward = this.view.canGoForward();
+
+        this.updater();
     }
 
     // private onUpdateTargetUrl(e: Event, url: string) {
@@ -64,7 +78,7 @@ export class Tab {
 
     private onWillNavigate(e: Event, url: string) {
         this.URL = url;
-        this.updater();
+        this.URLUpdated();
     }
 
     private onPageTitleUpdated(e: Event, title: string) {
@@ -75,6 +89,10 @@ export class Tab {
     private onPageFaviconUpdated(e: Event, favicons: string[]) {
         this.favicon = favicons[0];
         this.updater();
+    }
+
+    asObject() {
+        return normalizeObject(omitKeys(this, ["view", "updater"]))
     }
 }
 

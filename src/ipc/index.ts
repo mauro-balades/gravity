@@ -4,8 +4,6 @@ import { createBrowserWindow } from "../windows/browser";
 import { windowManager } from "../manager/window";
 import { logger } from "../logger";
 import { Tab } from "../manager/tabs";
-import path = require("path");
-import { normalizeObject } from "../utils";
 import { createOmniboxView, loadOmniboxURL } from "../modals/omnibox-view";
 
 export default function () {
@@ -64,7 +62,7 @@ export default function () {
 
         t.setUpdater(() => {
             let channel = `update-tab-info-${win.id}-${t.id}`;
-            let normalized = normalizeObject(t);
+            let normalized = t.asObject();
 
             win.window.webContents.send(channel, normalized);
             omnibox.webContents.send(channel, normalized);
@@ -74,7 +72,7 @@ export default function () {
         win.window.addBrowserView(omnibox);
 
         windowManager.updateWindow(win.id);
-        event.returnValue = normalizeObject(t);
+        event.returnValue = t.asObject();
     });
 
     ipcMain.on("set-active-tab", (event, winID, tabID) => {
@@ -86,13 +84,13 @@ export default function () {
 
     ipcMain.on("get-all-tabs", (event, winID) => {
         let win = windowManager.getWindow(winID);
-        event.returnValue = win.tabs.tabs.map((x: Tab) => normalizeObject(x));
+        event.returnValue = win.tabs.tabs.map((x: Tab) => x.asObject());
     });
 
     ipcMain.on("get-tab", (event, winID, tabID) => {
         let win = windowManager.getWindow(winID);
         let tab = win.tabs.getTab(tabID);
-        event.returnValue = normalizeObject(tab);
+        event.returnValue = tab.asObject();
     });
 
     ipcMain.on("tab:reload", (event, winID, tabID, ignoreCache = false) => {
@@ -103,6 +101,18 @@ export default function () {
         } else {
             webContents.reload();
         }
+    });
+
+    ipcMain.on("tab:goBack", (event, winID, tabID) => {
+        let win = windowManager.getWindow(winID);
+        let webContents = win.tabs.getTabView(tabID).webContents;
+        webContents.goBack();
+    });
+
+    ipcMain.on("tab:goForward", (event, winID, tabID) => {
+        let win = windowManager.getWindow(winID);
+        let webContents = win.tabs.getTabView(tabID).webContents;
+        webContents.goForward();
     });
 
     ipcMain.on("time-dialog-open", (event, winID) => {
