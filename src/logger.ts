@@ -1,2 +1,1 @@
-export const logger = require('color-logger').default;
-
+export const logger = require("color-logger").default;

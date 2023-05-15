@@ -1,4 +1,3 @@
-
 export default `
   default-src * gravity:;
   img-src gravity: asset: data: blob: http: https;
@@ -6,4 +5,4 @@ export default `
   media-src 'self' gravity:;
   style-src * gravity: data: blob: 'unsafe-inline';
   font-src * gravity: data: blob: 'unsafe-inline';
-`.replace(/\n/g, '')
+`.replace(/\n/g, "");

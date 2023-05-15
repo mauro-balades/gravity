@@ -5,7 +5,7 @@ export function createTimeDialog(id: number) {
     // Create the browser window.
     const view = new BrowserView({
         webPreferences: {
-            defaultEncoding: 'utf-8',
+            defaultEncoding: "utf-8",
             webviewTag: false,
             webSecurity: false,
             allowRunningInsecureContent: true,
@@ -15,9 +15,9 @@ export function createTimeDialog(id: number) {
         },
     });
 
-    // and load the index.html of the app.
-    // view.setBackgroundColor("#00FFFFFF")
-    view.webContents.loadURL(`gravity://modals/time-dialog/index.html?winID=${id}`);
+    view.webContents.loadURL(
+        `gravity://modals/time-dialog/index.html?winID=${id}`
+    );
     // view.webContents.openDevTools({ mode: "detach" })
 
     return view;

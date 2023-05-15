@@ -1,17 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "CommonJS",
-    "target": "es2017",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "es2017",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["node_modules/*"]
+        }
     },
-  },
-  "include": [
-    "src/**/*"
-  ],
+    "include": ["src/**/*"]
 }

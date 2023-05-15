@@ -23,7 +23,7 @@ export interface IUser {
 
 export interface IWindow {
     user: IUser;
-    window: BrowserWindow,
+    window: BrowserWindow;
     id: number;
     tabs: TabManager;
 

@@ -1,4 +1,4 @@
-import {html, css, LitElement} from 'lit';
+import { html, css, LitElement } from "lit";
 
 export class AnalogClock extends LitElement {
     static styles = css`
@@ -28,7 +28,7 @@ export class AnalogClock extends LitElement {
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: .7;
+            opacity: 0.7;
             background: var(--gr-secondary-background);
         }
 
@@ -40,7 +40,7 @@ export class AnalogClock extends LitElement {
             justify-content: center;
             align-items: center;
 
-            opacity: .8;
+            opacity: 0.8;
         }
 
         .clock .dot {
@@ -81,7 +81,7 @@ export class AnalogClock extends LitElement {
             width: 1px;
             height: 42%;
             top: 7%;
-            background-color: #F05A5A;
+            background-color: #f05a5a;
         }
 
         .clock .dot {
@@ -158,4 +158,4 @@ export class AnalogClock extends LitElement {
         `;
     }
 }
-customElements.define('analog-clock', AnalogClock);
+customElements.define("analog-clock", AnalogClock);

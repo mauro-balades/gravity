@@ -6,7 +6,7 @@ export function createSetUpWindow() {
     const mainWindow = new BrowserWindow({
         height: 600,
         webPreferences: {
-            defaultEncoding: 'utf-8',
+            defaultEncoding: "utf-8",
             webviewTag: false,
             webSecurity: false,
             allowRunningInsecureContent: true,
@@ -26,7 +26,7 @@ export function createSetUpWindow() {
         resizable: false,
     });
 
-    mainWindow.setBackgroundColor("#fff")
+    mainWindow.setBackgroundColor("#fff");
 
     // and load the index.html of the app.
     mainWindow.loadURL("gravity://new-user");

@@ -1,70 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Gravity browser</title>
+        <title>Gravity browser</title>
 
-    <link rel="stylesheet" href="gravity://ui/global/gravity-core.css">
+        <link rel="stylesheet" href="gravity://ui/global/gravity-core.css" />
 
-    <script src="gravity://ui/global/components.js"></script>
-    <script src="gravity://browser-assets/window.js"></script>
-    <script src="gravity://browser-assets/theme.js"></script>
-    <script src="gravity://browser-assets/index.js"></script>
+        <script src="gravity://ui/global/components.js"></script>
+        <script src="gravity://browser-assets/window.js"></script>
+        <script src="gravity://browser-assets/theme.js"></script>
+        <script src="gravity://browser-assets/index.js"></script>
 
-    <style>
-        @font-face {
-            font-family: "Font Awesome 5 Brands";
-            font-style: normal;
-            font-weight: normal;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-brands-400.eot);
-            src: url(gravity://assets/fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-brands-400.woff2) format("woff2"), url(gravity://assets/fonts/fa-brands-400.woff) format("woff"), url(gravity://assets/fonts/fa-brands-400.ttf) format("truetype"), url(gravity://assets/fonts/fa-brands-400.svg#fontawesome) format("svg")
-        }
-        @font-face {
-            font-family: "Font Awesome 5 Free";
-            font-style: normal;
-            font-weight: 400;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-regular-400.eot);
-            src: url(gravity://assets/fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-regular-400.woff2) format("woff2"), url(gravity://assets/fonts/fa-regular-400.woff) format("woff"), url(gravity://assets/fonts/fa-regular-400.ttf) format("truetype"), url(gravity://assets/fonts/fa-regular-400.svg#fontawesome) format("svg")
-        }
-        @font-face {
-            font-family: "Font Awesome 5 Free";
-            font-style: normal;
-            font-weight: 900;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-solid-900.eot);
-            src: url(gravity://assets/fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-solid-900.woff2) format("woff2"), url(gravity://assets/fonts/fa-solid-900.woff) format("woff"), url(gravity://assets/fonts/fa-solid-900.ttf) format("truetype"), url(gravity://assets/fonts/fa-solid-900.svg#fontawesome) format("svg")
-        }
-    </style>
+        <style>
+            @font-face {
+                font-family: "Font Awesome 5 Brands";
+                font-style: normal;
+                font-weight: normal;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-brands-400.eot);
+                src: url(gravity://assets/fonts/fa-brands-400.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-brands-400.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-brands-400.woff)
+                        format("woff"),
+                    url(gravity://assets/fonts/fa-brands-400.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-brands-400.svg#fontawesome)
+                        format("svg");
+            }
+            @font-face {
+                font-family: "Font Awesome 5 Free";
+                font-style: normal;
+                font-weight: 400;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-regular-400.eot);
+                src: url(gravity://assets/fonts/fa-regular-400.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-regular-400.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-regular-400.woff)
+                        format("woff"),
+                    url(gravity://assets/fonts/fa-regular-400.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-regular-400.svg#fontawesome)
+                        format("svg");
+            }
+            @font-face {
+                font-family: "Font Awesome 5 Free";
+                font-style: normal;
+                font-weight: 900;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-solid-900.eot);
+                src: url(gravity://assets/fonts/fa-solid-900.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-solid-900.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-solid-900.woff) format("woff"),
+                    url(gravity://assets/fonts/fa-solid-900.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-solid-900.svg#fontawesome)
+                        format("svg");
+            }
+        </style>
 
-    <script src="gravity://browser-assets/components/add-tab-button.js"></script>
-    <script src="gravity://browser-assets/components/time-dialog.js"></script>
-    <script src="gravity://browser-assets/components/left-navigation-holder.js"></script>
-    <script src="gravity://browser-assets/components/web-contents.js"></script>
-    <script src="gravity://browser-assets/components/utility-bar.js"></script>
-    <script src="gravity://browser-assets/components/url-handler.js"></script>
-    <script src="gravity://browser-assets/components/certificate-info.js"></script>
-    <script src="gravity://browser-assets/components/location-input.js"></script>
-    <script src="gravity://browser-assets/components/navigation-bar.js"></script>
-    <script src="gravity://browser-assets/components/browser-layout.js"></script>
-    <script src="gravity://browser-assets/components/left-navigation.js"></script>
-    <script src="gravity://browser-assets/components/tab-component.js"></script>
-    <script src="gravity://browser-assets/components/tab-navigation.js"></script>
+        <script src="gravity://browser-assets/components/add-tab-button.js"></script>
+        <script src="gravity://browser-assets/components/time-dialog.js"></script>
+        <script src="gravity://browser-assets/components/left-navigation-holder.js"></script>
+        <script src="gravity://browser-assets/components/web-contents.js"></script>
+        <script src="gravity://browser-assets/components/utility-bar.js"></script>
+        <script src="gravity://browser-assets/components/location-input.js"></script>
+        <script src="gravity://browser-assets/components/navigation-bar.js"></script>
+        <script src="gravity://browser-assets/components/browser-layout.js"></script>
+        <script src="gravity://browser-assets/components/left-navigation.js"></script>
+        <script src="gravity://browser-assets/components/tab-component.js"></script>
+        <script src="gravity://browser-assets/components/tab-navigation.js"></script>
 
-    <style>
-        body {
-            overflow: hidden;
-            background: rgba(197, 197, 197, 0.38);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-    </style>
-</head>
-<body>
-    <core-browser-view></core-browser-view>
-</body>
+        <style>
+            body {
+                overflow: hidden;
+                background: rgba(197, 197, 197, 0.38);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+            }
+        </style>
+    </head>
+    <body>
+        <core-browser-view></core-browser-view>
+    </body>
 </html>

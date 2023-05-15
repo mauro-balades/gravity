@@ -1,14 +1,14 @@
-import {LitElement, html, css} from 'lit';
+import { LitElement, html, css } from "lit";
 
 export class GravityTextInput extends LitElement {
-  static properties = {
-    className: {},
-    numElements: {},
-    scale: {},
-    style: {},
-  };
+    static properties = {
+        className: {},
+        numElements: {},
+        scale: {},
+        style: {},
+    };
 
-  static styles = css`
+    static styles = css`
   :host {
     display: flex;
     align-items: center;
@@ -16,36 +16,50 @@ export class GravityTextInput extends LitElement {
 
     position: relative:
   }
-  `
+  `;
 
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.className = '';
-    this.numElements = 0;
-    this.style = '';
-    this.scale = 0.3;
-  }
-
-  render() {
-    if (parseInt(this.numElements) == 0) {
-      return html`
-        <link rel="stylesheet" href="gravity://assets/css/fa-all.min.css" type="text/css" />
-        <i class="${this.className}"></i>
-    `;
-    } else {
-      return html`
-          <style>
-          :host {
-            transform: scale(${parseFloat(this.scale)});
-          }
-          </style>
-          <link rel="stylesheet" href="gravity://assets/css/fa-all.min.css" type="text/css" />
-          <div style="position: absolute; ${this.style}" class="${this.className}">${Array.from(Array(parseInt(this.numElements)).keys()).map(_ => html`<div></div>`)}</div>
-      `;
+        this.className = "";
+        this.numElements = 0;
+        this.style = "";
+        this.scale = 0.3;
     }
-  }
+
+    render() {
+        if (parseInt(this.numElements) == 0) {
+            return html`
+                <link
+                    rel="stylesheet"
+                    href="gravity://assets/css/fa-all.min.css"
+                    type="text/css"
+                />
+                <i class="${this.className}"></i>
+            `;
+        } else {
+            return html`
+                <style>
+                    :host {
+                        transform: scale(${parseFloat(this.scale)});
+                    }
+                </style>
+                <link
+                    rel="stylesheet"
+                    href="gravity://assets/css/fa-all.min.css"
+                    type="text/css"
+                />
+                <div
+                    style="position: absolute; ${this.style}"
+                    class="${this.className}"
+                >
+                    ${Array.from(Array(parseInt(this.numElements)).keys()).map(
+                        (_) => html`<div></div>`
+                    )}
+                </div>
+            `;
+        }
+    }
 }
 
-customElements.define('gr-icon', GravityTextInput);
-
+customElements.define("gr-icon", GravityTextInput);

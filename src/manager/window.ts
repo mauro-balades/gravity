@@ -20,7 +20,9 @@ export class WindowManager {
             timeDialog: createTimeDialog(this.latestId),
         });
 
-        logger.i("Succesfully created new browser window with id: " + this.latestId);
+        logger.i(
+            "Succesfully created new browser window with id: " + this.latestId
+        );
         return this.latestId;
     }
 
@@ -30,7 +32,7 @@ export class WindowManager {
 
     public updateWindow(id: number) {
         let w = this.getWindow(id);
-        w.window.webContents.send(`update-browser-${id}`)
+        w.window.webContents.send(`update-browser-${id}`);
     }
 }
 

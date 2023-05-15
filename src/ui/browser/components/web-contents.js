@@ -1,27 +1,26 @@
-
-import {html, css, LitElement} from 'lit';
+import { html, css, LitElement } from "lit";
 
 export class WebContentsElement extends LitElement {
-  static styles = css`
-    :host {
-        width: -webkit-fill-available;
-        height: 100%;
+    static styles = css`
+        :host {
+            width: -webkit-fill-available;
+            height: 100%;
 
-        display: block;
+            display: block;
+        }
+    `;
+
+    static properties = {
+        tab: {},
+    };
+
+    constructor() {
+        super();
+        this.tab = null;
     }
-  `;
 
-  static properties = {
-    tab: {},
-  };
-
-  constructor() {
-    super();
-    this.tab = null;
-  }
-
-  render() {
-    return html``;
-  }
+    render() {
+        return html``;
+    }
 }
-customElements.define('web-contents', WebContentsElement);
+customElements.define("web-contents", WebContentsElement);

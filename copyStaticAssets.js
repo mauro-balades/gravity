@@ -50,17 +50,23 @@ walk(`${__dirname}/dist/ui/`, function (err, results) {
 
     for (let i = 0; i < results.length; i++) {
         let f = results[i];
-        if (f.endsWith(".js") && !f.endsWith(".asset.js") && !f.endsWith(".bundle.js")) {
+        if (
+            f.endsWith(".js") &&
+            !f.endsWith(".asset.js") &&
+            !f.endsWith(".bundle.js")
+        ) {
             let output = f.replace(".js", ".bundle.js");
 
             let shouldCompile = false;
             try {
                 const outputFileMtime = fs.statSync(output).mtime;
-                const originalFileMtime = fs.statSync(f.replace(`${__dirname}/dist/ui/`, `${__dirname}/src/ui/`)).mtime;
+                const originalFileMtime = fs.statSync(
+                    f.replace(`${__dirname}/dist/ui/`, `${__dirname}/src/ui/`)
+                ).mtime;
 
                 shouldCompile = originalFileMtime > outputFileMtime;
             } catch (e) {
-                console.log(` [bundle] error: ${e}`)
+                console.log(` [bundle] (ignore warning): ${e}`);
                 shouldCompile = true;
             }
 
@@ -70,15 +76,21 @@ walk(`${__dirname}/dist/ui/`, function (err, results) {
                 let parsed = path.parse(f);
                 console.log(" [bundle]", f, " -> ", output);
 
-                let ex = shell.exec(`webpack ${f} --output-filename ${parsed.name}.bundle.js --target web --output-path ${parsed.dir}`);
-                if (ex.code != 0) { process.exit(1); }
+                let ex = shell.exec(
+                    `webpack ${f} --output-filename ${parsed.name}.bundle.js --target web --output-path ${parsed.dir}`
+                );
+                if (ex.code != 0) {
+                    process.exit(1);
+                }
 
                 console.log(" [bundle]", output, " -> ", f);
 
                 shell.rm(f);
                 shell.cp(output, f);
             } else {
-                console.log(` [bundle] File '${f}' hasn't been changed, ignoring`);
+                console.log(
+                    ` [bundle] File '${f}' hasn't been changed, ignoring`
+                );
 
                 shell.rm(f);
                 shell.cp(output, f);
@@ -88,4 +100,3 @@ walk(`${__dirname}/dist/ui/`, function (err, results) {
 
     console.log(" [bundle] Done.\n");
 });
-

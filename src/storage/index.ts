@@ -7,7 +7,7 @@ import { IUser, ITheme } from "../interfaces";
 var globalDB: sqlite3.Database;
 
 export function getAllThemes() {
-    return globalDB.prepare('SELECT * FROM themes').all() as ITheme[];
+    return globalDB.prepare("SELECT * FROM themes").all() as ITheme[];
 }
 
 export function getAllUsers() {
@@ -15,7 +15,7 @@ export function getAllUsers() {
     let themes = getAllThemes();
     let rows = globalDB.prepare("SELECT * FROM profiles").all() as IUser[];
     for (const u of rows) {
-        let theme = themes.find((x: ITheme) => x.id == u.theme_id );
+        let theme = themes.find((x: ITheme) => x.id == u.theme_id);
         if (theme !== undefined) {
             u.theme = theme;
         } else {
@@ -30,8 +30,10 @@ export function getAllUsers() {
 
 export async function createNewUser(username: string): Promise<IUser> {
     let usr: IUser;
-    const result = await globalDB.prepare("INSERT INTO profiles (name) VALUES (?)").run([ username ]);
-    usr = getAllUsers()[result.lastInsertRowid as number - 1];
+    const result = await globalDB
+        .prepare("INSERT INTO profiles (name) VALUES (?)")
+        .run([username]);
+    usr = getAllUsers()[(result.lastInsertRowid as number) - 1];
 
     return usr;
 }

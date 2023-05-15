@@ -8,14 +8,14 @@ import { createSetUpWindow } from "../windows/setup";
 import { createBrowserWindow } from "../windows/browser";
 
 export default function () {
-    let dbFile = path.join(app.getPath('userData'), "configuration.db");
+    let dbFile = path.join(app.getPath("userData"), "configuration.db");
     logger.i(`Fetching database from ${dbFile}`);
 
     const dbExists = !fs.existsSync(dbFile);
     const db = getDatabase(dbFile);
 
     if (dbExists) {
-        logger.v("No database found, creating a new one")
+        logger.v("No database found, creating a new one");
         setUpDatabase(db);
     }
 

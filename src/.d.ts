@@ -1,2 +1,2 @@
-declare module 'mime-types';
-declare module 'glasstron';
+declare module "mime-types";
+declare module "glasstron";

@@ -18,4 +18,4 @@ export default svg`
 </pattern>
 </defs>
 </svg>
-`
+`;

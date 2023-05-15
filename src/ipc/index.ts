@@ -1,14 +1,15 @@
-import {app, BrowserView, BrowserWindow, ipcMain} from 'electron';
-import { createNewUser } from '../storage';
-import { createBrowserWindow } from '../windows/browser';
+import { app, BrowserView, BrowserWindow, ipcMain } from "electron";
+import { createNewUser } from "../storage";
+import { createBrowserWindow } from "../windows/browser";
 import { windowManager } from "../manager/window";
-import { logger } from '../logger';
-import { Tab } from '../manager/tabs';
-import path = require('path');
-import { normalizeObject } from '../utils';
+import { logger } from "../logger";
+import { Tab } from "../manager/tabs";
+import path = require("path");
+import { normalizeObject } from "../utils";
+import { createOmniboxView, loadOmniboxURL } from "../modals/omnibox-view";
 
 export default function () {
-    ipcMain.on('create-new-user', async (event, username) => {
+    ipcMain.on("create-new-user", async (event, username) => {
         logger.i("Creaing new user called " + username);
         let user = await createNewUser(username);
         logger.v("Opening browser window with new profile created...");
@@ -17,7 +18,7 @@ export default function () {
         setTimeout(
             () => {
                 logger.v("Closing window used for profile setup");
-                BrowserWindow.getFocusedWindow().close() // We assume it's the user creation modal
+                BrowserWindow.getFocusedWindow().close(); // We assume it's the user creation modal
             },
             process.platform == "linux" ? 1000 : 0
             // Electron has a bug on linux where it
@@ -26,43 +27,51 @@ export default function () {
             // is necessary to delay the window
             // spawn function.
         );
-    })
+    });
 
-    ipcMain.on('get-current-user', (event, winID) => {
+    ipcMain.on("get-current-user", (event, winID) => {
         let win = windowManager.getWindow(winID);
         let user = win.user;
 
         event.returnValue = user;
     });
 
-    ipcMain.on('create-new-tab', (event, winID, url, active) => {
+    ipcMain.on("create-new-tab", (event, winID, url, active) => {
         logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
-        let loadedURL = url ?? /*TODO: user default tab*/"https://google.com";
+        let loadedURL = url ?? /*TODO: user default tab*/ "https://google.com";
 
         const view = new BrowserView({
             webPreferences: {
                 contextIsolation: true,
                 webviewTag: false,
-                defaultEncoding: 'utf-8',
+                defaultEncoding: "utf-8",
                 nodeIntegration: false,
                 scrollBounce: true,
                 navigateOnDragDrop: true,
                 safeDialogs: true,
-            }
+            },
         });
 
         win.window.addBrowserView(view);
-        view.setBackgroundColor('#fff')
+        view.setBackgroundColor("#fff");
         view.webContents.loadURL(loadedURL);
 
         let t = new Tab(loadedURL, view);
+        let omnibox = createOmniboxView();
+        win.tabs.addTab(t, { view, omnibox });
+        win.tabs.changeTab(t.id);
+
         t.setUpdater(() => {
-            win.window.webContents.send(`update-tab-info-${win.id}-${t.id}`, normalizeObject(t));
+            let channel = `update-tab-info-${win.id}-${t.id}`;
+            let normalized = normalizeObject(t);
+
+            win.window.webContents.send(channel, normalized);
+            omnibox.webContents.send(channel, normalized);
         });
 
-        win.tabs.addTab(t, view);
-        win.tabs.changeTab(t.id);
+        loadOmniboxURL(omnibox, winID, t.id);
+        win.window.addBrowserView(omnibox);
 
         windowManager.updateWindow(win.id);
         event.returnValue = normalizeObject(t);
@@ -75,22 +84,29 @@ export default function () {
         windowManager.updateWindow(win.id);
     });
 
-    ipcMain.on('get-all-tabs', (event, winID) => {
+    ipcMain.on("get-all-tabs", (event, winID) => {
         let win = windowManager.getWindow(winID);
         event.returnValue = win.tabs.tabs.map((x: Tab) => normalizeObject(x));
     });
 
-    ipcMain.on('time-dialog-open', (event, winID) => {
+    ipcMain.on("get-tab", (event, winID, tabID) => {
         let win = windowManager.getWindow(winID);
-        win.window.addBrowserView(win.timeDialog);
+        let tab = win.tabs.getTab(tabID);
+        event.returnValue = normalizeObject(tab);
     });
 
-    ipcMain.on('time-dialog-close', (event, winID) => {
+    ipcMain.on("time-dialog-open", (event, winID) => {
+        let win = windowManager.getWindow(winID);
+        win.window.addBrowserView(win.timeDialog);
+        win.timeDialog.webContents.focus();
+    });
+
+    ipcMain.on("time-dialog-close", (event, winID) => {
         let win = windowManager.getWindow(winID);
         win.window.removeBrowserView(win.timeDialog);
     });
 
-    ipcMain.on('time-dialog-resize', (event, winID, rect) => {
+    ipcMain.on("time-dialog-resize", (event, winID, rect) => {
         let win = windowManager.getWindow(winID);
         win.timeDialog.setBounds({
             x: Math.round(rect.x),
@@ -100,7 +116,17 @@ export default function () {
         });
     });
 
-    ipcMain.on('upate-webcontent-rect', (event, winID, tabID, rect) => {
+    ipcMain.on("omnibox-resize", (event, winID, tabID, rect) => {
+        let win = windowManager.getWindow(winID);
+        win.tabs.getOmniboxView(tabID).setBounds({
+            x: Math.round(rect.x),
+            y: Math.round(rect.y),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+        });
+    });
+
+    ipcMain.on("upate-webcontent-rect", (event, winID, tabID, rect) => {
         let win = windowManager.getWindow(winID);
         let view = win.tabs.getTabView(tabID);
 

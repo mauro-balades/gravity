@@ -1,8 +1,7 @@
+import { contextBridge, ipcRenderer } from "electron";
+const { remote } = require("electron") as any;
 
-import { contextBridge, ipcRenderer } from 'electron';
-const { remote } = require('electron') as any;
-
-
-contextBridge.exposeInMainWorld('electronAPI', {
-  createNewUser: (username: string) => ipcRenderer.send('create-new-user', username),
+contextBridge.exposeInMainWorld("electronAPI", {
+    createNewUser: (username: string) =>
+        ipcRenderer.send("create-new-user", username),
 });

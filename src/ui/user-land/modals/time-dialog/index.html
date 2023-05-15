@@ -1,59 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Dialog</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Time Dialog</title>
 
-    <link rel="stylesheet" href="gravity://ui/global/gravity-core.css">
+        <link rel="stylesheet" href="gravity://ui/global/gravity-core.css" />
 
-    <script src="gravity://browser-assets/window.js"></script>
-    <script src="gravity://browser-assets/theme.js"></script>
+        <script src="gravity://browser-assets/window.js"></script>
+        <script src="gravity://browser-assets/theme.js"></script>
 
-    <script src="gravity://modals/time-dialog/clock-header.js"></script>
-    <script src="gravity://modals/time-dialog/analog-clock.js"></script>
-    <script src="gravity://modals/time-dialog/index.js"></script>
+        <script src="gravity://modals/time-dialog/clock-header.js"></script>
+        <script src="gravity://modals/time-dialog/analog-clock.js"></script>
+        <script src="gravity://modals/time-dialog/index.js"></script>
 
-    <style>
-        @font-face {
-            font-family: "Font Awesome 5 Brands";
-            font-style: normal;
-            font-weight: normal;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-brands-400.eot);
-            src: url(gravity://assets/fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-brands-400.woff2) format("woff2"), url(gravity://assets/fonts/fa-brands-400.woff) format("woff"), url(gravity://assets/fonts/fa-brands-400.ttf) format("truetype"), url(gravity://assets/fonts/fa-brands-400.svg#fontawesome) format("svg")
-        }
-        @font-face {
-            font-family: "Font Awesome 5 Free";
-            font-style: normal;
-            font-weight: 400;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-regular-400.eot);
-            src: url(gravity://assets/fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-regular-400.woff2) format("woff2"), url(gravity://assets/fonts/fa-regular-400.woff) format("woff"), url(gravity://assets/fonts/fa-regular-400.ttf) format("truetype"), url(gravity://assets/fonts/fa-regular-400.svg#fontawesome) format("svg")
-        }
-        @font-face {
-            font-family: "Font Awesome 5 Free";
-            font-style: normal;
-            font-weight: 900;
-            font-display: auto;
-            src: url(gravity://assets/fonts/fa-solid-900.eot);
-            src: url(gravity://assets/fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(gravity://assets/fonts/fa-solid-900.woff2) format("woff2"), url(gravity://assets/fonts/fa-solid-900.woff) format("woff"), url(gravity://assets/fonts/fa-solid-900.ttf) format("truetype"), url(gravity://assets/fonts/fa-solid-900.svg#fontawesome) format("svg")
-        }
-    </style>
+        <style>
+            @font-face {
+                font-family: "Font Awesome 5 Brands";
+                font-style: normal;
+                font-weight: normal;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-brands-400.eot);
+                src: url(gravity://assets/fonts/fa-brands-400.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-brands-400.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-brands-400.woff)
+                        format("woff"),
+                    url(gravity://assets/fonts/fa-brands-400.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-brands-400.svg#fontawesome)
+                        format("svg");
+            }
+            @font-face {
+                font-family: "Font Awesome 5 Free";
+                font-style: normal;
+                font-weight: 400;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-regular-400.eot);
+                src: url(gravity://assets/fonts/fa-regular-400.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-regular-400.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-regular-400.woff)
+                        format("woff"),
+                    url(gravity://assets/fonts/fa-regular-400.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-regular-400.svg#fontawesome)
+                        format("svg");
+            }
+            @font-face {
+                font-family: "Font Awesome 5 Free";
+                font-style: normal;
+                font-weight: 900;
+                font-display: auto;
+                src: url(gravity://assets/fonts/fa-solid-900.eot);
+                src: url(gravity://assets/fonts/fa-solid-900.eot?#iefix)
+                        format("embedded-opentype"),
+                    url(gravity://assets/fonts/fa-solid-900.woff2)
+                        format("woff2"),
+                    url(gravity://assets/fonts/fa-solid-900.woff) format("woff"),
+                    url(gravity://assets/fonts/fa-solid-900.ttf)
+                        format("truetype"),
+                    url(gravity://assets/fonts/fa-solid-900.svg#fontawesome)
+                        format("svg");
+            }
+        </style>
 
-    <style>
-        body, html {
-            width: 100%;
-            height: -webkit-fill-available;
-            border-radius: var(--gr-dialog-radius);
+        <style>
+            body,
+            html {
+                width: 100%;
+                height: -webkit-fill-available;
+                border-radius: var(--gr-dialog-radius);
 
-            background: none !important;
-            overflow: hidden;
-        }
-    </style>
-</head>
-<body>
-    <time-dialog></time-dialog>
-</body>
+                background: none !important;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <time-dialog></time-dialog>
+    </body>
 </html>

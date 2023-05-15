@@ -1,13 +1,12 @@
-
 :root {
     --gr-button-background: rgb(26, 115, 232);
     --gr-primary-background: #fff;
-    --gr-secondary-background: rgba(0,0,0,.05);
+    --gr-secondary-background: rgba(0, 0, 0, 0.05);
     --gr-button-radius: 6px;
     --gr-dialog-radius: 6px;
     --gr-input-radius: 6px;
     --gr-primary-color: #000;
-    --gr-glass-opacity: .5;
+    --gr-glass-opacity: 0.5;
     --gr-secondary-color: #fff;
     --gr-system-font: Roboto, "Inter", Arial, sans-serif;
 }
@@ -27,5 +26,5 @@ body {
 }
 
 p {
-    opacity: .7;
+    opacity: 0.7;
 }

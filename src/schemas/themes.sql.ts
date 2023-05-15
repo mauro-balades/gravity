@@ -108,4 +108,4 @@ INSERT INTO themes (
 	'linear-gradient(135deg, rgba(225,179,245,1) 0%, rgba(155,157,226,1) 100%)',
 	'Universe (dark)'
 );
-`
+`;

@@ -4,13 +4,16 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <title>Create new user</title>
+        <title>Time Dialog</title>
 
         <link rel="stylesheet" href="gravity://ui/global/gravity-core.css" />
 
-        <script type="module" src="gravity://ui/global/components.js"></script>
-        <script type="module" src="gravity://new-user/index.js"></script>
+        <script src="gravity://browser-assets/window.js"></script>
+        <script src="gravity://browser-assets/theme.js"></script>
+
+        <script src="gravity://sub-windows/omnibox/certificate-info.js"></script>
+        <script src="gravity://sub-windows/omnibox/url-handler.js"></script>
+        <script src="gravity://sub-windows/omnibox/index.js"></script>
 
         <style>
             @font-face {
@@ -66,13 +69,18 @@
         </style>
 
         <style>
-            body {
+            body,
+            html {
+                width: 100%;
+                height: -webkit-fill-available;
+                border-radius: var(--gr-dialog-radius);
+
+                background: none !important;
                 overflow: hidden;
-                background: rgba(255, 255, 255, 0.8);
             }
         </style>
     </head>
     <body>
-        <setup-user></setup-user>
+        <location-input></location-input>
     </body>
 </html>

@@ -1,7 +1,18 @@
-import {html, css, LitElement} from 'lit';
+import { html, css, LitElement } from "lit";
 
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
 ];
 
 export class ClockHeader extends LitElement {
@@ -10,7 +21,8 @@ export class ClockHeader extends LitElement {
             padding: 20px;
         }
 
-        h3, p {
+        h3,
+        p {
             line-height: 1;
             margin: 1px 0px;
 
@@ -24,7 +36,7 @@ export class ClockHeader extends LitElement {
         }
 
         p {
-            opacity: .7;
+            opacity: 0.7;
             font-weight: 500;
         }
     `;
@@ -38,18 +50,20 @@ export class ClockHeader extends LitElement {
 
     updateTime() {
         let display = this.shadowRoot.querySelector("p");
-    
+
         let currentTimeDate = new Date();
-    
+
         let hour = currentTimeDate.getHours();
-        var minutes =  currentTimeDate.getMinutes();
-        var seconds =  currentTimeDate.getSeconds();
+        var minutes = currentTimeDate.getMinutes();
+        var seconds = currentTimeDate.getSeconds();
 
-        hour = hour < 10 ? '0'+hour : hour;
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        seconds = seconds < 10 ? '0'+seconds : seconds;
+        hour = hour < 10 ? "0" + hour : hour;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.innerHTML = `${currentTimeDate.getDate()} ${monthNames[currentTimeDate.getMonth()]}, ${hour}:${minutes}:${seconds}`
+        display.innerHTML = `${currentTimeDate.getDate()} ${
+            monthNames[currentTimeDate.getMonth()]
+        }, ${hour}:${minutes}:${seconds}`;
     }
 
     render() {
@@ -59,4 +73,4 @@ export class ClockHeader extends LitElement {
         `;
     }
 }
-customElements.define('clock-header', ClockHeader);
+customElements.define("clock-header", ClockHeader);

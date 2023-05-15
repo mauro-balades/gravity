@@ -1,4 +1,4 @@
-import {svg} from "lit";
+import { svg } from "lit";
 
 export default svg`<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="61.2834" y="36" width="30" height="30" rx="4" transform="rotate(23 61.2834 36)" fill="#4285F4"/>

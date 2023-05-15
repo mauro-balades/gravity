@@ -1,83 +1,92 @@
-import {LitElement, html, css} from 'lit';
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import { LitElement, html, css } from "lit";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 export class GravityButton extends LitElement {
-  static properties = {
-    text: {},
-    disabled: {},
-    secondary: {},
-    style: {},
-  };
+    static properties = {
+        text: {},
+        disabled: {},
+        secondary: {},
+        style: {},
+    };
 
-  static styles = css`
-:host > div {
-  background-color: var(--gr-button-background);
-  border-radius: var(--gr-button-radius);
+    static styles = css`
+        :host > div {
+            background-color: var(--gr-button-background);
+            border-radius: var(--gr-button-radius);
 
-  font-weight: 500;
-  font-size: 81.25%;
+            font-weight: 500;
+            font-size: 81.25%;
 
-  width: fit-content;
-  min-width: 100px;
-  cursor: pointer;
+            width: fit-content;
+            min-width: 100px;
+            cursor: pointer;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-  color: var(--gr-secondary-color);
-  outline-width: 0;
+            color: var(--gr-secondary-color);
+            outline-width: 0;
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
+            white-space: nowrap;
+            text-overflow: ellipsis;
 
-  overflow: hidden;
-  padding: 8px 16px;
+            overflow: hidden;
+            padding: 8px 16px;
 
-  position: relative;
-  user-select: none;
+            position: relative;
+            user-select: none;
 
-  border: 2px solid;
-  transition: .1s;
-}
+            border: 2px solid;
+            transition: 0.1s;
+        }
 
-:host gr-icon {
-  font-size: 14px;
-  height: 15px;
-}
+        :host gr-icon {
+            font-size: 14px;
+            height: 15px;
+        }
 
-:host > div:hover {
-  opacity: .8;
-  box-shadow: var(--active-shadow-action), 0 1px 2px 0 var(--gr-button-background), .3, 0 3px 6px 2px var(--gr-button-background), .15;
-}
+        :host > div:hover {
+            opacity: 0.8;
+            box-shadow: var(--active-shadow-action),
+                0 1px 2px 0 var(--gr-button-background), 0.3,
+                0 3px 6px 2px var(--gr-button-background), 0.15;
+        }
 
-:host > div.disabled {
-  background-color: rgba(0,0,0,.3);
-  cursor: not-allowed;
-}
+        :host > div.disabled {
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: not-allowed;
+        }
 
-:host > div.secondary {
-    background-color: transparent;
-    color: var(--gr-button-background);
-    border: 2px solid var(--gr-button-background);
-}
-  `;
-
-  constructor() {
-    super();
-
-    this.disabled = false;
-    this.style = '';
-    this.text = '';
-    this.secondary = false;
-  }
-
-  render() {
-    return html`
-      <div style="${this.style}" class="${(this.disabled == 'true') ? 'disabled' : ''} ${this.secondary == 'true' ? 'secondary' : ''}">${unsafeHTML(this.text)}</div>
+        :host > div.secondary {
+            background-color: transparent;
+            color: var(--gr-button-background);
+            border: 2px solid var(--gr-button-background);
+        }
     `;
-  }
+
+    constructor() {
+        super();
+
+        this.disabled = false;
+        this.style = "";
+        this.text = "";
+        this.secondary = false;
+    }
+
+    render() {
+        return html`
+            <div
+                style="${this.style}"
+                class="${this.disabled == "true" ? "disabled" : ""} ${this
+                    .secondary == "true"
+                    ? "secondary"
+                    : ""}"
+            >
+                ${unsafeHTML(this.text)}
+            </div>
+        `;
+    }
 }
 
-customElements.define('gr-button', GravityButton);
-
+customElements.define("gr-button", GravityButton);
