@@ -15,7 +15,7 @@ export function createOmniboxView() {
         },
     });
 
-    view.webContents.openDevTools({ mode: "detach" });
+    // view.webContents.openDevTools({ mode: "detach" });
     return view;
 }
 

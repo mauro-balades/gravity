@@ -95,6 +95,16 @@ export default function () {
         event.returnValue = normalizeObject(tab);
     });
 
+    ipcMain.on("tab:reload", (event, winID, tabID, ignoreCache = false) => {
+        let win = windowManager.getWindow(winID);
+        let webContents = win.tabs.getTabView(tabID).webContents;
+        if (ignoreCache) {
+            webContents.reloadIgnoringCache();
+        } else {
+            webContents.reload();
+        }
+    });
+
     ipcMain.on("time-dialog-open", (event, winID) => {
         let win = windowManager.getWindow(winID);
         win.window.addBrowserView(win.timeDialog);

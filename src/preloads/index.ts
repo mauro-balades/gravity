@@ -46,4 +46,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
     },
     addUpdateHandle: (updater: any) =>
         ipcRenderer.on(`update-browser-${$windowID}`, updater),
+
+    // Tab functions
+    reloadTab: (tabID: number, ignoreCache: boolean) =>
+        ipcRenderer.send("tab:reload", $windowID, tabID, ignoreCache),
 });
