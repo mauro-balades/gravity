@@ -5,3 +5,4 @@ export const GRAVITY_COMPONENTS = "gravity://ui/global/components.js";
 export const GRAVITY_MODALS = "gravity://modals/";
 export const GRAVITY_SUBWINDOWS = "gravity://sub-windows/";
 export const GRAVITY_BROWSER_ASSETS = "gravity://browser-assets";
+export const GRAVITY_NEW_TAB = "gravity://new-tab";

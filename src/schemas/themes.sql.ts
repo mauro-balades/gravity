@@ -81,7 +81,7 @@ INSERT INTO themes (
 	'5px',
 	'#000',
 	'#fff',
-	'linear-gradient(135deg, rgba(225,179,245,1) 0%, rgba(155,157,226,1) 100%)',
+	'linear-gradient(135deg, #feb5bc 0%, #7363cf 100%)',
 	'Universe (light)'
 );
 
@@ -105,7 +105,7 @@ INSERT INTO themes (
 	'5px',
 	'#fff',
 	'#141417',
-	'linear-gradient(135deg, rgba(225,179,245,1) 0%, rgba(155,157,226,1) 100%)',
+	'linear-gradient(135deg, #feb5bc 0%, #7363cf 100%)',
 	'Universe (dark)'
 );
 `;

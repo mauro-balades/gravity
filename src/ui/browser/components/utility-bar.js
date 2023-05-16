@@ -26,7 +26,7 @@ export class UtilityBar extends LitElement {
             content: "";
             top: 1px;
             left: 0;
-            height: 2px;
+            height: 1px;
         }
 
         :host::before {

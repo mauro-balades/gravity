@@ -19,6 +19,7 @@ export interface IUser {
     name: string;
     theme_id: number;
     theme: ITheme;
+    defaultTab: string;
 }
 
 export interface IWindow {

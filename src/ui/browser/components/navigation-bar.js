@@ -50,6 +50,18 @@ export class NavigationBar extends LitElement {
         :host .icon-button > svg {
             width: 100%;
         }
+
+        :host::before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: var(--gr-glass-opacity);
+            z-index: -1;
+            background: var(--gr-primary-background);
+        }
     `;
 
     static properties = {
@@ -141,6 +153,11 @@ export class NavigationBar extends LitElement {
                 `}
             </div>
             <location-input id="location-input"></location-input>
+            <div class="icon-button">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"></path>
+                </svg>
+            </div>
         `;
     }
 }

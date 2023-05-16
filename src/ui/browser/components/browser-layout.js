@@ -25,18 +25,6 @@ export class BrowserLayout extends LitElement {
             display: flex;
             flex-direction: column;
         }
-
-        :host::before {
-            content: " ";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            opacity: var(--gr-glass-opacity);
-            z-index: -1;
-            background: var(--gr-primary-background);
-        }
     `;
 
     static properties = {

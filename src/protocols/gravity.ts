@@ -91,6 +91,12 @@ function gravityProtocol(
             path.join(__dirname, "..", "ui", "user-land", "subwindows"),
             cb
         );
+    } else if (requestUrl.startsWith(URIs.GRAVITY_NEW_TAB)) {
+        serveAppAsset(
+            requestUrl,
+            path.join(__dirname, "..", "ui", "user-land", "new-tab"),
+            cb
+        );
     } else {
         cb(404, "Not Found", "");
     }

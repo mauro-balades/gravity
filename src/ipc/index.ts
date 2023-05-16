@@ -37,7 +37,7 @@ export default function () {
     ipcMain.on("create-new-tab", (event, winID, url, active) => {
         logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
-        let loadedURL = url ?? /*TODO: user default tab*/ "https://google.com";
+        let loadedURL = url ?? win.user.defaultTab;
 
         const view = new BrowserView({
             webPreferences: {
@@ -52,7 +52,7 @@ export default function () {
         });
 
         win.window.addBrowserView(view);
-        view.setBackgroundColor("#fff");
+        // view.setBackgroundColor("#fff");
         view.webContents.loadURL(loadedURL);
 
         let t = new Tab(loadedURL, view);

@@ -32,6 +32,11 @@ export class WindowManager {
 
     public updateWindow(id: number) {
         let w = this.getWindow(id);
+
+        // TODO: move all sub-dialogs to top level
+        // w.window.removeBrowserView(w.timeDialog);
+        // w.window.addBrowserView(w.timeDialog);
+
         w.window.webContents.send(`update-browser-${id}`);
     }
 }
