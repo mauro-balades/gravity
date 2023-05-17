@@ -5,6 +5,7 @@ import { windowManager } from "../manager/window";
 import { logger } from "../logger";
 import { Tab } from "../manager/tabs";
 import { createOmniboxView, loadOmniboxURL } from "../modals/omnibox-view";
+import path = require("path");
 
 export default function () {
     ipcMain.on("create-new-user", async (event, username) => {
@@ -38,6 +39,7 @@ export default function () {
         logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
         let loadedURL = url ?? win.user.defaultTab;
+        let isGravity = loadedURL.startsWith("gravity:");
 
         const view = new BrowserView({
             webPreferences: {
@@ -48,12 +50,18 @@ export default function () {
                 scrollBounce: true,
                 navigateOnDragDrop: true,
                 safeDialogs: true,
+                preload: isGravity ? path.join(
+                    __dirname,
+                    "../",
+                    "preloads",
+                    "index.js"
+                ) : /*TODO: site preload = */"",
             },
         });
 
         win.window.addBrowserView(view);
         // view.setBackgroundColor("#fff");
-        view.webContents.loadURL(loadedURL);
+        view.webContents.loadURL(isGravity ? loadedURL + `?winID=${win.id}` : loadedURL);
 
         let t = new Tab(loadedURL, view);
         let omnibox = createOmniboxView();
