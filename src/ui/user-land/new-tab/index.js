@@ -19,7 +19,6 @@ export class NewTab extends LitElement {
         super();
 
         let user = window.electronAPI.getCurrentUser();
-        console.log(user)
         defineUserTheme(user.theme);
     }
 

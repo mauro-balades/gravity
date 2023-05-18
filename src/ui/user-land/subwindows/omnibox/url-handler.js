@@ -90,8 +90,8 @@ export class URLHandler extends LitElement {
         try {
             let parsed = new URL(this.tab.URL);
             if (
-                parsed.protocol == "gravity:" ||
-                parsed.protocol == "view-source:"
+                parsed.protocol == "gravity" ||
+                parsed.protocol == "view-source"
             ) {
                 return html`
                     <span>${parsed.protocol}//</span>
@@ -110,7 +110,7 @@ export class URLHandler extends LitElement {
                 <span>${parsed.pathname}</span>
             `;
         } catch (_) {
-            return html` <span>${this.tab.URL}//</span> `;
+            return html` <span>${this.tab.URL}</span> `;
         }
     }
 }
