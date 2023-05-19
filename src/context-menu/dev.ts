@@ -23,6 +23,7 @@ export default (items: any[], contents: WebContents, e: Event, props: ContextMen
             {
                 label: 'Inspect Element',
                 click: (_: any) => {
+                    contents.openDevTools({ mode: "detach" });
                     contents.inspectElement(props.x, props.y)
                     if (contents.isDevToolsOpened()) { contents.devToolsWebContents.focus() }
                 }
