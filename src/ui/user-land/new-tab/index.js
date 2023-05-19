@@ -24,6 +24,7 @@ export class NewTab extends LitElement {
 
     render() {
         return html`
+            <gravity-ntab-icon></gravity-ntab-icon>
             <url-bar></url-bar>
         `;
     }

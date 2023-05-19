@@ -55,6 +55,9 @@ export class URLHandler extends LitElement {
         super();
         this.tab = null;
         this.focused = false;
+
+        window.electronAPI.addCustomHandle("omnibox:activate-focus", () =>
+            this.activateFocus(undefined));
     }
 
     activateFocus(e) {
@@ -80,8 +83,8 @@ export class URLHandler extends LitElement {
             <input
                 id="url-input"
                 type="text"
-                value="${this.tab.URL}"
-                placeholder="Search or type URL"
+                value="${this.tab.URL.startsWith("gravity://new-tab") ? "" : this.tab.URL}"
+                placeholder="Search or insert a website address"
             />
         `;
     }
@@ -89,6 +92,13 @@ export class URLHandler extends LitElement {
     getURLElements() {
         try {
             let parsed = new URL(this.tab.URL);
+
+            if (this.tab.URL.startsWith("gravity://new-tab")) {
+                return html`
+                    <span>Gravity  ꞏ  New tab</span>
+                `
+            }
+
             if (
                 parsed.protocol == "gravity" ||
                 parsed.protocol == "view-source"

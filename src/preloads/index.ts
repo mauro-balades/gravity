@@ -54,4 +54,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
         ipcRenderer.send("tab:goBack", $windowID, tabID),
     goForward: (tabID: number) =>
         ipcRenderer.send("tab:goForward", $windowID, tabID),
+
+    addCustomHandle: (event: string, handle: any) =>
+        ipcRenderer.on(event, handle),
+    sendCustomEvent: (event: string, ...args: any[]) =>
+        ipcRenderer.send(event, ...args),
 });

@@ -10,18 +10,18 @@ export class URLBar extends LitElement {
         -webkit-backdrop-filter: blur(20px);
 
         display: flex;
-        flex-flow: column;
-    
+        align-items: center;
+
         padding: 10px 0;
         margin-top: 10px;
-    
-        justify-content: center;
-    
+
         width: 50%;
         height: 30px;
 
         border-radius: 8px;
         border: 1px solid rgba(0, 0, 0, 0.1);
+
+        cursor: pointer;
     }
     
     :host::before {
@@ -33,9 +33,13 @@ export class URLBar extends LitElement {
         height: 100%;
         opacity: var(--gr-glass-opacity);
         z-index: -1;
-    
+
         border-radius: 6px;
         background: var(--gr-primary-background);
+    }
+
+    svg {
+        margin: 0 20px;
     }
     `;
 
@@ -43,11 +47,21 @@ export class URLBar extends LitElement {
 
     constructor() {
         super();
+        this.addEventListener("click", () => {
+            window.electronAPI.sendCustomEvent("omnibox:activate-focus");
+        });
     }
 
     render() {
         return html`
-            Hello there
+            <div>
+                <svg fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                </svg>
+            </div>
+            <div>
+                Search or insert a website address
+            </div>
         `;
     }
 }

@@ -6,6 +6,7 @@ import { logger } from "../logger";
 import { Tab } from "../manager/tabs";
 import { createOmniboxView, loadOmniboxURL } from "../modals/omnibox-view";
 import path = require("path");
+import setContextMenu from "../context-menu";
 
 export default function () {
     ipcMain.on("create-new-user", async (event, username) => {
@@ -61,6 +62,7 @@ export default function () {
 
         win.window.addBrowserView(view);
         // view.setBackgroundColor("#fff");
+        setContextMenu(view.webContents, winID);
         view.webContents.loadURL(isGravity ? loadedURL + `?winID=${win.id}` : loadedURL);
 
         let t = new Tab(loadedURL, view);
@@ -74,6 +76,11 @@ export default function () {
 
             win.window.webContents.send(channel, normalized);
             omnibox.webContents.send(channel, normalized);
+        });
+
+        view.webContents.ipc.on("omnibox:activate-focus", () => {
+            omnibox.webContents.focus();
+            omnibox.webContents.send("omnibox:activate-focus")
         });
 
         loadOmniboxURL(omnibox, winID, t.id);
