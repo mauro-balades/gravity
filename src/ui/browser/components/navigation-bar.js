@@ -95,7 +95,7 @@ export class NavigationBar extends LitElement {
         let canGoForward = this.tab.canGoForward;
 
         return html`
-            <div @click=${canGoBack ? () => {
+            <div title="Go back in history" @click=${canGoBack ? () => {
               window.electronAPI.goBack(this.tab.id)
             } : () => {}} class="icon-button ${(!canGoBack) ? "disabled" : ""}">
                 <svg
@@ -112,7 +112,7 @@ export class NavigationBar extends LitElement {
                     />
                 </svg>
             </div>
-            <div @click=${canGoForward ? () => {
+            <div title="Go forward in history" @click=${canGoForward ? () => {
               window.electronAPI.goForward(this.tab.id)
             } : () => {}} class="icon-button ${(!canGoForward) ? "disabled" : ""}">
                 <svg
@@ -129,7 +129,7 @@ export class NavigationBar extends LitElement {
                     />
                 </svg>
             </div>
-            <div class="icon-button" @click=${(!this.tab.isLoading) ? () => {
+            <div title="Reload current tab" class="icon-button" @click=${(!this.tab.isLoading) ? () => {
               window.electronAPI.reloadTab(this.tab.id)
             } : () => {}}>
                 ${this.tab.isLoading ? html`

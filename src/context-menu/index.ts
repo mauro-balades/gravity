@@ -3,6 +3,8 @@ import setLinksMenu from "./link";
 import setDevMenu from "./dev";
 
 export default function setContextMenu(contents: WebContents, winID: number) {
+    // TODO: make it for each webview of the browser
+
     contents.on('context-menu', async (e: Event, props: ContextMenuParams) => {
         var targetWindow = BrowserWindow.getFocusedWindow()
         if (!targetWindow) { return }
