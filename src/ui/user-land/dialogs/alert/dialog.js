@@ -11,7 +11,7 @@ export class AlertDialogContent extends LitElement {
             justify-content: space-between;
 
             border-radius: var(--gr-dialog-radius);
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -25,7 +25,7 @@ export class AlertDialogContent extends LitElement {
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: var(--gr-glass-opacity);
+            opacity: calc(var(--gr-glass-opacity) + 0.4);
             z-index: -1;
             background: var(--gr-primary-background);
             border-radius: var(--gr-dialog-radius);

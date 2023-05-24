@@ -9,6 +9,7 @@ export class CoreBrowserDialog extends LitElement {
             display: flex;
 
             animation: flipInX .5s forward;
+            padding: 5px;
         }
 
         @keyframes flipInX {

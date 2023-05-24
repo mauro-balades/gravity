@@ -147,8 +147,14 @@ export class TabManager {
 
             if (isActive) {
                 this.topWindow.addBrowserView(this.browserViews[i]);
+                this.dialogs.forEach((x: IDialog) => {
+                    if (x.tabID == id) { this.topWindow.addBrowserView(x.view); }
+                })
             } else {
                 this.topWindow.removeBrowserView(this.browserViews[i]);
+                this.dialogs.forEach((x: IDialog) => {
+                    if (x.tabID != id) { this.topWindow.removeBrowserView(x.view); }
+                })
             }
         }
     }

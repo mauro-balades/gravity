@@ -53,6 +53,7 @@ export default function () {
                 nodeIntegration: false,
                 scrollBounce: true,
                 navigateOnDragDrop: true,
+                nodeIntegrationInSubFrames: true,
                 safeDialogs: true,
                 preload: isGravity
                     ? path.join(__dirname, "..", "preloads", "index.js")
@@ -63,6 +64,11 @@ export default function () {
                           "webview",
                           "index.js"
                       ),
+                sandbox: true,
+                partition: 'persist:view',
+                plugins: true,
+                webSecurity: true,
+                javascript: true,
             },
         });
 
@@ -97,10 +103,24 @@ export default function () {
                 omnibox.webContents.focus();
                 omnibox.webContents.send("omnibox:activate-focus");
             });
+        } else {
+            view.setBackgroundColor("#fff");
         }
 
         loadOmniboxURL(omnibox, winID, t.id);
         win.window.addBrowserView(omnibox);
+
+        view.webContents.setWindowOpenHandler((details: any) => {
+            ipcMain.emit(
+                "create-new-tab",
+                /* event = */ {},
+                winID,
+                details.url,
+                true
+            );
+
+            return {action: 'deny'}
+        });
 
         windowManager.updateWindow(win.id);
         event.returnValue = t.asObject();
@@ -209,9 +229,9 @@ export default function () {
 
         view.setBounds({
             x: Math.round(rect.x),
-            y: Math.round(rect.y),
+            y: Math.round(rect.y) - 1,
             width: Math.round(rect.width),
-            height: Math.round(rect.height),
+            height: Math.round(rect.height) + 1,
         });
     });
 }
