@@ -25,25 +25,29 @@ export class WebContentsElement extends LitElement {
         super();
         this.tab = null;
 
-        this.alertPrompt = this.resizePromptWrapper('alert');
+        this.alertPrompt = this.resizePromptWrapper("alert");
     }
 
     resizePromptWrapper(type) {
         return (entry) => {
             const { x, y, width, height } =
-            entry.target.getBoundingClientRect();
-            window.electronAPI.sendToDialog('resize', type, this.tab.id, {
+                entry.target.getBoundingClientRect();
+            window.electronAPI.sendToDialog("resize", type, this.tab.id, {
                 width,
                 height,
                 x,
                 y,
-            })
-        }
+            });
+        };
     }
 
     render() {
         return html`
-            <dialog-container style="width: 300px; height: 100px; left: 50%; top: -1px;" type="alert" .resize=${(e) => this.alertPrompt(e)}></dialog-container>
+            <dialog-container
+                style="width: 400px; height: 150px; left: 50%; top: -10px;"
+                type="alert"
+                .resize=${(e) => this.alertPrompt(e)}
+            ></dialog-container>
         `;
     }
 }

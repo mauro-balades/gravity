@@ -7,10 +7,11 @@ export class GravityButton extends LitElement {
         disabled: {},
         secondary: {},
         style: {},
+        autofocus: {},
     };
 
     static styles = css`
-        :host > div {
+        :host > button {
             background-color: var(--gr-button-background);
             border-radius: var(--gr-button-radius);
 
@@ -41,24 +42,28 @@ export class GravityButton extends LitElement {
             transition: 0.1s;
         }
 
+        button:focus {
+            border-color: var(--gr-primary-color);
+        }
+
         :host gr-icon {
             font-size: 14px;
             height: 15px;
         }
 
-        :host > div:hover {
+        :host > button:hover {
             opacity: 0.8;
             box-shadow: var(--active-shadow-action),
                 0 1px 2px 0 var(--gr-button-background), 0.3,
                 0 3px 6px 2px var(--gr-button-background), 0.15;
         }
 
-        :host > div.disabled {
+        :host > button.disabled {
             background-color: rgba(0, 0, 0, 0.3);
             cursor: not-allowed;
         }
 
-        :host > div.secondary {
+        :host > button.secondary {
             background-color: transparent;
             color: var(--gr-button-background);
             border: 2px solid var(--gr-button-background);
@@ -72,19 +77,21 @@ export class GravityButton extends LitElement {
         this.style = "";
         this.text = "";
         this.secondary = false;
+        this.autofocus = false;
     }
 
     render() {
         return html`
-            <div
+            <button
                 style="${this.style}"
                 class="${this.disabled == "true" ? "disabled" : ""} ${this
                     .secondary == "true"
                     ? "secondary"
                     : ""}"
+                ${this.autofocus ? "autofocus" : ""}
             >
                 ${unsafeHTML(this.text)}
-            </div>
+            </button>
         `;
     }
 }

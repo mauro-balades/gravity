@@ -59,30 +59,35 @@ contextBridge.exposeInMainWorld("electronAPI", {
     sendCustomEvent: (event: string, ...args: any[]) =>
         ipcRenderer.send(event, ...args),
 
-    createDialogInstance: (
-        type: DialogType,
-    ) => {
-        const { tabID } = ipcRenderer.sendSync("get-dialog-data-from-webcontents", $windowID);
-        const createChannel = (name: string) => `${name}-${type}-${$windowID}-${tabID}`;
+    createDialogInstance: (type: DialogType) => {
+        const { tabID } = ipcRenderer.sendSync(
+            "get-dialog-data-from-webcontents",
+            $windowID
+        );
+        const createChannel = (name: string) =>
+            `${name}-${type}-${$windowID}-${tabID}`;
 
         return {
             on: (name: string, cb: any) => {
-                console.log(createChannel(name))
+                console.log(createChannel(name));
                 ipcRenderer.on(createChannel(name), (...args) => cb(...args));
             },
             send: (name: string, ...args: any) => {
-                console.log(createChannel(name))
+                console.log(createChannel(name));
                 ipcRenderer.send(createChannel(name), ...args);
             },
-            sendLoaded: () => {
-                console.log(createChannel("loaded"))
-                ipcRenderer.send(createChannel("loaded"))
-            },
+            sendLoaded: () => 
+                ipcRenderer.invoke(createChannel("loaded")),
         };
     },
 
-    sendToDialog: (name: string, type: DialogType, tabID: number, ...args: any) => {
+    sendToDialog: (
+        name: string,
+        type: DialogType,
+        tabID: number,
+        ...args: any
+    ) => {
         let channel = `${name}-${type}-${$windowID}-${tabID}`;
         ipcRenderer.send(channel, ...args);
-    }
+    },
 });

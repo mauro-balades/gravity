@@ -137,6 +137,6 @@ async function serveAppAsset(
     var contentType = mime.lookup(filepath);
 
     // serve
-    logger.d(` => fetch response: ${filepath}`)
+    logger.d(` => fetch response: ${filepath}`);
     cb(200, contentType as string, filepath, CSP);
 }

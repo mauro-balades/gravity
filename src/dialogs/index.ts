@@ -15,8 +15,6 @@ export function createDialogInstance(options: IDialogShowOptions): IDialog {
     const { type, devtools, association, onWindowBoundsUpdate } = options;
 
     let view = createBrowserView();
-    view.webContents.loadURL(`gravity://dialogs/${type}/index.html?winID=${options.association.windowID}`);
-
     if (devtools) {
         view.webContents.openDevTools({ mode: "detach" });
     }
@@ -25,17 +23,18 @@ export function createDialogInstance(options: IDialogShowOptions): IDialog {
         type,
         view,
         tabID: association.tabID,
+        url: `gravity://dialogs/${type}/index.html?winID=${options.association.windowID}`,
         handle: (name, cb) => {
             const channel = `${name}-${type}-${association.windowID}-${association.tabID}`;
             ipcMain.handle(channel, (...args) => cb(...args));
         },
         on: (name, cb) => {
             const channel = `${name}-${type}-${association.windowID}-${association.tabID}`;
-            console.log(channel)
+            console.log(channel);
             ipcMain.on(channel, (...args) => cb(...args));
         },
-        rearrange: (rect: Rectangle = {x: 0, y: 0, width: 0, height: 0}) => {
+        rearrange: (rect: Rectangle = { x: 0, y: 0, width: 0, height: 0 }) => {
             view.setBounds(rect);
-        }
+        },
     };
 }

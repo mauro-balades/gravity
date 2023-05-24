@@ -157,25 +157,29 @@ export default function () {
         win.window.removeBrowserView(win.timeDialog);
     });
 
-    ipcMain.on("page-alert-dialog", async (event, message, winID, tabID) => {
+    ipcMain.on("page-alert-dialog", async (event, winID, tabID, message, title) => {
         let win = windowManager.getWindow(winID);
         let dialog = win.tabs.getDialogWithType(tabID, "alert");
 
-        event.returnValue = await showDialog(win, dialog, {});
+        event.returnValue = await showDialog(win, dialog, {message, title});
     });
 
     ipcMain.on("get-dialog-data-from-webcontents", (event, windowID) => {
         const contentsID = event.sender.id;
 
-        let window = windowManager.allWindows.find((x: IWindow) => x.window.id == windowID);
-        let tabIndex = window.tabs.allDialogs.findIndex((x: IDialog) => x.view.webContents.id == contentsID);
+        let window = windowManager.allWindows.find(
+            (x: IWindow) => x.window.id == windowID
+        );
+        let tabIndex = window.tabs.allDialogs.findIndex(
+            (x: IDialog) => x.view.webContents.id == contentsID
+        );
 
         let tab = window.tabs.tabs[tabIndex];
 
         event.returnValue = {
             windowID: window.id,
             tabID: tab.id,
-        }
+        };
     });
 
     // TODO: rework this

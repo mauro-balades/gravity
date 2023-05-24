@@ -24,17 +24,18 @@ export class DialogContainer extends LitElement {
         this.resize = () => {};
         this.type = "<bug>";
 
-        setTimeout(() => 
-        {let elem = this.shadowRoot.querySelector("span");new ResizeObserver((entries) => {
-            for (let entry of entries) {
-                this.resize(entry);
-            }
-        }).observe(elem);
-        window.electronAPI.addCustomHandle(`${this.type}-open`, () => {
-            this.resize({target:elem});
-        })
-    }, 50);
-
+        setTimeout(() => {
+            let elem = this.shadowRoot.querySelector("span");
+            new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    this.resize(entry);
+                }
+            }).observe(elem);
+            
+            window.electronAPI.addCustomHandle(`${this.type}-open`, () => {
+                this.resize({ target: elem });
+            });
+        }, 50);
     }
 
     render() {

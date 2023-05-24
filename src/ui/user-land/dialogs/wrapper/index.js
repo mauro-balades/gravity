@@ -1,5 +1,5 @@
 import { html, css, LitElement } from "lit";
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 export class CoreBrowserDialog extends LitElement {
     static styles = css`
@@ -7,11 +7,30 @@ export class CoreBrowserDialog extends LitElement {
             height: -webkit-fill-available;
             width: -webkit-fill-available;
             display: flex;
+
+            animation: flipInX .5s forward;
+        }
+
+        @keyframes flipInX {
+            0% {
+               transform: perspective(400px) rotateX(90deg); 
+               opacity: 0;
+            }
+            40% {
+               transform: perspective(400px) rotateX(-10deg);
+            }
+            70% {
+               transform: perspective(400px) rotateX(10deg);
+            }
+            100% {
+               transform: perspective(400px) rotateX(0deg);
+               opacity: 1;
+            }
         }
     `;
 
     static properties = {
-        dialog: { type: String }
+        dialog: { type: String },
     };
 
     constructor() {

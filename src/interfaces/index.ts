@@ -56,6 +56,8 @@ export interface IDialog {
     view: BrowserView;
     type: DialogType;
 
+    url: string;
+
     handle: (name: string, cb: (...args: any[]) => any) => void;
     on: (name: string, cb: (...args: any[]) => any) => void;
     rearrange: (bounds?: Rectangle) => void;
