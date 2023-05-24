@@ -1,5 +1,6 @@
-import { Rectangle, contextBridge, ipcRenderer } from "electron";
+import { Rectangle, contextBridge, ipcRenderer, webContents } from "electron";
 import { Tab } from "../manager/tabs";
+import { DialogType } from "../interfaces";
 
 var $windowID = -1;
 var $tabListeners: { id: number; listeners: [(x: Tab) => void] }[] = [];
@@ -35,7 +36,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
         let channel = `update-tab-info-${$windowID}-${tabID}`;
         if (ipcRenderer.eventNames().find((c) => c === channel) === undefined) {
             ipcRenderer.on(channel, (event, tab: Tab) => {
-                console.log($tabListeners);
                 let t = $tabListeners.find((x) => x.id == tabID);
 
                 for (let i = 0; i < t.listeners.length; i++) {
@@ -50,8 +50,7 @@ contextBridge.exposeInMainWorld("electronAPI", {
     // Tab functions
     reloadTab: (tabID: number, ignoreCache: boolean) =>
         ipcRenderer.send("tab:reload", $windowID, tabID, ignoreCache),
-    goBack: (tabID: number) =>
-        ipcRenderer.send("tab:goBack", $windowID, tabID),
+    goBack: (tabID: number) => ipcRenderer.send("tab:goBack", $windowID, tabID),
     goForward: (tabID: number) =>
         ipcRenderer.send("tab:goForward", $windowID, tabID),
 
@@ -59,4 +58,31 @@ contextBridge.exposeInMainWorld("electronAPI", {
         ipcRenderer.on(event, handle),
     sendCustomEvent: (event: string, ...args: any[]) =>
         ipcRenderer.send(event, ...args),
+
+    createDialogInstance: (
+        type: DialogType,
+    ) => {
+        const { tabID } = ipcRenderer.sendSync("get-dialog-data-from-webcontents", $windowID);
+        const createChannel = (name: string) => `${name}-${type}-${$windowID}-${tabID}`;
+
+        return {
+            on: (name: string, cb: any) => {
+                console.log(createChannel(name))
+                ipcRenderer.on(createChannel(name), (...args) => cb(...args));
+            },
+            send: (name: string, ...args: any) => {
+                console.log(createChannel(name))
+                ipcRenderer.send(createChannel(name), ...args);
+            },
+            sendLoaded: () => {
+                console.log(createChannel("loaded"))
+                ipcRenderer.send(createChannel("loaded"))
+            },
+        };
+    },
+
+    sendToDialog: (name: string, type: DialogType, tabID: number, ...args: any) => {
+        let channel = `${name}-${type}-${$windowID}-${tabID}`;
+        ipcRenderer.send(channel, ...args);
+    }
 });

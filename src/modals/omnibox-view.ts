@@ -1,19 +1,9 @@
 import { BrowserView } from "electron";
 import path = require("path");
+import { createBrowserView } from "../browser-view";
 
 export function createOmniboxView() {
-    const view = new BrowserView({
-        webPreferences: {
-            contextIsolation: true,
-            webviewTag: false,
-            defaultEncoding: "utf-8",
-            nodeIntegration: false,
-            scrollBounce: true,
-            navigateOnDragDrop: true,
-            safeDialogs: true,
-            preload: path.join(__dirname, "../", "preloads", "index.js"),
-        },
-    });
+    const view = createBrowserView();
 
     // view.webContents.openDevTools({ mode: "detach" });
     return view;

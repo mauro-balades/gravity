@@ -34,8 +34,8 @@ export class NavigationBar extends LitElement {
         }
 
         :host .icon-button.disabled {
-          opacity: .4;
-          cursor: default;
+            opacity: 0.4;
+            cursor: default;
         }
 
         :host > .icon-button:hover {
@@ -95,9 +95,15 @@ export class NavigationBar extends LitElement {
         let canGoForward = this.tab.canGoForward;
 
         return html`
-            <div title="Go back in history" @click=${canGoBack ? () => {
-              window.electronAPI.goBack(this.tab.id)
-            } : () => {}} class="icon-button ${(!canGoBack) ? "disabled" : ""}">
+            <div
+                title="Go back in history"
+                @click=${canGoBack
+                    ? () => {
+                          window.electronAPI.goBack(this.tab.id);
+                      }
+                    : () => {}}
+                class="icon-button ${!canGoBack ? "disabled" : ""}"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -112,9 +118,15 @@ export class NavigationBar extends LitElement {
                     />
                 </svg>
             </div>
-            <div title="Go forward in history" @click=${canGoForward ? () => {
-              window.electronAPI.goForward(this.tab.id)
-            } : () => {}} class="icon-button ${(!canGoForward) ? "disabled" : ""}">
+            <div
+                title="Go forward in history"
+                @click=${canGoForward
+                    ? () => {
+                          window.electronAPI.goForward(this.tab.id);
+                      }
+                    : () => {}}
+                class="icon-button ${!canGoForward ? "disabled" : ""}"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -129,33 +141,63 @@ export class NavigationBar extends LitElement {
                     />
                 </svg>
             </div>
-            <div title="Reload current tab" class="icon-button" @click=${(!this.tab.isLoading) ? () => {
-              window.electronAPI.reloadTab(this.tab.id)
-            } : () => {}}>
-                ${this.tab.isLoading ? html`
-                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                ` : html`
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                  >
-                      <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
-                      />
-                  </svg>
-                `}
+            <div
+                title="Reload current tab"
+                class="icon-button"
+                @click=${!this.tab.isLoading
+                    ? () => {
+                          window.electronAPI.reloadTab(this.tab.id);
+                      }
+                    : () => {}}
+            >
+                ${this.tab.isLoading
+                    ? html`
+                          <svg
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                              aria-hidden="true"
+                          >
+                              <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
+                              ></path>
+                          </svg>
+                      `
+                    : html`
+                          <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="2"
+                              stroke="currentColor"
+                          >
+                              <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                              />
+                          </svg>
+                      `}
             </div>
             <location-input id="location-input"></location-input>
             <div class="icon-button">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"></path>
+                <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                    ></path>
                 </svg>
             </div>
         `;

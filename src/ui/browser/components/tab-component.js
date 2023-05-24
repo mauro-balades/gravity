@@ -138,7 +138,6 @@ export class TabComponent extends LitElement {
     updateTabInfo(tab) {
         this.tab = tab;
 
-        console.log(this.tab.id);
         this.requestUpdate();
         super.performUpdate();
     }

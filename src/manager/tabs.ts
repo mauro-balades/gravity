@@ -1,5 +1,12 @@
-import { BrowserView, BrowserWindow, Event, WebContents, webContents } from "electron";
+import {
+    BrowserView,
+    BrowserWindow,
+    Event,
+    WebContents,
+    webContents,
+} from "electron";
 import { normalizeObject, omitKeys } from "../utils";
+import { DialogType, IDialog } from "../interfaces";
 
 export class Tab {
     public isActive: boolean = false;
@@ -92,7 +99,7 @@ export class Tab {
     }
 
     asObject() {
-        return normalizeObject(omitKeys(this, ["view", "updater"]))
+        return normalizeObject(omitKeys(this, ["view", "updater"]));
     }
 }
 
@@ -100,6 +107,8 @@ export class TabManager {
     tabs: Tab[] = [];
     browserViews: BrowserView[] = [];
     omniboxViews: BrowserView[] = [];
+
+    dialogs: IDialog[] = [];
 
     latestId: number = 0;
     topWindow: BrowserWindow;
@@ -121,6 +130,10 @@ export class TabManager {
         return this.tabs.find((x) => x.id == id);
     }
 
+    public get allDialogs() {
+        return this.dialogs;
+    }
+
     removeTab(id: number) {
         let i = this.tabs.findIndex((x: Tab) => x.id == id);
         this.tabs.splice(i, 1);
@@ -138,6 +151,20 @@ export class TabManager {
                 this.topWindow.removeBrowserView(this.browserViews[i]);
             }
         }
+    }
+
+    getAllDialogs(tabId: number): IDialog[] {
+        return this.dialogs.filter((x: IDialog) => x.tabID == tabId);
+    }
+
+    getDialogWithType(tabId: number, dialogType: DialogType) {
+        return this.dialogs.find(
+            (x) => x.tabID == tabId && x.type == dialogType
+        );
+    }
+
+    addNewDialog(dialog: IDialog) {
+        this.dialogs.push(dialog);
     }
 
     getTabView(id: number) {

@@ -27,7 +27,7 @@ export function createBrowserWindow(user: IUser) {
                     // TODO:
                     // partition: `persist:user-${user.id}`
                 },
-                minHeight: 800,
+                minHeight: 600,
                 minWidth: 600,
             });
 

@@ -85,6 +85,12 @@ function gravityProtocol(
             path.join(__dirname, "..", "ui", "user-land", "modals"),
             cb
         );
+    } else if (requestUrl.startsWith(URIs.GRAVITY_DIALOGS)) {
+        serveAppAsset(
+            requestUrl,
+            path.join(__dirname, "..", "ui", "user-land", "dialogs"),
+            cb
+        );
     } else if (requestUrl.startsWith(URIs.GRAVITY_SUBWINDOWS)) {
         serveAppAsset(
             requestUrl,
@@ -131,5 +137,6 @@ async function serveAppAsset(
     var contentType = mime.lookup(filepath);
 
     // serve
+    logger.d(` => fetch response: ${filepath}`)
     cb(200, contentType as string, filepath, CSP);
 }

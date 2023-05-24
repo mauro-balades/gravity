@@ -7,6 +7,9 @@ import { Tab } from "../manager/tabs";
 import { createOmniboxView, loadOmniboxURL } from "../modals/omnibox-view";
 import path = require("path");
 import setContextMenu from "../context-menu";
+import { addDialogsToTab } from "../dialogs";
+import { showDialog } from "./dialog";
+import { IDialog, IWindow } from "../interfaces";
 
 export default function () {
     ipcMain.on("create-new-user", async (event, username) => {
@@ -40,7 +43,7 @@ export default function () {
         logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
         let loadedURL = url ?? win.user.defaultTab;
-        let isGravity = loadedURL.startsWith("gravity:");
+        let isGravity = loadedURL.startsWith("gravity://");
 
         const view = new BrowserView({
             webPreferences: {
@@ -51,26 +54,37 @@ export default function () {
                 scrollBounce: true,
                 navigateOnDragDrop: true,
                 safeDialogs: true,
-                preload: isGravity ? path.join(
-                    __dirname,
-                    "../",
-                    "preloads",
-                    "index.js"
-                ) : /*TODO: site preload = */"",
+                preload: isGravity
+                    ? path.join(__dirname, "..", "preloads", "index.js")
+                    : path.join(
+                          __dirname,
+                          "..",
+                          "preloads",
+                          "webview",
+                          "index.js"
+                      ),
             },
         });
 
         win.window.addBrowserView(view);
         // view.setBackgroundColor("#fff");
+
         setContextMenu(view.webContents, winID);
-        view.webContents.loadURL(isGravity ? loadedURL + `?winID=${win.id}` : loadedURL);
+        view.webContents.loadURL(
+            isGravity ? loadedURL + `?winID=${win.id}` : loadedURL
+        );
 
         let t = new Tab(loadedURL, view);
         let omnibox = createOmniboxView();
         win.tabs.addTab(t, { view, omnibox });
         win.tabs.changeTab(t.id);
 
+        addDialogsToTab(win, t);
+
         t.setUpdater(() => {
+            // TODO: call this once the pages loades (only one time)
+            view.webContents.send("tab:dialogs-info", win.id, t.id);
+
             let channel = `update-tab-info-${win.id}-${t.id}`;
             let normalized = t.asObject();
 
@@ -78,10 +92,12 @@ export default function () {
             omnibox.webContents.send(channel, normalized);
         });
 
-        view.webContents.ipc.on("omnibox:activate-focus", () => {
-            omnibox.webContents.focus();
-            omnibox.webContents.send("omnibox:activate-focus")
-        });
+        if (isGravity) {
+            view.webContents.ipc.on("omnibox:activate-focus", () => {
+                omnibox.webContents.focus();
+                omnibox.webContents.send("omnibox:activate-focus");
+            });
+        }
 
         loadOmniboxURL(omnibox, winID, t.id);
         win.window.addBrowserView(omnibox);
@@ -141,6 +157,28 @@ export default function () {
         win.window.removeBrowserView(win.timeDialog);
     });
 
+    ipcMain.on("page-alert-dialog", async (event, message, winID, tabID) => {
+        let win = windowManager.getWindow(winID);
+        let dialog = win.tabs.getDialogWithType(tabID, "alert");
+
+        event.returnValue = await showDialog(win, dialog, {});
+    });
+
+    ipcMain.on("get-dialog-data-from-webcontents", (event, windowID) => {
+        const contentsID = event.sender.id;
+
+        let window = windowManager.allWindows.find((x: IWindow) => x.window.id == windowID);
+        let tabIndex = window.tabs.allDialogs.findIndex((x: IDialog) => x.view.webContents.id == contentsID);
+
+        let tab = window.tabs.tabs[tabIndex];
+
+        event.returnValue = {
+            windowID: window.id,
+            tabID: tab.id,
+        }
+    });
+
+    // TODO: rework this
     ipcMain.on("time-dialog-resize", (event, winID, rect) => {
         let win = windowManager.getWindow(winID);
         win.timeDialog.setBounds({

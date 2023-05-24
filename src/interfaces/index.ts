@@ -1,4 +1,10 @@
-import { BrowserView, BrowserWindow } from "electron";
+import {
+    BrowserView,
+    BrowserWindow,
+    Dialog,
+    Rectangle,
+    WebContents,
+} from "electron";
 import { TabManager } from "../manager/tabs";
 
 export interface ITheme {
@@ -29,4 +35,28 @@ export interface IWindow {
     tabs: TabManager;
 
     timeDialog: BrowserView;
+}
+
+export interface IDialogShowOptions {
+    type: DialogType;
+    association: {
+        tabID: number;
+        windowID: number;
+    };
+
+    devtools?: boolean;
+    onWindowBoundsUpdate?: (disposition: Rectangle) => void;
+}
+
+export type DialogType = "alert";
+
+export interface IDialog {
+    tabID: number;
+
+    view: BrowserView;
+    type: DialogType;
+
+    handle: (name: string, cb: (...args: any[]) => any) => void;
+    on: (name: string, cb: (...args: any[]) => any) => void;
+    rearrange: (bounds?: Rectangle) => void;
 }

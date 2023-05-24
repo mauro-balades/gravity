@@ -4,30 +4,25 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>New tab</title>
 
         <link rel="stylesheet" href="gravity://ui/global/gravity-core.css" />
 
+        <script src="gravity://ui/global/components.js"></script>
         <script src="gravity://browser-assets/window.js"></script>
         <script src="gravity://browser-assets/theme.js"></script>
+        <script src="gravity://dialogs/wrapper/index.js"></script>
 
-        <script src="gravity://new-tab/gravity-ntab-icon.js"></script>
-        <script src="gravity://new-tab/url-bar.js"></script>
-        <script src="gravity://new-tab/index.js"></script>
+        <script src="gravity://dialogs/alert/dialog.js"></script>
+        <script src="gravity://dialogs/alert/index.js"></script>
 
         <style>
-            body,
-            html {
-                width: 100%;
-                height: -webkit-fill-available;
-                border-radius: var(--gr-dialog-radius);
-
-                background: none !important;
-                overflow: hidden;
+            body {
+                background: transparent !important;
+                position: relative;
             }
         </style>
     </head>
     <body>
-        <new-tab></new-tab>
+        <alert-dialog></alert-dialog>
     </body>
 </html>

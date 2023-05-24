@@ -1,7 +1,7 @@
 import { BrowserWindow } from "electron";
-import { IUser, IWindow } from "../interfaces";
+import { IDialog, IUser, IWindow } from "../interfaces";
 import { logger } from "../logger";
-import { TabManager } from "./tabs";
+import { Tab, TabManager } from "./tabs";
 import { createTimeDialog } from "../modals/time-dialog";
 
 export class WindowManager {
@@ -9,6 +9,10 @@ export class WindowManager {
     private latestId: number = 0;
 
     constructor() {}
+
+    public get allWindows() {
+        return this.windows;
+    }
 
     public addWindow(win: BrowserWindow, user: IUser): number {
         // TODO: dialogs should be for each tab!
@@ -33,11 +37,15 @@ export class WindowManager {
     public updateWindow(id: number) {
         let w = this.getWindow(id);
 
-        // TODO: move all sub-dialogs to top level
-        // w.window.removeBrowserView(w.timeDialog);
-        // w.window.addBrowserView(w.timeDialog);
+        let event = `update-browser-${id}`;
+        w.window.webContents.send(event);
 
-        w.window.webContents.send(`update-browser-${id}`);
+        w.tabs.tabs.forEach((t: Tab) => {
+            w.tabs.getOmniboxView(t.id).webContents.send(event);
+            w.tabs.getAllDialogs(t.id).forEach((value: IDialog) => {
+                value.view.webContents.send(event);
+            });
+        });
     }
 }
 

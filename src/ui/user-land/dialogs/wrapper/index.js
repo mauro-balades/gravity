@@ -1,15 +1,17 @@
 import { html, css, LitElement } from "lit";
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
-export class CoreBrowserView extends LitElement {
+export class CoreBrowserDialog extends LitElement {
     static styles = css`
         :host {
             height: -webkit-fill-available;
-            width: 100%;
+            width: -webkit-fill-available;
+            display: flex;
         }
     `;
 
     static properties = {
-        tabs: {},
+        dialog: { type: String }
     };
 
     constructor() {
@@ -18,13 +20,11 @@ export class CoreBrowserView extends LitElement {
         let user = window.electronAPI.getCurrentUser();
         defineUserTheme(user.theme);
 
-        this.tabs = window.electronAPI.getTabs();
-        window.electronAPI.addUpdateHandle(this.updateBrowser.bind(this));
+        this.dialog = "div";
+        window.electronAPI.addUpdateHandle(this.updateDialog.bind(this));
     }
 
-    updateBrowser() {
-        this.tabs = window.electronAPI.getTabs();
-
+    updateDialog() {
         let user = window.electronAPI.getCurrentUser();
         defineUserTheme(user.theme);
 
@@ -33,10 +33,8 @@ export class CoreBrowserView extends LitElement {
     }
 
     render() {
-        return html`<tab-navigation
-            updateTabs=${this.updateTabs}
-            .tabs=${this.tabs}
-        ></tab-navigation>`;
+        let tag = `<${this.dialog}></${this.dialog}>`;
+        return html`${unsafeHTML(tag)}`;
     }
 }
-customElements.define("core-browser-view", CoreBrowserView);
+customElements.define("core-browser-dialog", CoreBrowserDialog);
