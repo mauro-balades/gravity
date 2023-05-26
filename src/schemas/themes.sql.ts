@@ -32,7 +32,7 @@ INSERT INTO themes (
 	'#65a4d9',
 	'5px',
 	'#000',
-	'#fff',
+	'rgba(255,255,255,.9)',
 	'rgba(197, 197, 197, 0.38)',
 	'Transparent (light)'
 );
@@ -55,7 +55,7 @@ INSERT INTO themes (
 	'5px',
 	'#2d5a80',
 	'5px',
-	'#fff',
+	'rgba(255,255,255,.9)',
 	'#000',
 	'rgba(64, 64, 64, 0.38)',
 	'Transparent (dark)'
@@ -80,7 +80,7 @@ INSERT INTO themes (
 	'#65a4d9',
 	'5px',
 	'#000',
-	'#fff',
+	'rgba(255,255,255,.9)',
 	'linear-gradient(135deg, #feb5bc 0%, #7363cf 100%)',
 	'Universe (light)'
 );
@@ -103,7 +103,7 @@ INSERT INTO themes (
 	'5px',
 	'#2d5a80',
 	'5px',
-	'#fff',
+	'rgba(255,255,255,.9)',
 	'#141417',
 	'linear-gradient(135deg, #feb5bc 0%, #7363cf 100%)',
 	'Universe (dark)'

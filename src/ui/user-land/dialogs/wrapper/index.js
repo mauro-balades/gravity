@@ -8,7 +8,7 @@ export class CoreBrowserDialog extends LitElement {
             width: -webkit-fill-available;
             display: flex;
 
-            animation: flipInX .5s forward;
+            animation: flipInX .5s forwards;
             padding: 5px;
         }
 

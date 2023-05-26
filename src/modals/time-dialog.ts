@@ -9,7 +9,7 @@ export function createTimeDialog(id: number) {
     view.webContents.loadURL(
         `gravity://modals/time-dialog/index.html?winID=${id}`
     );
-    // view.webContents.openDevTools({ mode: "detach" })
+    view.webContents.openDevTools({ mode: "detach" })
 
     return view;
 }

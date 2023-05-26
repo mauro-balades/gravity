@@ -11,24 +11,26 @@ export class AlertDialogContent extends LitElement {
             justify-content: space-between;
 
             border-radius: var(--gr-dialog-radius);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
+            background: var(--gr-primary-background);
+
+            box-shadow: rgb(0 0 0 / 5%) 0px 1px 2px 0px;
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             overflow: hidden;
+
+            position: relative;
+            z-index: 2;
         }
 
         :host::before {
-            content: " ";
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: calc(var(--gr-glass-opacity) + 0.4);
             z-index: -1;
             background: var(--gr-primary-background);
-            border-radius: var(--gr-dialog-radius);
         }
 
         h3, p {
@@ -47,34 +49,35 @@ export class AlertDialogContent extends LitElement {
 
         h3, gr-button {
             user-select: none;
-        }
+        }                                                    
 
-        .bottom {
+        .buttons {
             width: -webkit-fill-available;
 
             display: flex;
             flex-direction: column;
 
-            border-radius: var(--gr-dialog-radius);
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
 
+            background: var(--gr-primary-background);
+
             padding: 10px;
             margin-top: 10px;
         }
 
-        .bottom::before {
-            content: " ";
+        .buttons::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: var(--gr-glass-opacity);
+            opacity: calc(var(--gr-glass-opacity) + 0.4);
             z-index: -1;
-            background: var(--gr-primary-background);
+            backdrop-filter: brightness(0.96);
         }                                                       
 
         gr-button {
@@ -108,7 +111,7 @@ export class AlertDialogContent extends LitElement {
         return html`
             <h3>${this.data.title} says:</h3>
             <p>${this.data.message}</p>
-            <div class="bottom">
+            <div class="buttons">
                 <gr-button @click=${this.accept} secondary=${true} text="Accept" autofocus="1"></gr-button>
             </div>
         `;
