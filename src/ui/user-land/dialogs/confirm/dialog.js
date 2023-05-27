@@ -1,6 +1,6 @@
 import { html, css, LitElement } from "lit";
 
-export class AlertDialogContent extends LitElement {
+export class ConfirmDialogContent extends LitElement {
     static styles = css`
         :host {
             height: -webkit-fill-available;
@@ -55,7 +55,6 @@ export class AlertDialogContent extends LitElement {
             width: -webkit-fill-available;
 
             display: flex;
-            flex-direction: column;
 
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 
@@ -84,8 +83,12 @@ export class AlertDialogContent extends LitElement {
             backdrop-filter: brightness(calc(var(--gr-is-light) * var(--brightness-light) + (1 - var(--gr-is-light)) * var(--brightness-dark)));
         }                                                       
 
-        gr-button {
+        gr-button:nth-child(1) {
             margin-left: auto;
+        }
+
+        gr-button:nth-child(2) {
+            margin-left: 10px;
         }
     `;
 
@@ -96,9 +99,9 @@ export class AlertDialogContent extends LitElement {
 
     constructor() {
         super();
-        this.dialog = window.electronAPI.createDialogInstance("alert");
+        this.dialog = window.electronAPI.createDialogInstance("confirm");
 
-        this.data = { title: "This page says", message: "" };
+        this.data = { title: "This page wants to confirm:", message: "" };
         this.dialog.sendLoaded().then(data => {
             this.data = data;
 
@@ -111,14 +114,19 @@ export class AlertDialogContent extends LitElement {
         this.dialog.send("result", true);
     }
 
+    decline(e) {
+        this.dialog.send("result", false);
+    }
+
     render() {
         return html`
-            <h3>${this.data.title} says:</h3>
+            <h3>${this.data.title} wants to confirm:</h3>
             <p>${this.data.message}</p>
             <div class="buttons">
-                <gr-button @click=${this.accept} secondary=${true} text="Accept" autofocus="1"></gr-button>
+                <gr-button @click=${this.decline} secondary=${true} text="Cancel" autofocus="1"></gr-button>
+                <gr-button @click=${this.accept} secondary=${false} text="Ok"></gr-button>
             </div>
         `;
     }
 }
-customElements.define("alert-dialog-content", AlertDialogContent);
+customElements.define("confirm-dialog-content", ConfirmDialogContent);

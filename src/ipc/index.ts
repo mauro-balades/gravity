@@ -9,7 +9,7 @@ import path = require("path");
 import setContextMenu from "../context-menu";
 import { addDialogsToTab } from "../dialogs";
 import { showDialog } from "./dialog";
-import { IDialog, IWindow } from "../interfaces";
+import { DialogType, IDialog, IWindow } from "../interfaces";
 
 export default function () {
     ipcMain.on("create-new-user", async (event, username) => {
@@ -177,12 +177,17 @@ export default function () {
         win.window.removeBrowserView(win.timeDialog);
     });
 
-    ipcMain.on("page-alert-dialog", async (event, winID, tabID, message, title) => {
-        let win = windowManager.getWindow(winID);
-        let dialog = win.tabs.getDialogWithType(tabID, "alert");
+    const pageDialog = (type: DialogType) => {
+        ipcMain.on(`page-${type}-dialog`, async (event, winID, tabID, message, title) => {
+            let win = windowManager.getWindow(winID);
+            let dialog = win.tabs.getDialogWithType(tabID, type);
+    
+            event.returnValue = await showDialog(win, dialog, {message, title});
+        });
+    }
 
-        event.returnValue = await showDialog(win, dialog, {message, title});
-    });
+    pageDialog("alert");
+    pageDialog("confirm");
 
     ipcMain.on("get-dialog-data-from-webcontents", (event, windowID) => {
         const contentsID = event.sender.id;
@@ -190,12 +195,11 @@ export default function () {
         let window = windowManager.allWindows.find(
             (x: IWindow) => x.window.id == windowID
         );
-        let tabIndex = window.tabs.allDialogs.findIndex(
+        let dialog = window.tabs.allDialogs.find(
             (x: IDialog) => x.view.webContents.id == contentsID
         );
 
-        let tab = window.tabs.tabs[tabIndex];
-
+        let tab = window.tabs.tabs.find((x: Tab) => x.id === dialog.tabID);
         event.returnValue = {
             windowID: window.id,
             tabID: tab.id,

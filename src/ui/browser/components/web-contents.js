@@ -26,6 +26,7 @@ export class WebContentsElement extends LitElement {
         this.tab = null;
 
         this.alertPrompt = this.resizePromptWrapper("alert");
+        this.confirmPrompt = this.resizePromptWrapper("confirm");
     }
 
     resizePromptWrapper(type) {
@@ -47,6 +48,11 @@ export class WebContentsElement extends LitElement {
                 style="width: 400px; height: 150px; left: 50%; top: -10px;"
                 type="alert"
                 .resize=${(e) => this.alertPrompt(e)}
+            ></dialog-container>
+            <dialog-container
+                style="width: 400px; height: 150px; left: 50%; top: -10px;"
+                type="confirm"
+                .resize=${(e) => this.confirmPrompt(e)}
             ></dialog-container>
         `;
     }

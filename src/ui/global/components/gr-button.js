@@ -38,12 +38,19 @@ export class GravityButton extends LitElement {
             position: relative;
             user-select: none;
 
-            border: 2px solid;
+            border: 2px solid transparent;
+            outline: 1px solid transparent;
+
             transition: 0.1s;
         }
 
         button:focus {
             border-color: var(--gr-primary-color);
+            outline: var(--gr-primary-background);
+        }
+
+        button.primary > div {
+            filter: invert(1);
         }
 
         :host gr-icon {
@@ -87,10 +94,12 @@ export class GravityButton extends LitElement {
                 class="${this.disabled == "true" ? "disabled" : ""} ${this
                     .secondary == "true"
                     ? "secondary"
-                    : ""}"
+                    : "primary"}"
                 ${this.autofocus ? "autofocus" : ""}
             >
-                ${unsafeHTML(this.text)}
+                <div>
+                    ${unsafeHTML(this.text)}
+                </div>
             </button>
         `;
     }

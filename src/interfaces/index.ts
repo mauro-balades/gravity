@@ -48,7 +48,7 @@ export interface IDialogShowOptions {
     onWindowBoundsUpdate?: (disposition: Rectangle) => void;
 }
 
-export type DialogType = "alert";
+export type DialogType = "alert" | "confirm";
 
 export interface IDialog {
     tabID: number;
@@ -57,6 +57,7 @@ export interface IDialog {
     type: DialogType;
 
     url: string;
+    initialized: boolean;
 
     handle: (name: string, cb: (...args: any[]) => any) => void;
     on: (name: string, cb: (...args: any[]) => any) => void;

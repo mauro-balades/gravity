@@ -11,28 +11,36 @@ export const showDialog = (
 
         window.window.webContents.send(`${dialog.type}-open`);
 
-        dialog.handle("loaded", async (e: any) => {
-            return data;
-        });
+        if (!dialog.initialized) {
+            dialog.handle("loaded", async (e: any) => {
+                return data;
+            });
+    
+            dialog.on("result", (e, result) => {
+                console.log(result);
+                resolve(result);
+                // TODO:
 
-        dialog.on("result", (e, result) => {
-            resolve(result);
-            // TODO:            
-            dialog.rearrange();
-        });
+                dialog.rearrange();
+                window.window.removeBrowserView(dialog.view);
+            });
+    
+            dialog.on("resize", (event, rect: Rectangle) => {
+                let bounds = {
+                    x: Math.round(rect.x),
+                    y: Math.round(rect.y),
+                    width: Math.round(rect.width),
+                    height: Math.round(rect.height),
+                };
+    
+                dialog.rearrange(bounds);
+            });
 
-        dialog.on("resize", (event, rect: Rectangle) => {
-            let bounds = {
-                x: Math.round(rect.x),
-                y: Math.round(rect.y),
-                width: Math.round(rect.width),
-                height: Math.round(rect.height),
-            };
-
-            dialog.rearrange(bounds);
-        });
+            dialog.initialized = true;
+        }
 
         window.window.addBrowserView(dialog.view);
+        
         dialog.view.webContents.focus();
         dialog.view.webContents.loadURL(dialog.url);
     });

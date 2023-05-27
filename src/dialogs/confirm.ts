@@ -1,12 +1,13 @@
 import { IDialog } from "../interfaces";
 import { createDialogInstance } from ".";
 
-export function prepareAlertDialog(windowID: number, tabID: number): IDialog {
+export function prepareConfirmDialog(windowID: number, tabID: number): IDialog {
     return createDialogInstance({
-        type: "alert",
+        type: "confirm",
         association: {
             windowID,
             tabID,
         },
+        devtools: true,
     });
 }

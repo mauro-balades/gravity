@@ -69,11 +69,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
         return {
             on: (name: string, cb: any) => {
-                console.log(createChannel(name));
                 ipcRenderer.on(createChannel(name), (...args) => cb(...args));
             },
             send: (name: string, ...args: any) => {
-                console.log(createChannel(name));
                 ipcRenderer.send(createChannel(name), ...args);
             },
             sendLoaded: () => 
