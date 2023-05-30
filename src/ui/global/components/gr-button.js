@@ -98,7 +98,7 @@ export class GravityButton extends LitElement {
                 ${this.autofocus ? "autofocus" : ""}
             >
                 <div>
-                    ${unsafeHTML(this.text)}
+                    <slot></slot>
                 </div>
             </button>
         `;

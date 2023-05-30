@@ -123,8 +123,8 @@ export class ConfirmDialogContent extends LitElement {
             <h3>${this.data.title} wants to confirm:</h3>
             <p>${this.data.message}</p>
             <div class="buttons">
-                <gr-button @click=${this.decline} secondary=${true} text="Cancel" autofocus="1"></gr-button>
-                <gr-button @click=${this.accept} secondary=${false} text="Ok"></gr-button>
+                <gr-button @click=${this.decline} secondary=${true} autofocus="1">Cancel</gr-button>
+                <gr-button @click=${this.accept} secondary=${false}>Ok</gr-button>
             </div>
         `;
     }

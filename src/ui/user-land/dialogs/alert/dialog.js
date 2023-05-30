@@ -116,7 +116,7 @@ export class AlertDialogContent extends LitElement {
             <h3>${this.data.title} says:</h3>
             <p>${this.data.message}</p>
             <div class="buttons">
-                <gr-button @click=${this.accept} secondary=${true} text="Accept" autofocus="1"></gr-button>
+                <gr-button @click=${this.accept} secondary=${true} autofocus="1">Accept</gr-button>
             </div>
         `;
     }

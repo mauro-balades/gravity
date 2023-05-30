@@ -8,21 +8,16 @@ export class CoreBrowserDialog extends LitElement {
             width: -webkit-fill-available;
             display: flex;
 
-            animation: flipInX .5s forwards;
+            animation: flipInX .2s forwards;
             padding: 5px;
         }
 
         @keyframes flipInX {
             0% {
-               transform: perspective(400px) rotateX(90deg); 
+               transform: perspective(400px) rotateX(20deg); 
                opacity: 0;
             }
-            40% {
-               transform: perspective(400px) rotateX(-10deg);
-            }
-            70% {
-               transform: perspective(400px) rotateX(10deg);
-            }
+            
             100% {
                transform: perspective(400px) rotateX(0deg);
                opacity: 1;

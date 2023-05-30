@@ -6,6 +6,8 @@ export class AlertDialog extends LitElement {
             height: -webkit-fill-available;
             width: -webkit-fill-available;
             display: flex;
+
+            overflow: hidden;
         }
     `;
 

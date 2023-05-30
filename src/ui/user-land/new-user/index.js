@@ -214,10 +214,9 @@ export class SetupUser extends LitElement {
                         perspective.
                     </p>
                     <gr-button
-                        text="Create new profile"
                         disabled=${!this.canGoNext()}
                         @click=${this.incrementIndex}
-                    ></gr-button>
+                    >Create new profile</gr-button>
                 `
             )}
             ${this.createSection(
@@ -237,12 +236,11 @@ export class SetupUser extends LitElement {
                         style="${this.creating ? `font-size: 20px;` : ""}"
                         disabled="${!this.canGoNext()}"
                         @click=${this.createUser}
-                        .text=${this.creating
-                            ? `<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>`
-                            : this.canGoNext()
-                            ? "Oh yeah!"
-                            : "fill all the data!"}
-                    ></gr-button>
+                    >${this.creating
+                        ? `<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>`
+                        : this.canGoNext()
+                        ? "Oh yeah!"
+                        : "fill all the data!"}</gr-button>
                 `
             )}
         `;
