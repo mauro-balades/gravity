@@ -237,7 +237,7 @@ export class SetupUser extends LitElement {
                         disabled="${!this.canGoNext()}"
                         @click=${this.createUser}
                     >${this.creating
-                        ? `<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>`
+                        ? html`<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>`
                         : this.canGoNext()
                         ? "Oh yeah!"
                         : "fill all the data!"}</gr-button>

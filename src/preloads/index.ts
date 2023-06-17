@@ -88,4 +88,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
         let channel = `${name}-${type}-${$windowID}-${tabID}`;
         ipcRenderer.send(channel, ...args);
     },
+
+    getHistoryItems: () => ipcRenderer.sendSync("history:fetch", $windowID),
 });

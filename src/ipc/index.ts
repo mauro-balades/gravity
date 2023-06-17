@@ -1,5 +1,5 @@
 import { app, BrowserView, BrowserWindow, ipcMain } from "electron";
-import { createNewUser } from "../storage";
+import { createNewUser, history, sitedata } from "../storage";
 import { createBrowserWindow } from "../windows/browser";
 import { windowManager } from "../manager/window";
 import { logger } from "../logger";
@@ -9,7 +9,7 @@ import path = require("path");
 import setContextMenu from "../context-menu";
 import { addDialogsToTab } from "../dialogs";
 import { showDialog } from "./dialog";
-import { DialogType, IDialog, IWindow } from "../interfaces";
+import { DialogType, IDialog, IHistoryItem, ISiteDataEntry, IWindow } from "../interfaces";
 
 export default function () {
     ipcMain.on("create-new-user", async (event, username) => {
@@ -87,15 +87,30 @@ export default function () {
 
         addDialogsToTab(win, t);
 
-        t.setUpdater(() => {
-            // TODO: call this once the pages loades (only one time)
-            view.webContents.send("tab:dialogs-info", win.id, t.id);
+        t.setContext({
+            updater: () => {
+                // TODO: call this once the pages loades (only one time)
+                view.webContents.send("tab:dialogs-info", win.id, t.id);
 
-            let channel = `update-tab-info-${win.id}-${t.id}`;
-            let normalized = t.asObject();
+                let channel = `update-tab-info-${win.id}-${t.id}`;
+                let normalized = t.asObject();
 
-            win.window.webContents.send(channel, normalized);
-            omnibox.webContents.send(channel, normalized);
+                win.window.webContents.send(channel, normalized);
+                omnibox.webContents.send(channel, normalized);
+            },
+            updateHistoy: (url: string, inPage: boolean = false) => {
+                if (t.lastURL !== url || inPage) {
+                    history.appendHistoryItem({
+                        userID: win.user.id,
+                        title: t.title,
+                        url: t.URL,
+                        date: new Date().getDate(),
+                    } as IHistoryItem);
+                }
+            },
+            updateSiteData: (data: ISiteDataEntry) => {
+                sitedata.appendSiteDataItem({ userID: win.user.id, ...data })
+            }
         });
 
         if (isGravity) {
@@ -136,6 +151,12 @@ export default function () {
     ipcMain.on("get-all-tabs", (event, winID) => {
         let win = windowManager.getWindow(winID);
         event.returnValue = win.tabs.tabs.map((x: Tab) => x.asObject());
+    });
+
+    ipcMain.on("history:fetch", (event, winID) => {
+        let win = windowManager.getWindow(winID);
+        let data = history.getHistoryItems(win.user);
+        event.returnValue = data;
     });
 
     ipcMain.on("get-tab", (event, winID, tabID) => {

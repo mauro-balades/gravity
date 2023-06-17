@@ -20,6 +20,7 @@ export class WindowManager {
             window: win,
             id: ++this.latestId,
             user,
+            incognito: false, // TODO:
             tabs: new TabManager(win),
             timeDialog: createTimeDialog(this.latestId),
         });

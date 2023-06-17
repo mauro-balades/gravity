@@ -6,7 +6,7 @@ import {
     webContents,
 } from "electron";
 import { normalizeObject, omitKeys } from "../utils";
-import { DialogType, IDialog } from "../interfaces";
+import { DialogType, IDialog, ISiteDataEntry } from "../interfaces";
 
 export class Tab {
     public isActive: boolean = false;
@@ -21,8 +21,15 @@ export class Tab {
 
     public isLoading: boolean = false;
 
-    private updater: any;
+    private ctx: {
+        updater: () => void,
+        updateHistoy: (url: string, inPage: boolean) => void,
+        updateSiteData: (data: ISiteDataEntry) => void,
+    };
+    
     private view: WebContents;
+
+    public lastURL: string;
 
     constructor(URL: string, view: BrowserView) {
         this.URL = URL;
@@ -46,60 +53,71 @@ export class Tab {
             this.onPageStopLoading.bind(this)
         );
 
-        view.webContents.on(
-            "did-start-navigation",
-            (e, href, isInPlace, isMainFrame) => {
-                if (isMainFrame) this.onWillNavigate(e, href);
-            }
-        );
-        view.webContents.on("will-navigate", this.onWillNavigate.bind(this));
+        view.webContents.on('did-navigate', this.onDidNavigate.bind(this))
+        view.webContents.on('did-navigate-in-page', this.onDidNavigateInPage.bind(this))
 
         this.view = view.webContents;
     }
 
-    public setUpdater(updater: any) {
-        this.updater = updater;
+    public setContext(ctx: typeof this.ctx) {
+        this.ctx = ctx;;
     }
 
     private URLUpdated() {
         this.canGoBack = this.view.canGoBack();
         this.canGoForward = this.view.canGoForward();
 
-        this.updater();
+        this.ctx.updater();
     }
 
     // private onUpdateTargetUrl(e: Event, url: string) {
     //     this.URL = url;
-    //     this.updater();
+    //     this.ctx.updater();
     // }
 
     private onPageStartLoading(e: Event) {
         this.isLoading = true;
-        this.updater();
+        this.ctx.updater();
     }
 
     private onPageStopLoading(e: Event) {
         this.isLoading = false;
-        this.updater();
+        this.navigateToURL(this.URL);
     }
 
-    private onWillNavigate(e: Event, url: string) {
+    private async onDidNavigate(e: Event, url: string, httpResponseCode: unknown) {
         this.URL = url;
+    }
+
+    private async onDidNavigateInPage(e: Event) {
+        this.navigateToURL(this.URL, true);
+    }
+
+    private async navigateToURL(url: string, inPage: boolean = false) {
+        this.URL = url;
+        this.ctx.updateHistoy(url, inPage);        
+
+        this.lastURL = url;
         this.URLUpdated();
     }
 
     private onPageTitleUpdated(e: Event, title: string) {
         this.title = title;
-        this.updater();
+        this.ctx.updater();
     }
 
     private onPageFaviconUpdated(e: Event, favicons: string[]) {
         this.favicon = favicons[0];
-        this.updater();
+        this.ctx.updateSiteData({
+            origin: this.URL,
+            key: 'favicon',
+            value: this.favicon,
+        });
+        this.ctx.updater();
     }
 
     asObject() {
-        return normalizeObject(omitKeys(this, ["view", "updater"]));
+        return normalizeObject(omitKeys(this, ["view", "ctx"]));
     }
 }
 

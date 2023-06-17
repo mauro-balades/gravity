@@ -1,13 +1,13 @@
 import { LitElement, html, css } from "lit";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 export class GravityButton extends LitElement {
     static properties = {
-        text: {},
         disabled: {},
         secondary: {},
-        style: {},
+        btn_style: {},
         autofocus: {},
+        invisible: {},
+        min_width: {},
     };
 
     static styles = css`
@@ -19,7 +19,7 @@ export class GravityButton extends LitElement {
             font-size: 81.25%;
 
             width: fit-content;
-            min-width: 100px;
+            min-height: 25px;
             cursor: pointer;
 
             display: flex;
@@ -49,8 +49,17 @@ export class GravityButton extends LitElement {
             outline: var(--gr-primary-background);
         }
 
+        button > div {
+            display: flex;
+            align-items: center;
+        }
+
         button.primary > div {
             filter: invert(1);
+        }
+
+        button.invisible > div {
+            filter: invert(0);
         }
 
         :host gr-icon {
@@ -75,26 +84,51 @@ export class GravityButton extends LitElement {
             color: var(--gr-button-background);
             border: 2px solid var(--gr-button-background);
         }
+
+        :host > button.invisible {
+            background: transparent;
+            border: 1px solid transparent;
+            outline: none;
+            color: var(--gr-primary-color);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        :host > button.invisible:hover {
+            background: rgba(
+                calc(var(--gr-is-dark) * 255),
+                calc(var(--gr-is-dark) * 255),
+                calc(var(--gr-is-dark) * 255),
+                0.05
+            );
+            border-color: rgba(
+                calc(var(--gr-is-dark) * 255),
+                calc(var(--gr-is-dark) * 255),
+                calc(var(--gr-is-dark) * 255),
+                0.1
+            );
+        }
     `;
 
     constructor() {
         super();
 
         this.disabled = false;
-        this.style = "";
-        this.text = "";
+        this.btn_style = "";
         this.secondary = false;
         this.autofocus = false;
+        this.invisible = false;
+        this.min_width = 100;
     }
 
     render() {
         return html`
             <button
-                style="${this.style}"
+                style="min-width: ${this.min_width}; ${this.btn_style}"
                 class="${this.disabled == "true" ? "disabled" : ""} ${this
                     .secondary == "true"
                     ? "secondary"
-                    : "primary"}"
+                    : "primary"} ${this.invisible ? "invisible" : ""}"
                 ${this.autofocus ? "autofocus" : ""}
             >
                 <div>

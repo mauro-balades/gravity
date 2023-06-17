@@ -8,6 +8,7 @@ export const showDialog = (
 ): Promise<any> => {
     return new Promise((resolve, reject) => {
         if (!dialog) return;
+        let newResolve = resolve;
 
         window.window.webContents.send(`${dialog.type}-open`);
 
@@ -18,7 +19,7 @@ export const showDialog = (
     
             dialog.on("result", (e, result) => {
                 console.log(result);
-                resolve(result);
+                newResolve(result);
                 // TODO:
 
                 dialog.rearrange();

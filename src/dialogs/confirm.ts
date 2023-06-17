@@ -8,6 +8,5 @@ export function prepareConfirmDialog(windowID: number, tabID: number): IDialog {
             windowID,
             tabID,
         },
-        devtools: true,
     });
 }

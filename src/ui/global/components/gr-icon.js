@@ -5,7 +5,7 @@ export class GravityTextInput extends LitElement {
         className: {},
         numElements: {},
         scale: {},
-        style: {},
+        icon_style: {},
     };
 
     static styles = css`
@@ -23,7 +23,7 @@ export class GravityTextInput extends LitElement {
 
         this.className = "";
         this.numElements = 0;
-        this.style = "";
+        this.icon_style = "";
         this.scale = 0.3;
     }
 
@@ -35,7 +35,7 @@ export class GravityTextInput extends LitElement {
                     href="gravity://assets/css/fa-all.min.css"
                     type="text/css"
                 />
-                <i class="${this.className}"></i>
+                <i style="${this.icon_style}" class="${this.className}"></i>
             `;
         } else {
             return html`
@@ -50,7 +50,7 @@ export class GravityTextInput extends LitElement {
                     type="text/css"
                 />
                 <div
-                    style="position: absolute; ${this.style}"
+                    style="position: absolute; ${this.icon_style}"
                     class="${this.className}"
                 >
                     ${Array.from(Array(parseInt(this.numElements)).keys()).map(

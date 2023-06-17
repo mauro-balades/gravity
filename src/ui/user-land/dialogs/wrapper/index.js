@@ -14,13 +14,16 @@ export class CoreBrowserDialog extends LitElement {
 
         @keyframes flipInX {
             0% {
-               transform: perspective(400px) rotateX(20deg); 
+               transform: translateY(-50px); 
                opacity: 0;
+            }
+
+            70% {
+                opacity: 1;
             }
             
             100% {
-               transform: perspective(400px) rotateX(0deg);
-               opacity: 1;
+               transform: translateY(0px);
             }
         }
     `;

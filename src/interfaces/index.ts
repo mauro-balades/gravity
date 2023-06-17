@@ -20,12 +20,29 @@ export interface ITheme {
     name: string;
 }
 
+export interface IHistoryItem {
+    id?: number;
+    title: string;
+    url: string;
+    date: number;
+    favicon?: string;
+    userID: number;
+}
+
+export interface ISiteDataEntry {
+    origin: string
+    key: any
+    value?: any
+    userID?: number
+}
+
 export interface IUser {
     id: number;
     name: string;
     theme_id: number;
     theme: ITheme;
     defaultTab: string;
+    history: IHistoryItem[];
 }
 
 export interface IWindow {
@@ -33,6 +50,8 @@ export interface IWindow {
     window: BrowserWindow;
     id: number;
     tabs: TabManager;
+
+    incognito: boolean;
 
     timeDialog: BrowserView;
 }

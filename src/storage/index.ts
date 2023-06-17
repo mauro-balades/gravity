@@ -1,8 +1,10 @@
 import * as sqlite3 from "better-sqlite3";
 import profilesSql from "../schemas/profiles.sql";
+import historySql from "../schemas/history.sql";
 import themesSql from "../schemas/themes.sql";
+import sitedataSql from "../schemas/sitedata.sql";
 import { logger } from "../logger";
-import { IUser, ITheme } from "../interfaces";
+import { IUser, ITheme, IHistoryItem, ISiteDataEntry } from "../interfaces";
 
 var globalDB: sqlite3.Database;
 
@@ -38,11 +40,60 @@ export async function createNewUser(username: string): Promise<IUser> {
     return usr;
 }
 
+export namespace sitedata {
+    export async function appendSiteDataItem(item: ISiteDataEntry): Promise<void> {
+        logger.d("[db] Appending new sitedata item:", item)
+        const { key, value, origin, userID } = item;
+        await globalDB
+            .prepare(`INSERT OR REPLACE
+                INTO sitedata (origin, key, value, userID)
+                VALUES (?, ?, ?, ?)`)
+            .run([origin, key, value, userID]);
+        return;
+    }
+    
+    export function getSiteDataItem(origin: string, key: any, user: IUser) {
+        let row = globalDB.prepare(`SELECT value 
+            FROM sitedata 
+            WHERE 
+                origin = ? AND 
+                key = ? AND 
+                userID = ?`)
+            .get([ origin, key, user.id ]) as { value: any } | undefined; 
+        return row?.value;
+    }
+}
+
+
+export namespace history {
+    export async function appendHistoryItem(item: IHistoryItem): Promise<void> {
+        logger.d("[db] Appending new history item")
+        const { title, url, date, userID } = item;
+        await globalDB
+            .prepare("INSERT INTO history (title, url, date, userID) VALUES (?, ?, ?, ?)")
+            .run([title, url, date, userID]);
+        return;
+    }
+    
+    export function getHistoryItems(user: IUser) {
+        let rows = globalDB.prepare(`SELECT * FROM history where userID = ${user.id} ORDER BY date DESC`).all() as IHistoryItem[];
+        for (let row of rows) {
+            row.favicon = sitedata.getSiteDataItem(row.url, 'favicon', user);
+        }
+
+        return rows;
+    }
+}
+
 export function setUpDatabase(db: sqlite3.Database) {
     logger.d("[db] Creating profile table");
     db.exec(profilesSql);
     logger.d("[db] Creating themes table");
     db.exec(themesSql);
+    logger.d("[db] Creating history table");
+    db.exec(historySql);
+    logger.d("[db] Creating sitedata table");
+    db.exec(sitedataSql);
 }
 
 export function getDatabase(file: string) {
