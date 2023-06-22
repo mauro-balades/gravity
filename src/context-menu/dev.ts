@@ -11,6 +11,7 @@ export default (
     items.push({
         type: "submenu",
         label: "Development tools",
+        enabled: !contents.getURL().startsWith("gravity://"),
         submenu: [
             {
                 label: "Validate webpage",

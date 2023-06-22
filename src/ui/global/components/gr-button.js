@@ -8,6 +8,7 @@ export class GravityButton extends LitElement {
         autofocus: {},
         invisible: {},
         min_width: {},
+        disable_invert: {},
     };
 
     static styles = css`
@@ -19,7 +20,9 @@ export class GravityButton extends LitElement {
             font-size: 81.25%;
 
             width: fit-content;
-            min-height: 25px;
+            
+            height: 35px;
+            
             cursor: pointer;
 
             display: flex;
@@ -42,6 +45,7 @@ export class GravityButton extends LitElement {
             outline: 1px solid transparent;
 
             transition: 0.1s;
+            font-weight: 600;
         }
 
         button:focus {
@@ -58,6 +62,7 @@ export class GravityButton extends LitElement {
             filter: invert(1);
         }
 
+        button.non-invert > div,
         button.invisible > div {
             filter: invert(0);
         }
@@ -119,16 +124,17 @@ export class GravityButton extends LitElement {
         this.autofocus = false;
         this.invisible = false;
         this.min_width = 100;
+        this.disable_invert = false;
     }
 
     render() {
         return html`
             <button
-                style="min-width: ${this.min_width}; ${this.btn_style}"
+                style="min-width: ${this.min_width}px; ${this.btn_style}"
                 class="${this.disabled == "true" ? "disabled" : ""} ${this
                     .secondary == "true"
                     ? "secondary"
-                    : "primary"} ${this.invisible ? "invisible" : ""}"
+                    : "primary"} ${this.invisible ? "invisible" : ""} ${this.disable_invert ? "non-invert" : ""}"
                 ${this.autofocus ? "autofocus" : ""}
             >
                 <div>

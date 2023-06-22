@@ -38,7 +38,7 @@ function gravityProtocol(
     };
 
     var requestUrl = request.url;
-    logger.v(`New request for gravity protocol ("${requestUrl}")`);
+    logger.v(`New request for gravity protocol: ${requestUrl}`);
 
     if (requestUrl == URIs.GRAVITY_NEW_USER) {
         cb(
@@ -137,6 +137,5 @@ async function serveAppAsset(
     var contentType = mime.lookup(filepath);
 
     // serve
-    logger.d(` => fetch response: ${filepath}`);
     cb(200, contentType as string, filepath, CSP);
 }

@@ -214,6 +214,7 @@ export class SetupUser extends LitElement {
                         perspective.
                     </p>
                     <gr-button
+                        disable_invert=${true}
                         disabled=${!this.canGoNext()}
                         @click=${this.incrementIndex}
                     >Create new profile</gr-button>
@@ -236,6 +237,8 @@ export class SetupUser extends LitElement {
                         style="${this.creating ? `font-size: 20px;` : ""}"
                         disabled="${!this.canGoNext()}"
                         @click=${this.createUser}
+                        min_width=${150}
+                        disable_invert=${true}
                     >${this.creating
                         ? html`<gr-icon className="lds-ellipsis" numElements=${4}></gr-icon>`
                         : this.canGoNext()

@@ -40,9 +40,9 @@ export default function () {
     });
 
     ipcMain.on("create-new-tab", (event, winID, url, active) => {
-        logger.i("Creating new tab with URL: " + url);
         let win = windowManager.getWindow(winID);
         let loadedURL = url ?? win.user.defaultTab;
+        logger.i("Creating new tab with URL: " + loadedURL);
         let isGravity = loadedURL.startsWith("gravity://");
 
         const view = new BrowserView({
@@ -65,7 +65,7 @@ export default function () {
                           "index.js"
                       ),
                 sandbox: true,
-                partition: 'persist:view',
+                //partition: 'persist:view',
                 plugins: true,
                 webSecurity: true,
                 javascript: true,
@@ -99,7 +99,7 @@ export default function () {
                 omnibox.webContents.send(channel, normalized);
             },
             updateHistoy: (url: string, inPage: boolean = false) => {
-                if (t.lastURL !== url || inPage) {
+                if ((t.lastURL !== url) && (!win.incognito) && (!url.startsWith("gravity://"))) {
                     history.appendHistoryItem({
                         userID: win.user.id,
                         title: t.title,
