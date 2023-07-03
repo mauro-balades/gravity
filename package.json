@@ -29,7 +29,7 @@
         "electron": "^22.2.0",
         "electron-builder": "^23.6.0",
         "electron-rebuild": "^3.2.9",
-        "eslint": "^7.32.0",
+        "eslint": "^8.44.0",
         "esmify": "^2.1.1",
         "path-browserify": "^1.0.1",
         "shelljs": "^0.8.5",
