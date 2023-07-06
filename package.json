@@ -38,7 +38,7 @@
         "webpack-cli": "^5.0.2"
     },
     "dependencies": {
-        "@babel/preset-env": "^7.21.5",
+        "@babel/preset-env": "^7.22.7",
         "@electron/remote": "^2.0.9",
         "better-sqlite3": "^8.3.0",
         "color-logger": "^0.0.6",
