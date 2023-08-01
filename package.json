@@ -18,7 +18,7 @@
         "@types/logger": "^0.0.1",
         "@types/mime-types": "^2.1.1",
         "@types/once": "^1.4.0",
-        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/eslint-plugin": "^6.2.1",
         "@typescript-eslint/parser": "^4.33.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-es2015": "^6.24.1",
